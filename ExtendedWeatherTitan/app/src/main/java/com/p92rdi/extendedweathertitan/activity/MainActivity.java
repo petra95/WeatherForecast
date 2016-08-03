@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity
 
     public void openDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-        alertDialog.setTitle("Alert");
+        alertDialog.setTitle("Warning");
         alertDialog.setMessage("Do you want to save this city?");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SAVE",
                 new DialogInterface.OnClickListener() {
@@ -142,4 +142,5 @@ public class MainActivity extends AppCompatActivity
                 });
         alertDialog.show();
     }
-    }
+
+}
