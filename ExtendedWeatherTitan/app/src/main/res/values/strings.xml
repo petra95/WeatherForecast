@@ -25,5 +25,6 @@
     <string name="slot2_save_title">save_slot2</string>
     <string name="slot3_load_title">load_slot3_empty</string>
     <string name="slot3_save_title">save_slot3</string>
+    <string name="dialog_search">Search</string>
 
 </resources>
