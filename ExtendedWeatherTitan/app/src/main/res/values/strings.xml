@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">ExtendedWeatherTitan</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="search">Search City</string>
+    <string name="load">Load City</string>
+    <string name="save">Save City</string>
+    <string name="dialog_title">Warning</string>
+    <string name="dialog_message">Do you want to save this city?</string>
+    <string name="ok">SAVE</string>
+    <string name="cancel">CANCEL</string>
+
+    <string name="min">Minimum</string>
+    <string name="max">Maximum</string>
+    <string name="wind">Wind force</string>
+    <string name="hum">Humidity</string>
+    <string name="searchButton">Search</string>
+    <string name="searchable">Searchable</string>
+    <string name="menu_search">Search</string>
+    <string name="searchable_hint">Search</string>
+    <string name="slot1_load_title">load_slot1_empty</string>
+    <string name="slot1_save_title">save_slot1</string>
+    <string name="slot2_load_title">load_slot2_empty</string>
+    <string name="slot2_save_title">save_slot2</string>
+    <string name="slot3_load_title">load_slot3_empty</string>
+    <string name="slot3_save_title">save_slot3</string>
+
+</resources>
