@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ShowTemperature</string>
+    <string name="get_battery_temp">Click here to Get battery temperature</string>
+    <string name="not_available">Not available!</string>
+</resources>
