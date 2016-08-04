@@ -1,5 +1,6 @@
 package com.p92rdi.extendedweathertitan.activity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +13,22 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static String SEARCH_KEY = "CityNameKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,29 +65,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -85,30 +73,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.search) {
-            SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-            searchView.setOnQueryTextListener(
-                    new SearchView.OnQueryTextListener() {
-
-                        @Override
-                        public boolean onQueryTextSubmit(String query) {
-                            Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
-                            intent.putExtra("TEXT",query);
-                            startActivity(intent);
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onQueryTextChange(String newText) {
-                            return false;
-                        }
-                    }
-            );
+            searchDialog();
         } else if (id == R.id.loadCity) {
 
         } else if (id == R.id.saveCity) {
             openDialog();
         } else if (id == R.id.search5) {
-
+            searchDialog();
         } else if (id == R.id.loadCity5) {
 
         } else if (id == R.id.saveCity5) {
@@ -143,4 +114,38 @@ public class MainActivity extends AppCompatActivity
         alertDialog.show();
     }
 
+    public void searchDialog(){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.search_dialog);
+
+        Button saveButton = (Button) dialog.findViewById(R.id.search_button);
+        Button cancelButton = (Button) dialog.findViewById(R.id.search_cancel_button);
+
+
+        dialog.setTitle("Search");
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+                EditText editText = (EditText) dialog.findViewById(R.id.dialog_search);
+                String mCityName = editText.getText().toString();
+                Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
+
+                intent.putExtra(SEARCH_KEY, mCityName);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 }
+

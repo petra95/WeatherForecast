@@ -22,6 +22,7 @@ public class CurrentActivity extends AppCompatActivity {
     private static final String SAVESLOT1CITYID = "Slot1CityID";
     private static final String SAVESLOT2CITYID = "Slot2CityID";
     private static final String SAVESLOT3CITYID = "Slot3CityID";
+    private static final String SEARCH_KEY = "CityNameKey";
 
     private Menu menu;
     private TableLayout mDataTableLayout;
@@ -56,8 +57,7 @@ public class CurrentActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if(bundle != null) {
-            String cityName = (String) bundle.get("TEXT");
-            Log.e("onCreate", cityName);
+            String cityName = (String) bundle.get(SEARCH_KEY);
             getWeather(cityName);
         }
         //startActivity();
