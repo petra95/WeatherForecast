@@ -65,8 +65,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -115,37 +114,35 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void searchDialog(){
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.search_dialog);
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.search_dialog, null);
+        dialogBuilder.setView(dialogView);
 
-        Button saveButton = (Button) dialog.findViewById(R.id.search_button);
-        Button cancelButton = (Button) dialog.findViewById(R.id.search_cancel_button);
+        final EditText editText = (EditText) dialogView.findViewById(R.id.dialog_search);
 
-
-        dialog.setTitle("Search");
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-
-
+        dialogBuilder.setTitle("Search");
+        dialogBuilder.setMessage("Enter City name");
+        dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Search", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                EditText editText = (EditText) dialog.findViewById(R.id.dialog_search);
+            public void onClick(DialogInterface dialogInterface, int i) {
                 String mCityName = editText.getText().toString();
                 Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
 
                 intent.putExtra(SEARCH_KEY, mCityName);
                 startActivity(intent);
-                dialog.dismiss();
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogBuilder.dismiss();
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+        dialogBuilder.show();
+
     }
 }
 
