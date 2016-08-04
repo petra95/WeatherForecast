@@ -1,13 +1,23 @@
 package com.p92rdi.extendedweathertitan.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -17,20 +27,13 @@ import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JsonParser;
 import com.p92rdi.extendedweathertitan.model.Weather;
 
-public class CurrentActivity extends AppCompatActivity {
+public class CurrentActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
     private static final String SAVE_CITY_NAME_KEY = "CityName";
-    private static final String SAVESLOT1CITYID = "Slot1CityID";
-    private static final String SAVESLOT2CITYID = "Slot2CityID";
-    private static final String SAVESLOT3CITYID = "Slot3CityID";
     private static final String SEARCH_KEY = "CityNameKey";
+    private static final String[] SLOTS = new String[]{"slot1", "slot2", "slot3"};
 
-    private Menu menu;
     private TableLayout mDataTableLayout;
-    private SharedPreferences mSlot1CityNameSharedPreference;
-    private String mActualCityNameString = "";
-    private String mSlot1TitleString = "";
-    private String mSlot2TitleString = "";
-    private String mSlot3TitleString = "";
     private HttpClient mClient;
     private Weather mResultWeather;
     private TextView tv_city;
@@ -40,18 +43,23 @@ public class CurrentActivity extends AppCompatActivity {
     private TextView tv_maxDeg;
     private TextView tv_wind;
     private TextView tv_humidity;
-
+    private String mActualCityNameString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        mClient = new HttpClient();
-        mDataTableLayout = (TableLayout) findViewById(R.id.dataTableLayout);
-        mSlot1CityNameSharedPreference = getSharedPreferences(SAVESLOT1CITYID, 0);
-        mSlot1CityNameSharedPreference = getSharedPreferences(SAVESLOT2CITYID, 0);
-        mSlot1CityNameSharedPreference = getSharedPreferences(SAVESLOT3CITYID, 0);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         init();
         Intent intent = getIntent();
@@ -60,7 +68,6 @@ public class CurrentActivity extends AppCompatActivity {
             String cityName = (String) bundle.get(SEARCH_KEY);
             getWeather(cityName);
         }
-        //startActivity();
     }
 
     private void init() {
@@ -71,33 +78,8 @@ public class CurrentActivity extends AppCompatActivity {
         tv_maxDeg = (TextView) findViewById(R.id.maxDegTextView);
         tv_wind = (TextView) findViewById(R.id.windTextView);
         tv_humidity = (TextView) findViewById(R.id.humidityTextView);
-    }
-
-    private void startActivity() {
-        mActualCityNameString = getSaveSharedPreference(SAVESLOT1CITYID);
-        getWeather(mActualCityNameString);
-        mSlot1TitleString = getSaveSharedPreference(SAVESLOT1CITYID);
-        mSlot2TitleString = getSaveSharedPreference(SAVESLOT2CITYID);
-        mSlot3TitleString = getSaveSharedPreference(SAVESLOT3CITYID);
-    }
-
-    private String getSaveSharedPreference(String key) {
-        return mSlot1CityNameSharedPreference.getString(key, "");
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString(SAVE_CITY_NAME_KEY, mActualCityNameString);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mSlot1TitleString = mSlot1CityNameSharedPreference.getString(SAVESLOT1CITYID, "");
-        mSlot2TitleString = mSlot1CityNameSharedPreference.getString(SAVESLOT2CITYID, "");
-        mSlot3TitleString = mSlot1CityNameSharedPreference.getString(SAVESLOT3CITYID, "");
-        getWeather(savedInstanceState.getString(SAVE_CITY_NAME_KEY));
+        mClient = new HttpClient();
+        mDataTableLayout = (TableLayout) findViewById(R.id.dataTableLayout);
     }
 
     private void assignWeatherValues(Weather weatherData) {
@@ -120,12 +102,6 @@ public class CurrentActivity extends AppCompatActivity {
         tv_maxDeg.setText(maxDeg);
         tv_wind.setText(wind);
         tv_humidity.setText(huminity);
-    }
-
-    private void saveCityName(SharedPreferences actualSharedPreferenc, String query, String keyString) {
-        SharedPreferences.Editor editor1 = actualSharedPreferenc.edit();
-        editor1.putString(keyString, query);
-        editor1.apply();
     }
 
     private void getWeather(String query) {
@@ -154,4 +130,113 @@ public class CurrentActivity extends AppCompatActivity {
         mDataTableLayout.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.search) {
+            searchDialog();
+        } else if (id == R.id.loadCity) {
+            loadCityDialog();
+        } else if (id == R.id.saveCity) {
+            saveActualCityDialog();
+        } else if (id == R.id.search5) {
+            searchDialog();
+        } else if (id == R.id.loadCity5) {
+
+        } else if (id == R.id.saveCity5) {
+
+        } else if (id == R.id.settings) {
+
+        } else if (id == R.id.about) {
+
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public void openDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(CurrentActivity.this).create();
+        alertDialog.setTitle("Warning");
+        alertDialog.setMessage("Do you want to save this city?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SAVE",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    public void searchDialog(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.search_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.dialog_search);
+
+        dialogBuilder.setTitle("Search");
+        dialogBuilder.setMessage("Enter City name");
+        dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Search", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String mCityName = editText.getText().toString();
+                getWeather(mCityName);
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.show();
+
+    }
+
+    public void saveActualCityDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.save_dialog_title).setItems(SLOTS, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                openDialog();
+            }
+        });
+        builder.create();
+        builder.show();
+    }
+
+    public void loadCityDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.load_dialog_title).setItems(SLOTS, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        builder.create();
+        builder.show();
+    }
 }

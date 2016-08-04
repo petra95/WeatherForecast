@@ -26,5 +26,10 @@
     <string name="slot3_load_title">load_slot3_empty</string>
     <string name="slot3_save_title">save_slot3</string>
     <string name="dialog_search">Search</string>
+    <string name="save_dialog_title">Save</string>
+    <string name="load_dialog_title">Load</string>
+    <string name="title_activity_current2">CurrentActivity2</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

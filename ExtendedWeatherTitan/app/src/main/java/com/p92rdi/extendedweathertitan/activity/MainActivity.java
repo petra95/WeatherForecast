@@ -1,34 +1,30 @@
 package com.p92rdi.extendedweathertitan.activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
+import com.p92rdi.extendedweathertitan.helper.Dialogs;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static String SEARCH_KEY = "CityNameKey";
+    private static final String[] SLOTS = new String[]{"slot1", "slot2", "slot3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +70,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.search) {
             searchDialog();
         } else if (id == R.id.loadCity) {
-
+            Dialogs.loadCityDialog(SLOTS, this);
         } else if (id == R.id.saveCity) {
-            openDialog();
+            Dialogs.saveActualCityDialog(SLOTS, this);
         } else if (id == R.id.search5) {
             searchDialog();
         } else if (id == R.id.loadCity5) {
@@ -94,29 +90,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void openDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-        alertDialog.setTitle("Warning");
-        alertDialog.setMessage("Do you want to save this city?");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SAVE",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.show();
-    }
-
     public void searchDialog(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.search_dialog, null);
+        final View dialogView = this.getLayoutInflater().inflate(R.layout.search_dialog, null);
         dialogBuilder.setView(dialogView);
 
         final EditText editText = (EditText) dialogView.findViewById(R.id.dialog_search);
@@ -128,7 +104,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialogInterface, int i) {
                 String mCityName = editText.getText().toString();
                 Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
-
                 intent.putExtra(SEARCH_KEY, mCityName);
                 startActivity(intent);
                 dialogBuilder.dismiss();
@@ -140,9 +115,13 @@ public class MainActivity extends AppCompatActivity
                 dialogBuilder.dismiss();
             }
         });
-
         dialogBuilder.show();
-
     }
+
+
+
+
+
+
 }
 
