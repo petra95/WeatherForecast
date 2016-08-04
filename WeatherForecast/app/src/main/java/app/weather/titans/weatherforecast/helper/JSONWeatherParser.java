@@ -25,12 +25,12 @@ public class JSONWeatherParser {
         Location location = new Location();
         ArrayList<Forecast> forecasts = new ArrayList<>();
 
-        JSONObject jCoord = getObject("coord", jRoot);
         JSONObject jCity = getObject("city", jRoot);
+        JSONObject jCoord = getObject("coord", jCity);
 
         location.setmLatitude(getFloat("lat", jCoord));
         location.setmLongitude(getFloat("lon", jCoord));
-        location.setmCountry(getString("country", jRoot));
+        location.setmCountry(getString("country", jCity));
         location.setmCity(getString("name", jCity));
         location.setmCityId(getInt("id", jCity));
 
@@ -46,10 +46,15 @@ public class JSONWeatherParser {
             Wind wind = new Wind();
 
             JSONObject jDetails = getObject("main", jForecast);
-            JSONObject jWeatherDetails = getObject("weather", jForecast);
-            JSONObject jRainDetails = getObject("rain", jForecast);
-            JSONObject jCloudsDetails = getObject("clouds", jForecast);
-            JSONObject jWindDetails = getObject("wind", jForecast);
+            JSONArray jWeatherList = jForecast.getJSONArray("weather");
+
+            if(!jForecast.isNull("rain")) {
+                JSONObject jRain = getObject("rain", jForecast);
+                weatherCondition.setmRain(getFloat("3h", jRain));
+            }
+
+            JSONObject jClouds = getObject("clouds", jForecast);
+            JSONObject jWind = getObject("wind", jForecast);
 
             weatherCondition.setmTemperature(getFloat("temp", jDetails));
             weatherCondition.setmTempMax(getFloat("temp_max", jDetails));
@@ -57,15 +62,15 @@ public class JSONWeatherParser {
             weatherCondition.setmPressure(getFloat("pressure", jDetails));
             weatherCondition.setmHumidity(getInt("humidity", jDetails));
 
-            weatherCondition.setmDescription(getString("description", jWeatherDetails));
-            weatherCondition.setmIconCode(getString("icon", jWeatherDetails));
+            JSONObject jWeatherO = jWeatherList.getJSONObject(0);
+            weatherCondition.setmDescription(getString("description", jWeatherO));
+            weatherCondition.setmIconCode(getString("icon", jWeatherO));
 
-            weatherCondition.setmRain(getFloat("3h", jRainDetails));
 
-            clouds.setmPercent(getInt("all", jCloudsDetails));
+            clouds.setmPercent(getInt("all", jClouds));
 
-            wind.setmSpeed(getFloat("speed", jWindDetails));
-            wind.setmDeg(getFloat("deg", jWindDetails));
+            wind.setmSpeed(getFloat("speed", jWind));
+            wind.setmDeg(getFloat("deg", jWind));
 
             forecast.setmDate((long) (getFloat("dt", jForecast)));
             forecast.setmWeatherCondition(weatherCondition);

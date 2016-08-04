@@ -1,5 +1,7 @@
 package app.weather.titans.weatherforecast.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -28,15 +30,20 @@ public class DailyForecast {
 
             calendar.setTimeInMillis(forecast.getmDate());
             int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-            int currentHour = calendar.get(Calendar.HOUR);
+
+            int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 
             if( currentDay == day){
-                if(currentHour == 3){
+                //System.out.println("currentDay == day");
+                //System.out.println("currentHour: " + currentHour);
+                if(currentHour == 1 || currentHour == 2 || currentHour == 3 || currentHour == 4){
+                    //System.out.println("currentHour == 2");
                     mIconCodeNight = forecast.getmWeatherCondition().getmIconCode();
                     mDescriptionNight = forecast.getmWeatherCondition().getmDescription();
                     mTemperatureNight = forecast.getmWeatherCondition().getmTemperature();
                 }
-                else if(currentHour == 15) {
+                else if(currentHour == 12 || currentHour == 13 || currentHour == 14 || currentHour == 15) {
+                    //System.out.println("currentHour == 14");
                     mIconCodeDay = forecast.getmWeatherCondition().getmIconCode();
                     mDescriptionDay = forecast.getmWeatherCondition().getmDescription();
                     mTemperatureDay = forecast.getmWeatherCondition().getmTemperature();

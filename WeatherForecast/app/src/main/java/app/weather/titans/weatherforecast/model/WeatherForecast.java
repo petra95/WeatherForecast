@@ -17,6 +17,10 @@ public class WeatherForecast extends AppCompatActivity {
     private List<Long> mDays;
     private ArrayList<Forecast> mForecastsList;
 
+    public WeatherForecast() {
+        mDays = new ArrayList<>();
+    }
+
     public Location getmLocation() {
         return mLocation;
     }
@@ -31,6 +35,7 @@ public class WeatherForecast extends AppCompatActivity {
 
     public void setmForecastsList(ArrayList<Forecast> mForecastsList) {
         this.mForecastsList = mForecastsList;
+        collectDays();
     }
 
     public List<Long> getmDays(){
@@ -38,8 +43,7 @@ public class WeatherForecast extends AppCompatActivity {
     }
 
     //collect all different days, we dont know nothing about hours
-    //hol hivjuk meg ???
-    public void collectDays() {
+    private void collectDays() {
         Calendar calendar = Calendar.getInstance();
         int prevDay = 0;
 

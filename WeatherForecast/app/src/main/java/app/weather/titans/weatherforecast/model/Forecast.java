@@ -17,7 +17,8 @@ public class Forecast {
     }
 
     public void setmDate(long date) {
-        this.mDate = date;
+        long helper = 1000;
+        this.mDate = date * helper;
     }
 
     public WeatherCondition getmWeatherCondition() {
