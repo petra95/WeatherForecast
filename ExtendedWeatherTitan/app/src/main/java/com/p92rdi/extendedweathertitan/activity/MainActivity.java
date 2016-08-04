@@ -76,14 +76,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.search) {
             searchDialog();
         } else if (id == R.id.loadCity) {
-            Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
-            startActivity(intent);
+
         } else if (id == R.id.saveCity) {
             openDialog();
         } else if (id == R.id.search5) {
             searchDialog();
         } else if (id == R.id.loadCity5) {
-
+            Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
+            startActivity(intent);
         } else if (id == R.id.saveCity5) {
 
         } else if (id == R.id.settings) {

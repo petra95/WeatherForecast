@@ -20,9 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CurrentActivity" />
+        <activity android:name=".activity.CurrentActivity"
+            android:label="Actual Weather"/>
         <activity android:name=".ListDaysActivity" />
-        <activity android:name=".ForecastActivity" />
+        <activity android:name=".ForecastActivity"
+            android:label="5-day forecast"/>
     </application>
 
 </manifest>
