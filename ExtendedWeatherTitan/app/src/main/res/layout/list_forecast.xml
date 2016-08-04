@@ -29,22 +29,22 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/minImageView"
+            android:id="@+id/nightImageView"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_weight="0.2" />
 
         <TextView
-            android:id="@+id/minDegTextView5"
+            android:id="@+id/nightDegTextView5"
             style="@style/fiveDaysDegTextView" />
 
         <TextView
-            android:id="@+id/maxDegTextView5"
+            android:id="@+id/dayDegTextView5"
             style="@style/fiveDaysDegTextView" />
 
         <ImageView
-            android:id="@+id/maxImageView"
+            android:id="@+id/dayImageView"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -58,11 +58,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvMinDescription"
+            android:id="@+id/tvNightDescription"
             style="@style/fiveDaysDescTextView" />
 
         <TextView
-            android:id="@+id/tvMaxDescription"
+            android:id="@+id/tvDayDescription"
             style="@style/fiveDaysDescTextView" />
     </LinearLayout>
 </LinearLayout>

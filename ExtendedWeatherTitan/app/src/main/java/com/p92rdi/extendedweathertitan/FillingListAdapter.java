@@ -8,17 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.p92rdi.extendedweathertitan.model.DailyForecast;
+
 import java.util.List;
 
 /**
  * Created by antalicsp on 2016. 08. 03..
  */
-public class FillingListAdapter extends ArrayAdapter<Mok2> {
+public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
 
-    private List<Mok2> fillings;
+    private List<DailyForecast> fillings;
     private LayoutInflater inflater;
 
-    public FillingListAdapter(Context context, List<Mok2> fillings) {
+    public FillingListAdapter(Context context, List<DailyForecast> fillings) {
         super(context, R.layout.list_forecast, fillings);
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -32,7 +34,7 @@ public class FillingListAdapter extends ArrayAdapter<Mok2> {
     }
 
     @Override
-    public Mok2 getItem(int position) {
+    public DailyForecast getItem(int position) {
         return fillings.get(position);
     }
 
@@ -49,35 +51,35 @@ public class FillingListAdapter extends ArrayAdapter<Mok2> {
             holder = new Holder();
 
             holder.tvDate = (TextView) convertView.findViewById(R.id.tvDate);
-            holder.minImageView = (ImageView) convertView.findViewById(R.id.minImageView);
-            holder.minDegTextView5 = (TextView) convertView.findViewById(R.id.minDegTextView5);
-            holder.maxDegTextView5 = (TextView) convertView.findViewById(R.id.maxDegTextView5);
-            holder.maxImageView = (ImageView) convertView.findViewById(R.id.maxImageView);
-            holder.tvminDescription = (TextView) convertView.findViewById(R.id.tvMinDescription);
-            holder.tvmaxDescription = (TextView) convertView.findViewById(R.id.tvMaxDescription);
+            holder.nightDegTextView5 = (TextView) convertView.findViewById(R.id.nightDegTextView5);
+            holder.nightImageView = (ImageView) convertView.findViewById(R.id.nightImageView);
+            holder.tvNightDescription = (TextView) convertView.findViewById(R.id.tvNightDescription);
+            holder.dayDegTextView5 = (TextView) convertView.findViewById(R.id.dayDegTextView5);
+            holder.dayImageView = (ImageView) convertView.findViewById(R.id.dayImageView);
+            holder.tvDayDescription = (TextView) convertView.findViewById(R.id.tvDayDescription);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
-        Mok2 newItem = getItem(position);
+        DailyForecast newItem = getItem(position);
 
-        holder.tvDate.setText(String.valueOf(newItem.getFirst()));
-        holder.minDegTextView5.setText(String.valueOf(newItem.getSecond()));
-        holder.maxDegTextView5.setText(String.valueOf(newItem.getFirst()));
-        holder.tvminDescription.setText(String.valueOf(newItem.getSecond()));
-        holder.tvmaxDescription.setText(String.valueOf(newItem.getSecond()));
+        holder.tvDate.setText(String.valueOf(newItem.getmDate()));
+        holder.nightDegTextView5.setText(String.valueOf(newItem.getmTemperatureNight()));
+        holder.dayDegTextView5.setText(String.valueOf(newItem.getmTemperatureDay()));
+        holder.tvNightDescription.setText(String.valueOf(newItem.getmDescriptionNight()));
+        holder.tvDayDescription.setText(String.valueOf(newItem.getmDescriptionDay()));
 
         return convertView;
     }
 
     public class Holder {
         TextView tvDate;
-        ImageView minImageView;
-        TextView minDegTextView5;
-        TextView maxDegTextView5;
-        ImageView maxImageView;
-        TextView tvminDescription;
-        TextView tvmaxDescription;
+        ImageView nightImageView;
+        TextView nightDegTextView5;
+        TextView dayDegTextView5;
+        ImageView dayImageView;
+        TextView tvNightDescription;
+        TextView tvDayDescription;
     }
 
 }
