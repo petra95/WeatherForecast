@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/header_bg"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.13"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textColor="@color/textColor"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.21"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/minImageView"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.2" />
+
+        <TextView
+            android:id="@+id/minDegTextView5"
+            style="@style/fiveDaysDegTextView" />
+
+        <TextView
+            android:id="@+id/maxDegTextView5"
+            style="@style/fiveDaysDegTextView" />
+
+        <ImageView
+            android:id="@+id/maxImageView"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.20"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvMinDescription"
+            style="@style/fiveDaysDescTextView" />
+
+        <TextView
+            android:id="@+id/tvMaxDescription"
+            style="@style/fiveDaysDescTextView" />
+    </LinearLayout>
+</LinearLayout>
