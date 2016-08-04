@@ -18,7 +18,7 @@
         android:background="@color/colorPrimary"
         android:maxLines="3"
         android:singleLine="false"
-        android:text="Hello! This is a weather forecast application from Titans! :)"
+        android:text="@string/hello"
         android:textColor="#FFFFFF"
         android:gravity="center"
         android:textStyle="bold"

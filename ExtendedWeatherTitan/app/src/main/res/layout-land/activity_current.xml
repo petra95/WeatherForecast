@@ -31,6 +31,7 @@
 
         <TextView
             android:id="@+id/descriptionTextView"
+            android:paddingLeft="16dp"
             style="@style/descriptionTextViewThem" />
     </LinearLayout>
 

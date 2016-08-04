@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.p92rdi.extendedweathertitan.ForecastActivity;
+import com.p92rdi.extendedweathertitan.ListDaysActivity;
 import com.p92rdi.extendedweathertitan.R;
 
 public class MainActivity extends AppCompatActivity
@@ -74,7 +76,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.search) {
             searchDialog();
         } else if (id == R.id.loadCity) {
-
+            Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
+            startActivity(intent);
         } else if (id == R.id.saveCity) {
             openDialog();
         } else if (id == R.id.search5) {
