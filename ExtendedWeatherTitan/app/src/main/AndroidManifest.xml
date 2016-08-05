@@ -3,6 +3,7 @@
     package="com.p92rdi.extendedweathertitan">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -20,10 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.CurrentActivity"
             android:label="Actual Weather"/>
         <activity android:name=".ForecastActivity"
             android:label="5-day forecast"/>
+
     </application>
 
 </manifest>
