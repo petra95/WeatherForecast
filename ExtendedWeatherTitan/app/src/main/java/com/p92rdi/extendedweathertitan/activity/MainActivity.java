@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.ForecastActivity;
-import com.p92rdi.extendedweathertitan.ListDaysActivity;
 import com.p92rdi.extendedweathertitan.R;
 
 public class MainActivity extends AppCompatActivity

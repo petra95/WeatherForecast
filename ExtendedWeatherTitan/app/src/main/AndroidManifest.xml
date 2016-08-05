@@ -22,7 +22,6 @@
         </activity>
         <activity android:name=".activity.CurrentActivity"
             android:label="Actual Weather"/>
-        <activity android:name=".ListDaysActivity" />
         <activity android:name=".ForecastActivity"
             android:label="5-day forecast"/>
     </application>
