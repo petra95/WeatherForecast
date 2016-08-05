@@ -5,17 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class HttpClient {
+public class HttpClient_old {
 
-    private static String BASE_URL_NAME = "http://api.openweathermap.org/data/2.5/forecast?q=";
+    private static String BASE_URL_NAME = "http://api.openweathermap.org/data/2.5/weather?q=";
     private static String API_KEY = "&appid=6400cc1cfebfb4e0cab17b0eb34472da";
-    private static String BASE_URL_ID = "http://api.openweathermap.org/data/2.5/forecast?id=";
+    private static String BASE_URL_ID = "http://api.openweathermap.org/data/2.5/weather?id=";
     private static String IMG_URL = "http://openweathermap.org/img/w/";
 
     public String getWeatherData(String cityName) {

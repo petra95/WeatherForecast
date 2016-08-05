@@ -18,6 +18,8 @@ public class DailyForecast {
     private String mDescriptionNight;
     private float mTemperatureDay;
     private float mTemperatureNight;
+    private byte[] mIconDay;
+    private byte[] mIconNight;
 
     public DailyForecast(WeatherForecast weatherForecast, long date){
         ArrayList<Forecast> forecastsList = new ArrayList<>(weatherForecast.getmForecastsList());
@@ -51,16 +53,6 @@ public class DailyForecast {
                 }
             }
         }
-    }
-
-    public ArrayList<DailyForecast> generateFiveDaysForecastsList(WeatherForecast weatherForecast, List<Long> mDays){
-        ArrayList<DailyForecast> fiveDaysForecastsList = new ArrayList<>();
-        for(long date : mDays){
-            DailyForecast currentDay = new DailyForecast(weatherForecast, date);
-            fiveDaysForecastsList.add(currentDay);
-        }
-
-        return fiveDaysForecastsList;
     }
 
     public long getmDate() {
