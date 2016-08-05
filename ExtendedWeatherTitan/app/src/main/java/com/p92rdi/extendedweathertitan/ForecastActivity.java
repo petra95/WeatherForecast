@@ -51,7 +51,7 @@ public class ForecastActivity extends AppCompatActivity {
         protected WeatherForecast doInBackground(String... params) {
             Looper.prepare();
             WeatherForecast weatherForecast = new WeatherForecast();
-            String data = ((new HttpClient()).getWeatherData(params[0]));
+            String data = ((new HttpClient("forecast")).getWeatherData(params[0]));
             if(data != null && !data.equals("")) {
                 try {
                     try {

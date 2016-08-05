@@ -94,7 +94,7 @@ public class CurrentActivity extends AppCompatActivity
         tv_maxDeg = (TextView) findViewById(R.id.maxDegTextView);
         tv_wind = (TextView) findViewById(R.id.windTextView);
         tv_humidity = (TextView) findViewById(R.id.humidityTextView);
-        mClient = new HttpClient();
+        mClient = new HttpClient("weather");
         mDataTableLayout = (TableLayout) findViewById(R.id.dataTableLayout);
         mSharedPreferences = getSharedPreferences(FILE_NAME, 0);
         mSavedCities[0] = mSharedPreferences.getString(SLOT1_KEY, "slot1");
