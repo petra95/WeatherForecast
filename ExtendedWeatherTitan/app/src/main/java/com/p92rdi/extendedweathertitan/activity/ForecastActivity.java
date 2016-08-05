@@ -1,26 +1,42 @@
-package com.p92rdi.extendedweathertitan;
+package com.p92rdi.extendedweathertitan.activity;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Looper;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Looper;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import org.json.JSONException;
-
+import com.p92rdi.extendedweathertitan.FillingListAdapter;
+import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
 import com.p92rdi.extendedweathertitan.model.WeatherForecast;
+
+import org.json.JSONException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForecastActivity extends AppCompatActivity {
+public class ForecastActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
     private WeatherForecast weatherForecast;
     private DailyForecast dailyForecast;
     private List<DailyForecast> fillings = new ArrayList<>();
@@ -39,10 +55,65 @@ public class ForecastActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         lv_forecast = (ListView) findViewById(R.id.lv_forecast);
 
         JSONWeatherForecastTask task = new JSONWeatherForecastTask();
         task.execute(new String[]{mCity});
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        if(isNetworkAvailable()){
+            if (id == R.id.search) {
+                //searchDialog();
+            } else if (id == R.id.loadCity) {
+                //loadCityDialog();
+            } else if (id == R.id.saveCity) {
+                //saveActualCityDialog();
+            } else if (id == R.id.search5) {
+                //searchDialog();
+            } else if (id == R.id.loadCity5) {
+
+            } else if (id == R.id.saveCity5) {
+
+            } else if (id == R.id.settings) {
+
+            } else if (id == R.id.about) {
+            }
+        } else{
+            Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private class JSONWeatherForecastTask extends AsyncTask<String, Void, WeatherForecast> {
@@ -95,39 +166,8 @@ public class ForecastActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
-    /*private void getWeatherForecast() {
-        final String mFinalQuery = mCity;
-        Thread mNetworkThread = new Thread(new Runnable() {
-           public void run() {
-                JSONWeatherParser mJsonWeatherParser = new JSONWeatherParser();
-                HttpClient mClient = new HttpClient();
-                String mRawJson = mClient.getWeatherData(mFinalQuery);
-                if(mRawJson != null && !mRawJson.equals("")){
-                   try {
-                        weatherForecast = mJsonWeatherParser.getWeather(mRawJson);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-               } else {
-                    Log.e("ServiceHandler", "No data received from HTTP request");
-                    weatherForecast = new WeatherForecast();
-                }
-            }
-        });
-        mNetworkThread.start();
-        try {
-            mNetworkThread.join();
-        } catch (InterruptedException e) {
-        }
-        displayData();
-    }
-*/
     private void displayData() {
         //header
 
@@ -148,4 +188,10 @@ public class ForecastActivity extends AppCompatActivity {
         return fiveDaysForecastsList;
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

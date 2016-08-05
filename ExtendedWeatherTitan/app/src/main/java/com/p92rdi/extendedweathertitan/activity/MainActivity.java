@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.p92rdi.extendedweathertitan.ForecastActivity;
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.model.Forecast;
 

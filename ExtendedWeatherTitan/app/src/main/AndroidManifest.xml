@@ -21,12 +21,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.CurrentActivity"
-            android:label="Actual Weather"/>
-        <activity android:name=".ForecastActivity"
-            android:label="5-day forecast"/>
-
+        <activity
+            android:name=".activity.CurrentActivity"
+            android:label="Actual Weather" />
+        <activity
+            android:name=".activity.ForecastActivity"
+            android:label="@string/title_activity_forecast"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
