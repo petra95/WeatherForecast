@@ -28,7 +28,7 @@
 
         <ImageView
             android:id="@+id/weatherImageView"
-            android:layout_width="130dp"
+            android:layout_width="110dp"
             android:layout_height="match_parent" />
 
         <TextView

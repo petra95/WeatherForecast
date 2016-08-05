@@ -74,20 +74,6 @@ public class ForecastActivity extends AppCompatActivity {
             super.onPostExecute(weatherForecast);
             ForecastActivity.this.weatherForecast = weatherForecast;
             displayData();
-            /*
-            if (weather.iconData != null && weather.iconData.length > 0) {
-                Bitmap img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length);
-                imgView.setImageBitmap(img);
-            }
-
-            cityText.setText(weather.location.getCity() + "," + weather.location.getCountry());
-            condDescr.setText(weather.currentCondition.getCondition() + "(" + weather.currentCondition.getDescr() + ")");
-            temp.setText("" + Math.round((weather.temperature.getTemp() - 273.15)) + "�C");
-            hum.setText("" + weather.currentCondition.getHumidity() + "%");
-            press.setText("" + weather.currentCondition.getPressure() + " hPa");
-            windSpeed.setText("" + weather.wind.getSpeed() + " mps");
-            windDeg.setText("" + weather.wind.getDeg() + "�");*/
-
         }
 
     }
@@ -99,35 +85,6 @@ public class ForecastActivity extends AppCompatActivity {
 
     }
 
-    /*private void getWeatherForecast() {
-        final String mFinalQuery = mCity;
-        Thread mNetworkThread = new Thread(new Runnable() {
-           public void run() {
-                JSONWeatherParser mJsonWeatherParser = new JSONWeatherParser();
-                HttpClient mClient = new HttpClient();
-                String mRawJson = mClient.getWeatherData(mFinalQuery);
-                if(mRawJson != null && !mRawJson.equals("")){
-                   try {
-                        weatherForecast = mJsonWeatherParser.getWeather(mRawJson);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-               } else {
-                    Log.e("ServiceHandler", "No data received from HTTP request");
-                    weatherForecast = new WeatherForecast();
-                }
-            }
-        });
-        mNetworkThread.start();
-        try {
-            mNetworkThread.join();
-        } catch (InterruptedException e) {
-        }
-        displayData();
-    }
-*/
     private void displayData() {
         //header
 
