@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
@@ -51,7 +52,8 @@ public class ForecastActivity extends AppCompatActivity {
         protected WeatherForecast doInBackground(String... params) {
             Looper.prepare();
             WeatherForecast weatherForecast = new WeatherForecast();
-            String data = ((new HttpClient()).getWeatherData(params[0]));
+            HttpClient httpClient = new HttpClient();
+            String data = httpClient.getWeatherData(params[0]);
             if(data != null && !data.equals("")) {
                 try {
                     try {
@@ -74,19 +76,11 @@ public class ForecastActivity extends AppCompatActivity {
             super.onPostExecute(weatherForecast);
             ForecastActivity.this.weatherForecast = weatherForecast;
             displayData();
-            /*
-            if (weather.iconData != null && weather.iconData.length > 0) {
+
+            /*if (weather.iconData != null && weather.iconData.length > 0) {
                 Bitmap img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length);
                 imgView.setImageBitmap(img);
-            }
-
-            cityText.setText(weather.location.getCity() + "," + weather.location.getCountry());
-            condDescr.setText(weather.currentCondition.getCondition() + "(" + weather.currentCondition.getDescr() + ")");
-            temp.setText("" + Math.round((weather.temperature.getTemp() - 273.15)) + "�C");
-            hum.setText("" + weather.currentCondition.getHumidity() + "%");
-            press.setText("" + weather.currentCondition.getPressure() + " hPa");
-            windSpeed.setText("" + weather.wind.getSpeed() + " mps");
-            windDeg.setText("" + weather.wind.getDeg() + "�");*/
+            }*/
 
         }
 
@@ -96,11 +90,15 @@ public class ForecastActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
     }
-    
+
     private void displayData() {
         //header
+        TextView tvCity = (TextView) findViewById(R.id.tvCity);
+        TextView tvGPS = (TextView) findViewById(R.id.tvGPS);
+        tvCity.setText(weatherForecast.getmLocation().getmCity());
+        String gpsCoords = "x: " + weatherForecast.getmLocation().getmLongitude() + " y:" + weatherForecast.getmLocation().getmLatitude();
+        tvGPS.setText(gpsCoords);
 
         //Filling listview
         Log.e("displayData()", weatherForecast.getmDays().toString());

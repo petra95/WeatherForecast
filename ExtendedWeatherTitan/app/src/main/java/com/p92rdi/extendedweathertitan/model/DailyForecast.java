@@ -1,7 +1,16 @@
 package com.p92rdi.extendedweathertitan.model;
 
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Looper;
 import android.util.Log;
 
+import com.p92rdi.extendedweathertitan.helper.HttpClient;
+import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
+
+import org.json.JSONException;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,8 +27,8 @@ public class DailyForecast {
     private String mDescriptionNight;
     private float mTemperatureDay;
     private float mTemperatureNight;
-    private byte[] mIconDay;
-    private byte[] mIconNight;
+    private Bitmap mIconDay;
+    private Bitmap mIconNight;
 
     public DailyForecast(WeatherForecast weatherForecast, long date){
         ArrayList<Forecast> forecastsList = new ArrayList<>(weatherForecast.getmForecastsList());
@@ -37,22 +46,59 @@ public class DailyForecast {
             int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 
             if( currentDay == day){
-                //System.out.println("currentDay == day");
-                //System.out.println("currentHour: " + currentHour);
                 if(currentHour == 1 || currentHour == 2 || currentHour == 3 || currentHour == 4){
-                    //System.out.println("currentHour == 2");
                     mIconCodeNight = forecast.getmWeatherCondition().getmIconCode();
                     mDescriptionNight = forecast.getmWeatherCondition().getmDescription();
                     mTemperatureNight = forecast.getmWeatherCondition().getmTemperature();
                 }
                 else if(currentHour == 12 || currentHour == 13 || currentHour == 14 || currentHour == 15) {
-                    //System.out.println("currentHour == 14");
                     mIconCodeDay = forecast.getmWeatherCondition().getmIconCode();
                     mDescriptionDay = forecast.getmWeatherCondition().getmDescription();
                     mTemperatureDay = forecast.getmWeatherCondition().getmTemperature();
                 }
+
+                /*Thread mNetworkThread = new Thread(new Runnable() {
+                    public void run() {
+                        HttpClient httpClient = new HttpClient();
+                        mIconNight = httpClient.getImage(mIconCodeNight);
+                        mIconDay = httpClient.getImage(mIconCodeDay);
+                    }
+                });
+                mNetworkThread.start();
+                try {
+                    mNetworkThread.join();
+                } catch (InterruptedException e) {
+                }*/
             }
+
+            DailyForecastTask task = new DailyForecastTask();
+            task.execute(new String[]{mIconCodeNight, mIconCodeDay});
         }
+    }
+
+    //Itt valami nagyon nem jó...
+    private class DailyForecastTask extends AsyncTask<String, Void, ArrayList<Bitmap> > {
+
+        @Override
+        protected ArrayList<Bitmap> doInBackground(String... params) {
+            //Looper.prepare();
+            ArrayList<Bitmap> icons = new ArrayList<>();
+
+            HttpClient httpClient = new HttpClient();
+
+            icons.add(httpClient.getImage(params[0]));
+            icons.add(httpClient.getImage(params[1]));
+
+            return icons;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Bitmap> icons) {
+            super.onPostExecute(icons);
+            DailyForecast.this.mIconNight = icons.get(0);
+            DailyForecast.this.mIconDay = icons.get(1);
+        }
+
     }
 
     public long getmDate() {
@@ -81,6 +127,14 @@ public class DailyForecast {
 
     public float getmTemperatureNight() {
         return mTemperatureNight;
+    }
+
+    public Bitmap getmIconNight() {
+        return mIconNight;
+    }
+
+    public Bitmap getmIconDay() {
+        return mIconDay;
     }
 
 }
