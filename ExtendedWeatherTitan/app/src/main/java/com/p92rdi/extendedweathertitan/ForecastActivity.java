@@ -98,36 +98,7 @@ public class ForecastActivity extends AppCompatActivity {
 
 
     }
-
-    /*private void getWeatherForecast() {
-        final String mFinalQuery = mCity;
-        Thread mNetworkThread = new Thread(new Runnable() {
-           public void run() {
-                JSONWeatherParser mJsonWeatherParser = new JSONWeatherParser();
-                HttpClient mClient = new HttpClient();
-                String mRawJson = mClient.getWeatherData(mFinalQuery);
-                if(mRawJson != null && !mRawJson.equals("")){
-                   try {
-                        weatherForecast = mJsonWeatherParser.getWeather(mRawJson);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-               } else {
-                    Log.e("ServiceHandler", "No data received from HTTP request");
-                    weatherForecast = new WeatherForecast();
-                }
-            }
-        });
-        mNetworkThread.start();
-        try {
-            mNetworkThread.join();
-        } catch (InterruptedException e) {
-        }
-        displayData();
-    }
-*/
+    
     private void displayData() {
         //header
 
