@@ -75,6 +75,7 @@ public class HttpClient {
     }
 
     public Bitmap getImage(String code) {
+        code += ".png";
         HttpURLConnection con = null ;
         InputStream is = null;
 

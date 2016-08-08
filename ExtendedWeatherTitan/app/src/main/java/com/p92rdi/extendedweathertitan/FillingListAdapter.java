@@ -76,10 +76,10 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
         DailyForecast newItem = getItem(position);
 
         holder.tvDate.setText(DateFormat.getDateTimeInstance().format(new Date(newItem.getmDate())));
-        holder.nightTempTextView5.setText(String.valueOf(newItem.getmTemperatureNight()));
-        holder.dayTempTextView5.setText(String.valueOf(newItem.getmTemperatureDay()));
-        holder.tvNightDescription.setText(String.valueOf(newItem.getmDescriptionNight()));
-        holder.tvDayDescription.setText(String.valueOf(newItem.getmDescriptionDay()));
+        holder.nightTempTextView5.setText(String.format("%.1f",newItem.getmTemperatureNight()-273.15) + "°C");
+        holder.dayTempTextView5.setText(String.format("%.1f", newItem.getmTemperatureDay()-273.15) + "°C");
+        holder.tvNightDescription.setText(newItem.getmDescriptionNight());
+        holder.tvDayDescription.setText(newItem.getmDescriptionDay());
 
         /*if (weather.iconData != null && weather.iconData.length > 0) {
             Bitmap img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length);
@@ -87,15 +87,17 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
         }*/
 
         if (newItem.getmIconDay() != null ) {
+            Log.d("ExtendedWeatherTitan","FillingListAdapter / Have day icon");
             holder.dayImageView.setImageBitmap(newItem.getmIconDay());
         } else {
-            Log.d("ExtendedWeatherTitan","No day icon");
+            Log.d("ExtendedWeatherTitan","FillingListAdapter / No day icon");
         }
 
         if (newItem.getmIconNight() != null ) {
+            Log.d("ExtendedWeatherTitan","FillingListAdapter / Have night icon");
             holder.nightImageView.setImageBitmap(newItem.getmIconNight());
         } else {
-            Log.d("ExtendedWeatherTitan","No night icon");
+            Log.d("ExtendedWeatherTitan","FillingListAdapter / No night icon");
         }
 
         return convertView;

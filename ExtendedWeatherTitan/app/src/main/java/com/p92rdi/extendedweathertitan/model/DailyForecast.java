@@ -50,55 +50,57 @@ public class DailyForecast {
                     mIconCodeNight = forecast.getmWeatherCondition().getmIconCode();
                     mDescriptionNight = forecast.getmWeatherCondition().getmDescription();
                     mTemperatureNight = forecast.getmWeatherCondition().getmTemperature();
+
+                    DailyForecastTask task = new DailyForecastTask();
+                    if(!mIconCodeNight.equals("")) {
+                        Log.d("ExtendedWeatherTitan", "DailyForecast / mIconCodeNight: " + mIconCodeNight);
+                        task.execute(mIconCodeNight, "night");
+                    }
                 }
                 else if(currentHour == 12 || currentHour == 13 || currentHour == 14 || currentHour == 15) {
                     mIconCodeDay = forecast.getmWeatherCondition().getmIconCode();
                     mDescriptionDay = forecast.getmWeatherCondition().getmDescription();
                     mTemperatureDay = forecast.getmWeatherCondition().getmTemperature();
-                }
 
-                /*Thread mNetworkThread = new Thread(new Runnable() {
-                    public void run() {
-                        HttpClient httpClient = new HttpClient();
-                        mIconNight = httpClient.getImage(mIconCodeNight);
-                        mIconDay = httpClient.getImage(mIconCodeDay);
+                    DailyForecastTask task = new DailyForecastTask();
+                    if(!mIconCodeDay.equals("")) {
+                        Log.d("ExtendedWeatherTitan", "DailyForecast / mIconCodeDay: " + mIconCodeDay);
+                        task.execute(mIconCodeDay, "day");
                     }
-                });
-                mNetworkThread.start();
-                try {
-                    mNetworkThread.join();
-                } catch (InterruptedException e) {
-                }*/
+                }
             }
-
-            DailyForecastTask task = new DailyForecastTask();
-            task.execute(new String[]{mIconCodeNight, mIconCodeDay});
         }
     }
 
-    //Itt valami nagyon nem jó...
-    private class DailyForecastTask extends AsyncTask<String, Void, ArrayList<Bitmap> > {
+    private class DailyForecastTask extends AsyncTask<String, Void, Bitmap> {
+
+        boolean isDay;
 
         @Override
-        protected ArrayList<Bitmap> doInBackground(String... params) {
-            //Looper.prepare();
-            ArrayList<Bitmap> icons = new ArrayList<>();
-
+        protected Bitmap doInBackground(String... params) {
+            Bitmap icon;
             HttpClient httpClient = new HttpClient();
 
-            icons.add(httpClient.getImage(params[0]));
-            icons.add(httpClient.getImage(params[1]));
+            icon = httpClient.getImage(params[0]);
+            Log.d("ExtendedWeatherTitan", "doInBackground / params[0] = " + params[0]);
+            isDay = params[1].equals("day");
 
-            return icons;
+            if(icon == null) {
+                Log.d("ExtendedWeatherTitan", "doInBackground / icon is NULL!");
+            }
+
+            return icon;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Bitmap> icons) {
-            super.onPostExecute(icons);
-            DailyForecast.this.mIconNight = icons.get(0);
-            DailyForecast.this.mIconDay = icons.get(1);
+        protected void onPostExecute(Bitmap icon) {
+            super.onPostExecute(icon);
+            if(isDay){
+                DailyForecast.this.mIconDay = icon;
+            }else {
+                DailyForecast.this.mIconNight = icon;
+            }
         }
-
     }
 
     public long getmDate() {
