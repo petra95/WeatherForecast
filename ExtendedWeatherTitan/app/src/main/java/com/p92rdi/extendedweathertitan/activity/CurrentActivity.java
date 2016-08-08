@@ -18,7 +18,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,7 +39,6 @@ public class CurrentActivity extends AppCompatActivity
     private static final String SLOT2_KEY = "Slot2";
     private static final String SLOT3_KEY = "Slot3";
     private static final String SEARCH_KEY = "CityNameKey";
-    //private static final String[] SLOTS = new String[]{"slot1", "slot2", "slot3"};
 
     private String[] mSavedCities = new String[3];
     private String mActualCity;
@@ -125,12 +123,7 @@ public class CurrentActivity extends AppCompatActivity
     }
 
     private void getWeather(String query) {
-        String[] splitString = query.split(" ");
-        String getString = "";
-        for(String partOfString : splitString) {
-            getString += partOfString;
-        }
-        final String mFinalQuery = getString;
+        final String mFinalQuery = query.replace(" ", "%20");
         Thread mNetworkThread = new Thread(new Runnable() {
             public void run() {
                 JsonParser mWeatherParser = new JsonParser();
@@ -150,7 +143,6 @@ public class CurrentActivity extends AppCompatActivity
             mNetworkThread.join();
         } catch (InterruptedException e) {
         }
-       // String mActualCityNameString = mResultWeather.getmCity();
         assignWeatherValues(mResultWeather);
         mDataTableLayout.setVisibility(View.VISIBLE);
     }

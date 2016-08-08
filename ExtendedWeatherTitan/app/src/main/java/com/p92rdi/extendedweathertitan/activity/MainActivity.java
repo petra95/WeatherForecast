@@ -74,15 +74,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if(isNetworkAvailable()){
             if (id == R.id.search) {
-                searchDialog();
+                Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
+                searchDialog(intent);
             } else if (id == R.id.loadCity) {
                 loadCityDialog();
             } else if (id == R.id.saveCity) {
                 saveActualCityDialog();
             } else if (id == R.id.search5) {
-                //searchDialog();
                 Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
-                startActivity(intent);
+                searchDialog(intent);
             } else if (id == R.id.loadCity5) {
 
             } else if (id == R.id.saveCity5) {
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void searchDialog(){
+    public void searchDialog(final Intent intent){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         final View dialogView = this.getLayoutInflater().inflate(R.layout.search_dialog, null);
         dialogBuilder.setView(dialogView);
@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialogInterface, int i) {
                 String mCityName = editText.getText().toString();
                 mActualCity = mCityName;
-                Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
                 intent.putExtra(SEARCH_KEY, mCityName);
                 startActivity(intent);
                 dialogBuilder.dismiss();

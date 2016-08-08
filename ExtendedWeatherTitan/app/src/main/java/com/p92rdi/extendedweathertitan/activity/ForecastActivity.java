@@ -1,6 +1,8 @@
 package com.p92rdi.extendedweathertitan.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -8,7 +10,9 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,6 +41,8 @@ import java.util.List;
 
 public class ForecastActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String SEARCH_KEY = "CityNameKey";
 
     private WeatherForecast weatherForecast;
     private DailyForecast dailyForecast;
@@ -70,8 +77,20 @@ public class ForecastActivity extends AppCompatActivity
 
         lv_forecast = (ListView) findViewById(R.id.lv_forecast);
 
-        JSONWeatherForecastTask task = new JSONWeatherForecastTask();
-        task.execute(new String[]{mCity});
+       // JSONWeatherForecastTask task = new JSONWeatherForecastTask();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if(bundle != null) {
+            mCity = (String) bundle.get(SEARCH_KEY);
+            Toast.makeText(this, mCity, Toast.LENGTH_LONG).show();
+        }
+
+        if(isNetworkAvailable()) {
+            new JSONWeatherForecastTask().execute(mCity);
+        } else {
+            Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -98,7 +117,7 @@ public class ForecastActivity extends AppCompatActivity
             } else if (id == R.id.saveCity) {
                 //saveActualCityDialog();
             } else if (id == R.id.search5) {
-                //searchDialog();
+                searchDialog();
             } else if (id == R.id.loadCity5) {
 
             } else if (id == R.id.saveCity5) {
@@ -115,6 +134,7 @@ public class ForecastActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     private class JSONWeatherForecastTask extends AsyncTask<String, Void, WeatherForecast> {
 
@@ -179,5 +199,55 @@ public class ForecastActivity extends AppCompatActivity
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(SEARCH_KEY, mCity);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mCity = savedInstanceState.getString(SEARCH_KEY);
+
+        if(isNetworkAvailable()){
+            Toast.makeText(this, mCity, Toast.LENGTH_SHORT).show();
+            //JSONWeatherForecastTask task = new JSONWeatherForecastTask();
+            new JSONWeatherForecastTask().execute(mCity);
+        } else{
+            Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public void searchDialog(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.search_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.dialog_search);
+
+        dialogBuilder.setTitle("Search");
+        dialogBuilder.setMessage("Enter City name");
+        dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Search", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mCity = editText.getText().toString();;
+                new JSONWeatherForecastTask().execute(mCity);
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.show();
+
     }
 }
