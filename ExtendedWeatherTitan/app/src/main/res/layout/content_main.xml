@@ -12,16 +12,15 @@
     tools:context=".activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
+        android:gravity="center"
         android:maxLines="3"
         android:singleLine="false"
         android:text="@string/hello"
         android:textColor="#FFFFFF"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="90px"/>
+        android:textSize="90px"
+        android:textStyle="bold" />
 </RelativeLayout>

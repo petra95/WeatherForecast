@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.FillingListAdapter;
@@ -26,6 +27,7 @@ import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
+import com.p92rdi.extendedweathertitan.model.Location;
 import com.p92rdi.extendedweathertitan.model.WeatherForecast;
 
 import org.json.JSONException;
@@ -38,6 +40,7 @@ public class ForecastActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private WeatherForecast weatherForecast;
+    private Location location;
     private DailyForecast dailyForecast;
     private List<DailyForecast> fillings = new ArrayList<>();
     private ListView lv_forecast;
@@ -57,7 +60,6 @@ public class ForecastActivity extends AppCompatActivity
         setContentView(R.layout.activity_forecast);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -84,7 +86,6 @@ public class ForecastActivity extends AppCompatActivity
         }
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -106,8 +107,9 @@ public class ForecastActivity extends AppCompatActivity
             } else if (id == R.id.settings) {
 
             } else if (id == R.id.about) {
+
             }
-        } else{
+        } else {
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
         }
 
@@ -146,7 +148,6 @@ public class ForecastActivity extends AppCompatActivity
             ForecastActivity.this.weatherForecast = weatherForecast;
             displayData();
         }
-
     }
 
     @Override

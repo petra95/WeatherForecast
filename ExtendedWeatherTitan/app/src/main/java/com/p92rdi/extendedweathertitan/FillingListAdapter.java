@@ -22,9 +22,7 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
 
     public FillingListAdapter(Context context, List<DailyForecast> fillings) {
         super(context, R.layout.list_forecast, fillings);
-
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         this.fillings = fillings;
     }
 
@@ -81,5 +79,4 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
         TextView tvNightDescription;
         TextView tvDayDescription;
     }
-
 }

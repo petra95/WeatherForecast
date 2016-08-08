@@ -4,51 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.p92rdi.extendedweathertitan.activity.ForecastActivity"
-    tools:showIn="@layout/app_bar_forecast"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.p92rdi.extendedweathertitan.activity.ForecastActivity"
+    tools:showIn="@layout/app_bar_forecast">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.25"
+        android:layout_weight="0.49"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvCity"
             style="@style/cityTextView5Days"
             android:layout_weight="0.4"
-            android:maxLines="3"
-            android:singleLine="false" />
+            android:paddingTop="50dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.1"
-            android:gravity="start"
-            android:textColor="@color/textColor"
-            android:textStyle="bold" />
+            style="@style/gpsTextViewTheme"
+            android:layout_weight="0.1" />
 
         <TextView
             android:id="@+id/tvGPS_LON"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:gravity="center"
-            android:textColor="@color/textColor"
-            android:textStyle="italic" />
+            style="@style/gpsCoordinatesTextViewTheme"
+            android:layout_weight="0.15" />
 
         <TextView
             android:id="@+id/tvGPS_LAT"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:gravity="center"
-            android:textColor="@color/textColor"
-            android:textStyle="italic" />
-
-
+            style="@style/gpsCoordinatesTextViewTheme"
+            android:layout_weight="0.15" />
     </LinearLayout>
 
     <ListView
