@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal"
+    tools:context="com.p92rdi.extendedweathertitan.activity.ForecastActivity"
+    tools:showIn="@layout/app_bar_forecast">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvCity"
+            style="@style/cityTextView5Days"
+            android:layout_weight="0.14" />
+
+        <TextView
+            style="@style/gpsTextViewTheme"
+            android:layout_weight="0.03" />
+
+        <TextView
+            android:id="@+id/tvGPS_LON"
+            style="@style/gpsCoordinatesTextViewTheme"
+            android:layout_weight="0.05"
+            android:maxLines="2"
+            android:singleLine="false" />
+
+        <TextView
+            android:id="@+id/tvGPS_LAT"
+            style="@style/gpsCoordinatesTextViewTheme"
+            android:layout_weight="0.05"
+            android:maxLines="2"
+            android:singleLine="false" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_forecast"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:paddingTop="42dp">
+
+    </ListView>
+</LinearLayout>
+

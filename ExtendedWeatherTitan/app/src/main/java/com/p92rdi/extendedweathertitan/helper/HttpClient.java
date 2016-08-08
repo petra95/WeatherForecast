@@ -3,6 +3,7 @@ package com.p92rdi.extendedweathertitan.helper;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -13,10 +14,16 @@ import java.net.URL;
 
 public class HttpClient {
 
-    private static String BASE_URL_NAME = "http://api.openweathermap.org/data/2.5/forecast?q=";
+    private String BASE_URL_NAME = "http://api.openweathermap.org/data/2.5/";
     private static String API_KEY = "&appid=6400cc1cfebfb4e0cab17b0eb34472da";
     private static String BASE_URL_ID = "http://api.openweathermap.org/data/2.5/forecast?id=";
     private static String IMG_URL = "http://openweathermap.org/img/w/";
+
+    public HttpClient(){}
+
+    public HttpClient(String url_day_type){
+        BASE_URL_NAME += url_day_type + "?q=";
+    }
 
     public String getWeatherData(String cityName) {
         HttpURLConnection mConnection = null;

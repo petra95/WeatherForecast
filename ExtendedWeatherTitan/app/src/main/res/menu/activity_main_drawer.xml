@@ -6,8 +6,8 @@
         <menu>
             <item
                 android:id="@+id/search"
-                android:title="Search"
-                android:icon="@drawable/search"/>
+                android:icon="@drawable/search"
+                android:title="@string/search" />
             <item
                 android:id="@+id/loadCity"
                 android:icon="@drawable/load"
@@ -48,5 +48,4 @@
                 android:title="About" />
         </menu>
     </item>
-
 </menu>
