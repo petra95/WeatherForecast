@@ -27,5 +27,7 @@
     <string name="slot3_load_title">load_slot3_empty</string>
     <string name="slot3_save_title">save_slot3</string>
     <string name="dialog_search">Search</string>
+    <string name="celsius">°C</string>
+    <string name="past">This is the past</string>
 
 </resources>

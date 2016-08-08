@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by totha on 2016. 08. 03..
@@ -55,6 +56,13 @@ public class DailyForecast {
                     if(!mIconCodeNight.equals("")) {
                         Log.d("ExtendedWeatherTitan", "DailyForecast / mIconCodeNight: " + mIconCodeNight);
                         task.execute(mIconCodeNight, "night");
+                        try {
+                            task.get();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 else if(currentHour == 12 || currentHour == 13 || currentHour == 14 || currentHour == 15) {
@@ -66,6 +74,13 @@ public class DailyForecast {
                     if(!mIconCodeDay.equals("")) {
                         Log.d("ExtendedWeatherTitan", "DailyForecast / mIconCodeDay: " + mIconCodeDay);
                         task.execute(mIconCodeDay, "day");
+                        try {
+                            task.get();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -82,11 +97,16 @@ public class DailyForecast {
             HttpClient httpClient = new HttpClient();
 
             icon = httpClient.getImage(params[0]);
-            Log.d("ExtendedWeatherTitan", "doInBackground / params[0] = " + params[0]);
             isDay = params[1].equals("day");
 
             if(icon == null) {
                 Log.d("ExtendedWeatherTitan", "doInBackground / icon is NULL!");
+            }
+
+            if(isDay){
+                DailyForecast.this.mIconDay = icon;
+            }else {
+                DailyForecast.this.mIconNight = icon;
             }
 
             return icon;
@@ -95,11 +115,13 @@ public class DailyForecast {
         @Override
         protected void onPostExecute(Bitmap icon) {
             super.onPostExecute(icon);
-            if(isDay){
+            /*if(isDay){
+                Log.d("ExtendedWeatherTitan", "onPostExecute / day = ");
                 DailyForecast.this.mIconDay = icon;
             }else {
+                Log.d("ExtendedWeatherTitan", "onPostExecute / night = ");
                 DailyForecast.this.mIconNight = icon;
-            }
+            }*/
         }
     }
 

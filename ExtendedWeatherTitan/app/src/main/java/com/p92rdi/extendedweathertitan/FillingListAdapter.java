@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 /**
@@ -60,9 +61,7 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_forecast, parent, false);
             holder = new Holder();
-
             holder.tvDate = (TextView) convertView.findViewById(R.id.tvDate);
-
             holder.nightTempTextView5 = (TextView) convertView.findViewById(R.id.nightDegTextView5);
             holder.nightImageView = (ImageView) convertView.findViewById(R.id.nightImageView);
             holder.tvNightDescription = (TextView) convertView.findViewById(R.id.tvNightDescription);
@@ -75,9 +74,19 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
         }
         DailyForecast newItem = getItem(position);
 
-        holder.tvDate.setText(DateFormat.getDateTimeInstance().format(new Date(newItem.getmDate())));
-        holder.nightTempTextView5.setText(String.format("%.1f",newItem.getmTemperatureNight()-273.15) + "°C");
-        holder.dayTempTextView5.setText(String.format("%.1f", newItem.getmTemperatureDay()-273.15) + "°C");
+        SimpleDateFormat myFormat = new SimpleDateFormat( "d/M/yyyy EEEE");
+
+        holder.tvDate.setText(myFormat.format(new Date(newItem.getmDate())));
+        if (newItem.getmTemperatureNight() == 0){
+            holder.nightTempTextView5.setText(R.string.past);
+        }else{
+            holder.nightTempTextView5.setText(String.format("%.1f",newItem.getmTemperatureNight()-273.15) + "°C");
+        }
+        if (newItem.getmTemperatureDay() == 0){
+            holder.dayTempTextView5.setText(R.string.past);
+        }else{
+            holder.dayTempTextView5.setText(String.format("%.1f", newItem.getmTemperatureDay()-273.15) + "°C");
+        }
         holder.tvNightDescription.setText(newItem.getmDescriptionNight());
         holder.tvDayDescription.setText(newItem.getmDescriptionDay());
 
@@ -87,14 +96,12 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
         }*/
 
         if (newItem.getmIconDay() != null ) {
-            Log.d("ExtendedWeatherTitan","FillingListAdapter / Have day icon");
             holder.dayImageView.setImageBitmap(newItem.getmIconDay());
         } else {
             Log.d("ExtendedWeatherTitan","FillingListAdapter / No day icon");
         }
 
         if (newItem.getmIconNight() != null ) {
-            Log.d("ExtendedWeatherTitan","FillingListAdapter / Have night icon");
             holder.nightImageView.setImageBitmap(newItem.getmIconNight());
         } else {
             Log.d("ExtendedWeatherTitan","FillingListAdapter / No night icon");

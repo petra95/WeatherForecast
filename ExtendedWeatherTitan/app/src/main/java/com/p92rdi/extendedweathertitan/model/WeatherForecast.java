@@ -12,7 +12,6 @@ public class WeatherForecast extends AppCompatActivity {
 
     private Location mLocation;
     private List<Long> mDays;
-    private List<Ikon> mIcons;
     private ArrayList<Forecast> mForecastsList;
 
     public WeatherForecast() {
@@ -49,7 +48,7 @@ public class WeatherForecast extends AppCompatActivity {
             calendar.setTimeInMillis(forecast.getmDate());
             int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
             Log.d("ExtendedWeatherTitan", "currentDay: " + currentDay);
-            if(prevDay != currentDay){
+            if(prevDay != currentDay && mDays.size() < 5){
                 mDays.add(forecast.getmDate());
             }
             prevDay = currentDay;
