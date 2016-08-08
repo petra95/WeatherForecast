@@ -28,6 +28,7 @@ import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
 import com.p92rdi.extendedweathertitan.model.Location;
+import com.p92rdi.extendedweathertitan.model.Weather;
 import com.p92rdi.extendedweathertitan.model.WeatherForecast;
 
 import org.json.JSONException;
@@ -44,7 +45,7 @@ public class ForecastActivity extends AppCompatActivity
     private DailyForecast dailyForecast;
     private List<DailyForecast> fillings = new ArrayList<>();
     private ListView lv_forecast;
-    private String mCity = "Cegled";
+    private String mCity = "Budapest";
 
     public String getmCity() {
         return mCity;
@@ -71,9 +72,6 @@ public class ForecastActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         lv_forecast = (ListView) findViewById(R.id.lv_forecast);
-
-        JSONWeatherForecastTask task = new JSONWeatherForecastTask();
-        task.execute(new String[]{mCity});
     }
 
     @Override
@@ -122,7 +120,6 @@ public class ForecastActivity extends AppCompatActivity
 
         @Override
         protected WeatherForecast doInBackground(String... params) {
-            Looper.prepare();
             WeatherForecast weatherForecast = new WeatherForecast();
             String data = ((new HttpClient("forecast")).getWeatherData(params[0]));
             if(data != null && !data.equals("")) {
@@ -153,6 +150,9 @@ public class ForecastActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        JSONWeatherForecastTask task = new JSONWeatherForecastTask();
+        task.execute(mCity);
     }
 
     private void displayData() {

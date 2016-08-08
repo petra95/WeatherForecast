@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class WeatherForecast extends AppCompatActivity {
+public class WeatherForecast{
 
     private Location mLocation;
     private List<Long> mDays;
