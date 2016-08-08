@@ -122,13 +122,7 @@ public class CurrentActivity extends AppCompatActivity
     }
 
     private void getWeather(String query) {
-        String[] splitString = query.split(" ");
-        String getString = "";
-        for(String partOfString : splitString) {
-            getString += partOfString;
-        }
-
-        final String mFinalQuery = getString;
+        final String mFinalQuery = query.replace(" ", "%20");
         Thread mNetworkThread = new Thread(new Runnable() {
             public void run() {
                 JsonParser mWeatherParser = new JsonParser();
@@ -147,7 +141,8 @@ public class CurrentActivity extends AppCompatActivity
         mNetworkThread.start();
         try {
             mNetworkThread.join();
-        } catch (InterruptedException e) { }
+        } catch (InterruptedException e) {
+        }
         assignWeatherValues(mResultWeather);
         mDataTableLayout.setVisibility(View.VISIBLE);
     }

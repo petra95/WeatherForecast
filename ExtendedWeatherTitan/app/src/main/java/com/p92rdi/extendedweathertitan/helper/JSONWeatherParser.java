@@ -20,9 +20,8 @@ import java.util.ArrayList;
 public class JSONWeatherParser {
 
     public static WeatherForecast getWeather(String data) throws JSONException, ParseException {
-
         JSONObject jRoot = new JSONObject(data);
-
+        //not found city
         WeatherForecast weatherForecast = new WeatherForecast();
         Location location = new Location();
         ArrayList<Forecast> forecasts = new ArrayList<>();

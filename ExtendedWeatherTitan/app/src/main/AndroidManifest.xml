@@ -27,7 +27,7 @@
         <activity
             android:name=".activity.ForecastActivity"
             android:label="@string/title_activity_forecast"
-            android:theme="@style/AppTheme"></activity>
+            android:configChanges="orientation"/>
     </application>
 
 </manifest>
