@@ -214,7 +214,6 @@ public class ForecastActivity extends AppCompatActivity
 
         if(isNetworkAvailable()){
             Toast.makeText(this, mCity, Toast.LENGTH_SHORT).show();
-            //JSONWeatherForecastTask task = new JSONWeatherForecastTask();
             new JSONWeatherForecastTask().execute(mCity);
         } else{
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
