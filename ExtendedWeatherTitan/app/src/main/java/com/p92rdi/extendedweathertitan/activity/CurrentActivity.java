@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,6 +114,7 @@ public class CurrentActivity extends AppCompatActivity
         String humidity = String.valueOf(weatherData.getmHumidity()) + "%";
 
         tv_city.setText(city);
+        tv_city.setMovementMethod(new ScrollingMovementMethod());
         tv_degree.setText(degree);
         tv_description.setText(description);
         tv_minDeg.setText(minDeg);

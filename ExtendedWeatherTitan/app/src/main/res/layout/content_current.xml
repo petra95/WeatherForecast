@@ -13,6 +13,7 @@
     tools:context=".activity.CurrentActivity"
     tools:showIn="@layout/app_bar_current">
 
+
     <TextView
         android:id="@+id/cityTextView"
         style="@style/mainTextViewTheme"
@@ -35,6 +36,7 @@
             android:id="@+id/degreeTextView"
             style="@style/degreeTextViewTheme" />
     </LinearLayout>
+
 
     <TextView
         android:id="@+id/descriptionTextView"
