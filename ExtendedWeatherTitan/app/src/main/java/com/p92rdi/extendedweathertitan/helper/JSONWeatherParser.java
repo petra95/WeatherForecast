@@ -23,8 +23,8 @@ public class JSONWeatherParser {
         JSONObject jRoot = new JSONObject(data);
 
         String cod = getString("cod", jRoot);
-        if(cod.equals("404")){
-            return new WeatherForecast();
+        if(!cod.equals("200")){
+            return null;
         }
 
         WeatherForecast weatherForecast = new WeatherForecast();

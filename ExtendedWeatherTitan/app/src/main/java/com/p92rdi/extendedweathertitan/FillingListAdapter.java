@@ -78,12 +78,12 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
         if (newItem.getmTemperatureNight() == 0){
             holder.nightTempTextView5.setText(R.string.past);
         }else{
-            holder.nightTempTextView5.setText(String.format("%.1f",newItem.getmTemperatureNight()-273.15) + "°C");
+            holder.nightTempTextView5.setText(String.format("%.1f",newItem.getmTemperatureNight()) + "°C");
         }
         if (newItem.getmTemperatureDay() == 0){
             holder.dayTempTextView5.setText(R.string.past);
         }else{
-            holder.dayTempTextView5.setText(String.format("%.1f", newItem.getmTemperatureDay()-273.15) + "°C");
+            holder.dayTempTextView5.setText(String.format("%.1f", newItem.getmTemperatureDay()) + "°C");
         }
         holder.tvNightDescription.setText(newItem.getmDescriptionNight());
         holder.tvDayDescription.setText(newItem.getmDescriptionDay());

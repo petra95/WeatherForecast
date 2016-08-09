@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -144,7 +145,7 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         protected WeatherForecast doInBackground(String... params) {
             WeatherForecast weatherForecast = new WeatherForecast();
             String data = ((new HttpClient("forecast")).getWeatherData(params[0]));
-            Log.e("ServiceHandler", "data: " + data);
+            Log.d("ServiceHandler", "data: " + data);
             if(data != null && !data.equals("")) {
                 try {
                     try {
@@ -156,7 +157,7 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
                     e.printStackTrace();
                 }
             } else {
-                Log.e("ServiceHandler", "No data received from HTTP request");
+                Log.d("ServiceHandler", "No data received from HTTP request");
                 weatherForecast = new WeatherForecast();
             }
             return weatherForecast;
@@ -229,7 +230,6 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
 
         if(isNetworkAvailable()){
             Toast.makeText(this, mCity, Toast.LENGTH_SHORT).show();
-            //JSONWeatherForecastTask task = new JSONWeatherForecastTask();
             new JSONWeatherForecastTask().execute(mCity);
         } else{
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
@@ -261,7 +261,18 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
                 dialogBuilder.dismiss();
             }
         });
-
+        dialogBuilder.setOnKeyListener((new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    mCity = editText.getText().toString();;
+                    new JSONWeatherForecastTask().execute(mCity);
+                    dialogBuilder.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        }));
         dialogBuilder.show();
 
     }

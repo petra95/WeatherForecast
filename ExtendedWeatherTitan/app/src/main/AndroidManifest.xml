@@ -23,7 +23,8 @@
         </activity>
         <activity
             android:name=".activity.CurrentActivity"
-            android:label="Actual Weather" />
+            android:label="Actual Weather"
+            />
         <activity
             android:name=".activity.ForecastActivity"
             android:label="@string/title_activity_forecast"

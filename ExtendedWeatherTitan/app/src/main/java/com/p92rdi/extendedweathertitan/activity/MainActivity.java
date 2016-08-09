@@ -14,13 +14,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
+import com.p92rdi.extendedweathertitan.helper.ExtendedWeatherTitanConstans;
 import com.p92rdi.extendedweathertitan.model.Forecast;
 
 public class MainActivity extends AppCompatActivity
@@ -28,12 +29,14 @@ public class MainActivity extends AppCompatActivity
 
     private SharedPreferences mSharedPreferences;
     private static final String FILE_NAME = "FileName";
+    private static final String SHARED_PREFERENCES = "SharedPreferences";
     private static final String SLOT1_KEY = "Empty slot";
     private static final String SLOT2_KEY = "Empty slot";
     private static final String SLOT3_KEY = "Empty slot";
     private static final String SEARCH_KEY = "CityNameKey";
 
     private String[] mSavedCities = new String[3];
+    private String[] mSavedCities5 = new String[3];
     private String mActualCity;
 
     @Override
@@ -55,6 +58,13 @@ public class MainActivity extends AppCompatActivity
         mSavedCities[0] = mSharedPreferences.getString(SLOT1_KEY, "Empty slot");
         mSavedCities[1] = mSharedPreferences.getString(SLOT2_KEY, "Empty slot");
         mSavedCities[2] = mSharedPreferences.getString(SLOT3_KEY, "Empty slot");
+        /*
+        mSavedCities5[0] = mSharedPreferences.getString(SLOT1_KEY, "Empty slot");
+        mSavedCities5[1] = mSharedPreferences.getString(SLOT2_KEY, "Empty slot");
+        mSavedCities5[2] = mSharedPreferences.getString(SLOT3_KEY, "Empty slot");
+        */
+
+        //ExtendedWeatherTitanConstans.SharedPrefKeys.SLOT1;
     }
 
     @Override
@@ -73,19 +83,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if(isNetworkAvailable()){
             if (id == R.id.search) {
-                Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
+                Intent intent = new Intent(this, CurrentActivity.class);
                 searchDialog(intent);
             } else if (id == R.id.loadCity) {
                 loadCityDialog();
             } else if (id == R.id.saveCity) {
-                saveActualCityDialog();
+                Toast.makeText(this, "Nothing to save!", Toast.LENGTH_LONG).show();
             } else if (id == R.id.search5) {
                 Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
                 searchDialog(intent);
             } else if (id == R.id.loadCity5) {
-
+                //loadCityDialog5();
             } else if (id == R.id.saveCity5) {
-
+                Toast.makeText(this, "Nothing to save!", Toast.LENGTH_LONG).show();
             } else if (id == R.id.settings) {
 
             } else if (id == R.id.about) {
@@ -114,9 +124,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialogInterface, int i) {
                 String mCityName = editText.getText().toString();
                 mActualCity = mCityName;
-                if(mActualCity.equals("")){
-                    //Toast.makeText(MainActivity, "Unkown city!", Toast.LENGTH_LONG).show();
-                }else{
+                if(!mActualCity.equals("")){
                     intent.putExtra(SEARCH_KEY, mCityName);
                     startActivity(intent);
                 }
@@ -129,9 +137,25 @@ public class MainActivity extends AppCompatActivity
                 dialogBuilder.dismiss();
             }
         });
+        dialogBuilder.setOnKeyListener((new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    String mCityName = editText.getText().toString();
+                    mActualCity = mCityName;
+                    if(!mActualCity.equals("")){
+                        intent.putExtra(SEARCH_KEY, mCityName);
+                        startActivity(intent);
+                    }
+                    dialogBuilder.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        }));
         dialogBuilder.show();
     }
-
+/*
     public void saveActualCityDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.save_dialog_title).setItems(mSavedCities, new DialogInterface.OnClickListener() {
@@ -143,7 +167,7 @@ public class MainActivity extends AppCompatActivity
         builder.create();
         builder.show();
     }
-
+*/
     public void loadCityDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.load_dialog_title).setItems(mSavedCities, new DialogInterface.OnClickListener() {
@@ -158,7 +182,21 @@ public class MainActivity extends AppCompatActivity
         builder.create();
         builder.show();
     }
-
+    /*public void loadCityDialog5() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.load_dialog_title).setItems(mSavedCities5, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mActualCity = mSavedCities5[i];
+                Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
+                intent.putExtra(SEARCH_KEY, mActualCity);
+                startActivity(intent);
+            }
+        });
+        builder.create();
+        builder.show();
+    }*/
+    /*
     public void openDialog(final int index) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Warning");
@@ -178,8 +216,8 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
         alertDialog.show();
-    }
-
+    }*/
+/*
     public void saveActualCity(int index){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         switch (index) {
@@ -195,7 +233,7 @@ public class MainActivity extends AppCompatActivity
         }
         editor.apply();
     }
-
+*/
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

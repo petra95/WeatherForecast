@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -217,7 +218,19 @@ public class CurrentActivity extends AppCompatActivity
                 dialogBuilder.dismiss();
             }
         });
-
+        dialogBuilder.setOnKeyListener((new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    String mCityName = editText.getText().toString();
+                    mActualCity = mCityName;
+                    getWeather(mCityName);
+                    dialogBuilder.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        }));
         dialogBuilder.show();
     }
 
@@ -240,7 +253,6 @@ public class CurrentActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(!mSavedCities[i].equals("slot" + (i+1))){
-                    Log.e("Belep", mSavedCities[i]);
                     mActualCity = mSavedCities[i];
                     getWeather(mActualCity);
                 }
