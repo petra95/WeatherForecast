@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -254,7 +255,18 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
                 dialogBuilder.dismiss();
             }
         });
-
+        dialogBuilder.setOnKeyListener((new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    mCity = editText.getText().toString();;
+                    new JSONWeatherForecastTask().execute(mCity);
+                    dialogBuilder.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        }));
         dialogBuilder.show();
 
     }
