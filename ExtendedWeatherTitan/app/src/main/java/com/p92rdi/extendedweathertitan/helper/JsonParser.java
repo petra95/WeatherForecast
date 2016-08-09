@@ -1,7 +1,7 @@
 package com.p92rdi.extendedweathertitan.helper;
 
 
-import com.p92rdi.extendedweathertitan.model.Weather;
+import com.p92rdi.extendedweathertitan.model.WeatherForecastOneDay;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -22,27 +22,27 @@ public class JsonParser {
     private static final String TAG_WIND_SPEED = "speed";
     private static final String TAG_NAME = "name";
 
-    public Weather processWeatherFromJson(String mRawJson) {
+    public WeatherForecastOneDay processWeatherFromJson(String mRawJson) {
             try {
                 JSONObject jObj = new JSONObject(mRawJson);
-                Weather mProducedWeather = new Weather();
+                WeatherForecastOneDay mProducedWeatherForecastOneDay = new WeatherForecastOneDay();
 
-                mProducedWeather.setmCityId(jObj.getInt(TAG_ID));
-                mProducedWeather.setmCountry(jObj.getJSONObject(TAG_SYS).getString(TAG_COUNTRY));
-                mProducedWeather.setmDescription(jObj.getJSONArray(TAG_WEATHER).getJSONObject(0).getString(TAG_DESCRIPTION));
-                mProducedWeather.setmIconCode(jObj.getJSONArray(TAG_WEATHER).getJSONObject(0).getString(TAG_ICON));
-                mProducedWeather.setmTemperature(jObj.getJSONObject(TAG_MAIN).getInt(TAG_TEMPERATURE));
-                mProducedWeather.setmHumidity(jObj.getJSONObject(TAG_MAIN).getInt(TAG_HUMIDITY));
-                mProducedWeather.setmTempMin(jObj.getJSONObject(TAG_MAIN).getInt(TAG_TEMP_MIN));
-                mProducedWeather.setmTempMax(jObj.getJSONObject(TAG_MAIN).getInt(TAG_TEMP_MAX));
-                mProducedWeather.setmWind(jObj.getJSONObject(TAG_WIND).getInt(TAG_WIND_SPEED));
-                mProducedWeather.setmCity(jObj.getString(TAG_NAME));
+                mProducedWeatherForecastOneDay.setmCityId(jObj.getInt(TAG_ID));
+                mProducedWeatherForecastOneDay.setmCountry(jObj.getJSONObject(TAG_SYS).getString(TAG_COUNTRY));
+                mProducedWeatherForecastOneDay.setmDescription(jObj.getJSONArray(TAG_WEATHER).getJSONObject(0).getString(TAG_DESCRIPTION));
+                mProducedWeatherForecastOneDay.setmIconCode(jObj.getJSONArray(TAG_WEATHER).getJSONObject(0).getString(TAG_ICON));
+                mProducedWeatherForecastOneDay.setmTemperature(jObj.getJSONObject(TAG_MAIN).getInt(TAG_TEMPERATURE));
+                mProducedWeatherForecastOneDay.setmHumidity(jObj.getJSONObject(TAG_MAIN).getInt(TAG_HUMIDITY));
+                mProducedWeatherForecastOneDay.setmTempMin(jObj.getJSONObject(TAG_MAIN).getInt(TAG_TEMP_MIN));
+                mProducedWeatherForecastOneDay.setmTempMax(jObj.getJSONObject(TAG_MAIN).getInt(TAG_TEMP_MAX));
+                mProducedWeatherForecastOneDay.setmWind(jObj.getJSONObject(TAG_WIND).getInt(TAG_WIND_SPEED));
+                mProducedWeatherForecastOneDay.setmCity(jObj.getString(TAG_NAME));
 
-                return mProducedWeather;
+                return mProducedWeatherForecastOneDay;
             }
             catch (JSONException e) {
                 e.printStackTrace();
-                return new Weather();
+                return new WeatherForecastOneDay();
             }
     }
 }

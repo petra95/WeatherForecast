@@ -31,7 +31,9 @@ import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
 import com.p92rdi.extendedweathertitan.model.Location;
-import com.p92rdi.extendedweathertitan.model.WeatherForecast;
+
+import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
+
 
 import org.json.JSONException;
 
@@ -43,7 +45,7 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
 
     private static final String SEARCH_KEY = "CityNameKey";
 
-    private WeatherForecast weatherForecast;
+    private WeatherForecastFiveDays weatherForecastFiveDays;
     private Location location;
     private DailyForecast dailyForecast;
     private List<DailyForecast> fillings = new ArrayList<>();
@@ -134,17 +136,17 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
     }
 
 
-    private class JSONWeatherForecastTask extends AsyncTask<String, Void, WeatherForecast> {
+    private class JSONWeatherForecastTask extends AsyncTask<String, Void, WeatherForecastFiveDays> {
 
         @Override
-        protected WeatherForecast doInBackground(String... params) {
-            WeatherForecast weatherForecast = new WeatherForecast();
+        protected WeatherForecastFiveDays doInBackground(String... params) {
+            WeatherForecastFiveDays weatherForecastFiveDays = new WeatherForecastFiveDays();
             String data = ((new HttpClient("forecast")).getWeatherData(params[0]));
             Log.d("ServiceHandler", "data: " + data);
             if(data != null && !data.equals("")) {
                 try {
                     try {
-                        weatherForecast = JSONWeatherParser.getWeather(data);
+                        weatherForecastFiveDays = JSONWeatherParser.getWeatherForecast(data);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -153,15 +155,15 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
                 }
             } else {
                 Log.d("ServiceHandler", "No data received from HTTP request");
-                weatherForecast = new WeatherForecast();
+                weatherForecastFiveDays = new WeatherForecastFiveDays();
             }
-            return weatherForecast;
+            return weatherForecastFiveDays;
         }
 
         @Override
-        protected void onPostExecute(WeatherForecast weatherForecast) {
-            super.onPostExecute(weatherForecast);
-            ForecastActivity.this.weatherForecast = weatherForecast;
+        protected void onPostExecute(WeatherForecastFiveDays weatherForecastFiveDays) {
+            super.onPostExecute(weatherForecastFiveDays);
+            ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
             displayData();
         }
     }
@@ -174,7 +176,6 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
             JSONWeatherForecastTask task = new JSONWeatherForecastTask();
             task.execute(mCity);
         }*/
-
     }
 
     private void displayData() {
@@ -182,23 +183,23 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
         TextView tvGpsLon = (TextView) findViewById(R.id.tvGPS_LON);
         TextView tvGpsLat = (TextView) findViewById(R.id.tvGPS_LAT);
-        tvCity.setText(weatherForecast.getmLocation().getmCity());
+        tvCity.setText(weatherForecastFiveDays.getmLocation().getmCity());
         tvCity.setMovementMethod(new ScrollingMovementMethod());
 
-        tvGpsLon.setText(String.valueOf(weatherForecast.getmLocation().getmLongitude()));
-        tvGpsLat.setText(String.valueOf(weatherForecast.getmLocation().getmLatitude()));
+        tvGpsLon.setText(String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()));
+        tvGpsLat.setText(String.valueOf(weatherForecastFiveDays.getmLocation().getmLatitude()));
 
         //Filling listview
-        Log.e("displayData()", weatherForecast.getmDays().toString());
-        fillings = generateFiveDaysForecastsList(weatherForecast, weatherForecast.getmDays());
+        Log.e("displayData()", weatherForecastFiveDays.getmDays().toString());
+        fillings = generateFiveDaysForecastsList(weatherForecastFiveDays, weatherForecastFiveDays.getmDays());
         FillingListAdapter adapter = new FillingListAdapter(this, fillings);
         lv_forecast.setAdapter(adapter);
     }
 
-    public ArrayList<DailyForecast> generateFiveDaysForecastsList(WeatherForecast weatherForecast, List<Long> mDays){
+    public ArrayList<DailyForecast> generateFiveDaysForecastsList(WeatherForecastFiveDays weatherForecastFiveDays, List<Long> mDays){
         ArrayList<DailyForecast> fiveDaysForecastsList = new ArrayList<>();
         for(long date : mDays){
-            DailyForecast currentDay = new DailyForecast(weatherForecast, date);
+            DailyForecast currentDay = new DailyForecast(weatherForecastFiveDays, date);
             fiveDaysForecastsList.add(currentDay);
         }
 
