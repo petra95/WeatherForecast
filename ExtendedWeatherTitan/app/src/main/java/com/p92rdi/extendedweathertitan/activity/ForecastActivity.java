@@ -143,6 +143,7 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         protected WeatherForecast doInBackground(String... params) {
             WeatherForecast weatherForecast = new WeatherForecast();
             String data = ((new HttpClient("forecast")).getWeatherData(params[0]));
+            Log.e("ServiceHandler", "data: " + data);
             if(data != null && !data.equals("")) {
                 try {
                     try {
@@ -172,8 +173,11 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
     protected void onResume() {
         super.onResume();
 
-        JSONWeatherForecastTask task = new JSONWeatherForecastTask();
-        task.execute(mCity);
+        /*if(!mCity.equals("unknown")) {
+            JSONWeatherForecastTask task = new JSONWeatherForecastTask();
+            task.execute(mCity);
+        }*/
+
     }
 
     private void displayData() {

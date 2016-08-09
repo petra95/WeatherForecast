@@ -30,7 +30,7 @@ public class JsonParser {
                 mProducedWeather.setmCityId(jObj.getInt(TAG_ID));
                 mProducedWeather.setmCountry(jObj.getJSONObject(TAG_SYS).getString(TAG_COUNTRY));
                 mProducedWeather.setmDescription(jObj.getJSONArray(TAG_WEATHER).getJSONObject(0).getString(TAG_DESCRIPTION));
-                mProducedWeather.setmIconCode(jObj.getJSONArray(TAG_WEATHER).getJSONObject(0).getString(TAG_ICON).concat(".png"));
+                mProducedWeather.setmIconCode(jObj.getJSONArray(TAG_WEATHER).getJSONObject(0).getString(TAG_ICON));
                 mProducedWeather.setmTemperature(jObj.getJSONObject(TAG_MAIN).getInt(TAG_TEMPERATURE));
                 mProducedWeather.setmHumidity(jObj.getJSONObject(TAG_MAIN).getInt(TAG_HUMIDITY));
                 mProducedWeather.setmTempMin(jObj.getJSONObject(TAG_MAIN).getInt(TAG_TEMP_MIN));
@@ -44,5 +44,5 @@ public class JsonParser {
                 e.printStackTrace();
                 return new Weather();
             }
-        }
     }
+}

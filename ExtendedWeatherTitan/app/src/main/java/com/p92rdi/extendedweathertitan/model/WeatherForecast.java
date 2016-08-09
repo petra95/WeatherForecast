@@ -16,6 +16,7 @@ public class WeatherForecast{
 
     public WeatherForecast() {
         mDays = new ArrayList<>();
+        mLocation = new Location();
     }
 
     public Location getmLocation() {

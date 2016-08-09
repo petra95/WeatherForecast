@@ -21,7 +21,12 @@ public class JSONWeatherParser {
 
     public static WeatherForecast getWeather(String data) throws JSONException, ParseException {
         JSONObject jRoot = new JSONObject(data);
-        //not found city
+
+        String cod = getString("cod", jRoot);
+        if(cod.equals("404")){
+            return new WeatherForecast();
+        }
+
         WeatherForecast weatherForecast = new WeatherForecast();
         Location location = new Location();
         ArrayList<Forecast> forecasts = new ArrayList<>();

@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -113,8 +114,12 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialogInterface, int i) {
                 String mCityName = editText.getText().toString();
                 mActualCity = mCityName;
-                intent.putExtra(SEARCH_KEY, mCityName);
-                startActivity(intent);
+                if(mActualCity.equals("")){
+                    //Toast.makeText(MainActivity, "Unkown city!", Toast.LENGTH_LONG).show();
+                }else{
+                    intent.putExtra(SEARCH_KEY, mCityName);
+                    startActivity(intent);
+                }
                 dialogBuilder.dismiss();
             }
         });

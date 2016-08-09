@@ -130,6 +130,7 @@ public class CurrentActivity extends AppCompatActivity
                 if(mRawJson != null && !mRawJson.equals("")){
                     mResultWeather = mWeatherParser.processWeatherFromJson(mRawJson);
                     Bitmap test = mClient.getImage(mResultWeather.getmIconCode());
+                    Log.e("ServiceHandler", "mResultWeather.getmIconCode(): "+ mResultWeather.getmIconCode());
                     mResultWeather.setmIcon(test);
                 } else {
                     Log.e("ServiceHandler", "No data received from HTTP request");
