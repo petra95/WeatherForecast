@@ -21,22 +21,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
-<<<<<<< HEAD
-=======
 import com.p92rdi.extendedweathertitan.helper.ExtendedWeatherTitanConstans;
 import com.p92rdi.extendedweathertitan.model.Forecast;
->>>>>>> 841660f480980a26a2877ebf0633e3fa10d41f4d
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private SharedPreferences mSharedPreferences;
-    private static final String FILE_NAME = "FileName";
+    /*private static final String FILE_NAME = "FileName";
     private static final String SHARED_PREFERENCES = "SharedPreferences";
     private static final String SLOT1_KEY = "Empty slot";
     private static final String SLOT2_KEY = "Empty slot";
     private static final String SLOT3_KEY = "Empty slot";
-    private static final String SEARCH_KEY = "CityNameKey";
+    private static final String SEARCH_KEY = "CityNameKey";*/
 
     private String[] mSavedCities = new String[3];
     private String[] mSavedCities5 = new String[3];
@@ -57,19 +53,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mSharedPreferences = getSharedPreferences(FILE_NAME, 0);
-        mSavedCities[0] = mSharedPreferences.getString(SLOT1_KEY, "Empty slot");
-        mSavedCities[1] = mSharedPreferences.getString(SLOT2_KEY, "Empty slot");
-        mSavedCities[2] = mSharedPreferences.getString(SLOT3_KEY, "Empty slot");
-        /*
-        mSavedCities5[0] = mSharedPreferences.getString(SLOT1_KEY, "Empty slot");
-        mSavedCities5[1] = mSharedPreferences.getString(SLOT2_KEY, "Empty slot");
-        mSavedCities5[2] = mSharedPreferences.getString(SLOT3_KEY, "Empty slot");
-        */
 
-        //ExtendedWeatherTitanConstans.SharedPrefKeys.SLOT1;
+        SharedPreferences mSharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        mSavedCities[0] = mSharedPreferences.getString("slot1", "Empty slot");
+        mSavedCities[1] = mSharedPreferences.getString("slot2", "Empty slot");
+        mSavedCities[2] = mSharedPreferences.getString("slot3", "Empty slot");
+
+        mSavedCities5[0] = mSharedPreferences.getString("slot1", "Empty slot");
+        mSavedCities5[1] = mSharedPreferences.getString("slot2", "Empty slot");
+        mSavedCities5[2] = mSharedPreferences.getString("slot3", "Empty slot");
     }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -82,27 +75,26 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         if(isNetworkAvailable()){
             if (id == R.id.search) {
                 Intent intent = new Intent(this, CurrentActivity.class);
                 searchDialog(intent);
             } else if (id == R.id.loadCity) {
-                loadCityDialog();
+                loadCityDialog(mSavedCities);
             } else if (id == R.id.saveCity) {
                 Toast.makeText(this, "Nothing to save!", Toast.LENGTH_LONG).show();
             } else if (id == R.id.search5) {
-                Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
+                Intent intent = new Intent(this, ForecastActivity.class);
                 searchDialog(intent);
             } else if (id == R.id.loadCity5) {
-                //loadCityDialog5();
+                loadCityDialog(mSavedCities5);
             } else if (id == R.id.saveCity5) {
                 Toast.makeText(this, "Nothing to save!", Toast.LENGTH_LONG).show();
             } else if (id == R.id.settings) {
-
+                Toast.makeText(this, "There are no settings yet! lol", Toast.LENGTH_LONG).show();
             } else if (id == R.id.about) {
-
+                Toast.makeText(this, "I'm ABOUT to finish this app.", Toast.LENGTH_LONG).show();
             }
         } else {
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
@@ -125,10 +117,9 @@ public class MainActivity extends AppCompatActivity
         dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Search", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String mCityName = editText.getText().toString();
-                mActualCity = mCityName;
+                mActualCity = editText.getText().toString();
                 if(!mActualCity.equals("")){
-                    intent.putExtra(SEARCH_KEY, mCityName);
+                    intent.putExtra("com.p92rdi.extendedweathertitan.CityName", mActualCity);
                     startActivity(intent);
                 }
                 dialogBuilder.dismiss();
@@ -140,51 +131,34 @@ public class MainActivity extends AppCompatActivity
                 dialogBuilder.dismiss();
             }
         });
-        dialogBuilder.setOnKeyListener((new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    String mCityName = editText.getText().toString();
-                    mActualCity = mCityName;
-                    if(!mActualCity.equals("")){
-                        intent.putExtra(SEARCH_KEY, mCityName);
-                        startActivity(intent);
-                    }
-                    dialogBuilder.dismiss();
-                    return true;
-                }
-                return false;
-            }
-        }));
         dialogBuilder.show();
     }
-/*
-    public void saveActualCityDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.save_dialog_title).setItems(mSavedCities, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int index) {
-                openDialog(index);
-            }
-        });
-        builder.create();
-        builder.show();
-    }
-*/
-    public void loadCityDialog() {
+
+
+    public void loadCityDialog(final String[] savedCities) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.load_dialog_title).setItems(mSavedCities, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.load_dialog_title).setItems(savedCities, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mActualCity = mSavedCities[i];
+                mActualCity = savedCities[i];
                 Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
-                intent.putExtra(SEARCH_KEY, mActualCity);
+                intent.putExtra("com.p92rdi.extendedweathertitan.CityName", mActualCity);
                 startActivity(intent);
             }
         });
         builder.create();
         builder.show();
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+}
+
     /*public void loadCityDialog5() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.load_dialog_title).setItems(mSavedCities5, new DialogInterface.OnClickListener() {
@@ -237,12 +211,16 @@ public class MainActivity extends AppCompatActivity
         editor.apply();
     }
 */
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    /*
+    public void saveActualCityDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.save_dialog_title).setItems(mSavedCities, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int index) {
+                openDialog(index);
+            }
+        });
+        builder.create();
+        builder.show();
     }
-
-}
-
+*/
