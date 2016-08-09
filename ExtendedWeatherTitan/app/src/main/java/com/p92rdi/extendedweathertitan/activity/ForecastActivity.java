@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -182,6 +183,7 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         TextView tvGpsLon = (TextView) findViewById(R.id.tvGPS_LON);
         TextView tvGpsLat = (TextView) findViewById(R.id.tvGPS_LAT);
         tvCity.setText(weatherForecast.getmLocation().getmCity());
+        tvCity.setMovementMethod(new ScrollingMovementMethod());
 
         tvGpsLon.setText(String.valueOf(weatherForecast.getmLocation().getmLongitude()));
         tvGpsLat.setText(String.valueOf(weatherForecast.getmLocation().getmLatitude()));

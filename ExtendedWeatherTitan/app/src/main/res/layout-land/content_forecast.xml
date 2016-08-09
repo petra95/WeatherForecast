@@ -18,6 +18,8 @@
         <TextView
             android:id="@+id/tvCity"
             style="@style/cityTextView5Days"
+            android:maxLines="3"
+            android:scrollbars="vertical"
             android:layout_weight="0.14" />
 
         <TextView
