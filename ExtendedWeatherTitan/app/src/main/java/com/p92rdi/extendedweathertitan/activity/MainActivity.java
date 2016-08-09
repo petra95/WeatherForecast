@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
-import com.p92rdi.extendedweathertitan.model.Forecast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
