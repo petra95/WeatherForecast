@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class WeatherForecast{
+public class WeatherForecastFiveDays {
 
     private Location mLocation;
     private List<Long> mDays;
     private ArrayList<Forecast> mForecastsList;
 
-    public WeatherForecast() {
+    public WeatherForecastFiveDays() {
         mDays = new ArrayList<>();
         mLocation = new Location();
     }

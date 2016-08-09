@@ -1,4 +1,4 @@
-package com.p92rdi.extendedweathertitan;
+package com.p92rdi.extendedweathertitan.helper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
 
 import java.io.InputStream;

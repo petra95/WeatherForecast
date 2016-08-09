@@ -30,7 +30,7 @@ import android.widget.Toast;
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JsonParser;
-import com.p92rdi.extendedweathertitan.model.Weather;
+import com.p92rdi.extendedweathertitan.model.WeatherForecastOneDay;
 
 public class CurrentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,7 +46,7 @@ public class CurrentActivity extends AppCompatActivity
     private String mActualCity;
     private TableLayout mDataTableLayout;
     private HttpClient mClient;
-    private Weather mResultWeather;
+    private WeatherForecastOneDay mResultWeatherForecastOneDay;
     private TextView tv_city;
     private TextView tv_degree;
     private TextView tv_description;
@@ -100,19 +100,19 @@ public class CurrentActivity extends AppCompatActivity
         mSavedCities[2] = mSharedPreferences.getString(SLOT3_KEY, "slot3");
     }
 
-    private void assignWeatherValues(Weather weatherData) {
-        if (weatherData.getmIcon() != null) {
+    private void assignWeatherValues(WeatherForecastOneDay weatherForecastOneDayData) {
+        if (weatherForecastOneDayData.getmIcon() != null) {
             ImageView mImageView = (ImageView) findViewById(R.id.weatherImageView);
-            mImageView.setImageBitmap(weatherData.getmIcon());
+            mImageView.setImageBitmap(weatherForecastOneDayData.getmIcon());
         }
 
-        String city = weatherData.getmCity().concat(" " + weatherData.getmCountry());
-        String degree = String.valueOf(weatherData.getmTemperature() - 273) + " C°";
-        String description = weatherData.getmDescription();
-        String minDeg = String.valueOf(weatherData.getmTempMin() - 273) + " C°";
-        String maxDeg = String.valueOf(weatherData.getmTempMax() - 273) + " C°";
-        String wind = String.valueOf(weatherData.getmWind()) + " m/s";
-        String humidity = String.valueOf(weatherData.getmHumidity()) + "%";
+        String city = weatherForecastOneDayData.getmCity().concat(" " + weatherForecastOneDayData.getmCountry());
+        String degree = String.valueOf(weatherForecastOneDayData.getmTemperature()) + " °C";
+        String description = weatherForecastOneDayData.getmDescription();
+        String minDeg = String.valueOf(weatherForecastOneDayData.getmTempMin()) + " °C";
+        String maxDeg = String.valueOf(weatherForecastOneDayData.getmTempMax()) + " °C";
+        String wind = String.valueOf(weatherForecastOneDayData.getmWind()) + " m/s";
+        String humidity = String.valueOf(weatherForecastOneDayData.getmHumidity()) + "%";
 
         tv_city.setText(city);
         tv_city.setMovementMethod(new ScrollingMovementMethod());
@@ -131,13 +131,13 @@ public class CurrentActivity extends AppCompatActivity
                 JsonParser mWeatherParser = new JsonParser();
                 String mRawJson = mClient.getWeatherData(mFinalQuery);
                 if(mRawJson != null && !mRawJson.equals("")){
-                    mResultWeather = mWeatherParser.processWeatherFromJson(mRawJson);
-                    Bitmap test = mClient.getImage(mResultWeather.getmIconCode());
-                    Log.e("ServiceHandler", "mResultWeather.getmIconCode(): "+ mResultWeather.getmIconCode());
-                    mResultWeather.setmIcon(test);
+                    mResultWeatherForecastOneDay = mWeatherParser.processWeatherFromJson(mRawJson);
+                    Bitmap test = mClient.getImage(mResultWeatherForecastOneDay.getmIconCode());
+                    Log.e("ServiceHandler", "mResultWeatherForecastOneDay.getmIconCode(): "+ mResultWeatherForecastOneDay.getmIconCode());
+                    mResultWeatherForecastOneDay.setmIcon(test);
                 } else {
                     Log.e("ServiceHandler", "No data received from HTTP request");
-                    mResultWeather = new Weather();
+                    mResultWeatherForecastOneDay = new WeatherForecastOneDay();
                 }
             }
         });
@@ -147,7 +147,7 @@ public class CurrentActivity extends AppCompatActivity
             mNetworkThread.join();
         } catch (InterruptedException e) {
         }
-        assignWeatherValues(mResultWeather);
+        assignWeatherValues(mResultWeatherForecastOneDay);
         mDataTableLayout.setVisibility(View.VISIBLE);
     }
 
