@@ -4,62 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.p92rdi.extendedweathertitan.activity.ForecastActivity"
-    tools:showIn="@layout/app_bar_forecast"
     android:background="@color/colorPrimary"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:context="com.p92rdi.extendedweathertitan.activity.ForecastActivity"
+    tools:showIn="@layout/app_bar_forecast">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.3"
+        android:layout_weight="0.4"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvCity"
             style="@style/cityTextView5Days"
-            android:layout_weight="0.19"
-            android:maxLines="3"
-            android:singleLine="false" />
+            android:layout_weight="0.14" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.03"
-            android:gravity="start"
-            android:textColor="@color/textColor"
-            android:textStyle="bold" />
+            style="@style/gpsTextViewTheme"
+            android:layout_weight="0.03" />
 
         <TextView
             android:id="@+id/tvGPS_LON"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.06"
-            android:gravity="center"
+            style="@style/gpsCoordinatesTextViewTheme"
+            android:layout_weight="0.05"
             android:maxLines="2"
-            android:singleLine="false"
-            android:textColor="@color/textColor"
-            android:textStyle="italic" />
+            android:singleLine="false" />
 
         <TextView
             android:id="@+id/tvGPS_LAT"
-            style="@style/cityTextView5Days"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.06"
-            android:gravity="center"
+            style="@style/gpsCoordinatesTextViewTheme"
+            android:layout_weight="0.05"
             android:maxLines="2"
-            android:singleLine="false"
-            android:textColor="@color/textColor"
-            android:textStyle="italic" />
-
+            android:singleLine="false" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lv_forecast"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.7">
+        android:layout_weight="0.7"
+        android:paddingTop="42dp">
 
     </ListView>
 </LinearLayout>

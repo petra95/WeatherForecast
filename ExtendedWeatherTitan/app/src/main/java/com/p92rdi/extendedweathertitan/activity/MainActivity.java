@@ -27,12 +27,10 @@ public class MainActivity extends AppCompatActivity
 
     private SharedPreferences mSharedPreferences;
     private static final String FILE_NAME = "FileName";
-    private static final String SLOT1_KEY = "Slot1";
-    private static final String SLOT2_KEY = "Slot2";
-    private static final String SLOT3_KEY = "Slot3";
+    private static final String SLOT1_KEY = "Empty slot";
+    private static final String SLOT2_KEY = "Empty slot";
+    private static final String SLOT3_KEY = "Empty slot";
     private static final String SEARCH_KEY = "CityNameKey";
-   // private static final String[] SLOTS = new String[]{"slot1", "slot2", "slot3"};
-
 
     private String[] mSavedCities = new String[3];
     private String mActualCity;
@@ -53,9 +51,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         mSharedPreferences = getSharedPreferences(FILE_NAME, 0);
-        mSavedCities[0] = mSharedPreferences.getString(SLOT1_KEY, "slot1");
-        mSavedCities[1] = mSharedPreferences.getString(SLOT2_KEY, "slot2");
-        mSavedCities[2] = mSharedPreferences.getString(SLOT3_KEY, "slot3");
+        mSavedCities[0] = mSharedPreferences.getString(SLOT1_KEY, "Empty slot");
+        mSavedCities[1] = mSharedPreferences.getString(SLOT2_KEY, "Empty slot");
+        mSavedCities[2] = mSharedPreferences.getString(SLOT3_KEY, "Empty slot");
     }
 
     @Override
@@ -92,10 +90,9 @@ public class MainActivity extends AppCompatActivity
             } else if (id == R.id.about) {
 
             }
-        } else{
+        } else {
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -142,7 +139,7 @@ public class MainActivity extends AppCompatActivity
         builder.show();
     }
 
-    public void loadCityDialog(){
+    public void loadCityDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.load_dialog_title).setItems(mSavedCities, new DialogInterface.OnClickListener() {
             @Override
@@ -180,7 +177,7 @@ public class MainActivity extends AppCompatActivity
 
     public void saveActualCity(int index){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        switch (index){
+        switch (index) {
             case 0:
                 editor.putString(SLOT1_KEY, mActualCity);
                 break;

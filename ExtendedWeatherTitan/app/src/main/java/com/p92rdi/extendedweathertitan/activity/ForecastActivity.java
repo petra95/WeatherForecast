@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.FillingListAdapter;
@@ -31,6 +32,8 @@ import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
+import com.p92rdi.extendedweathertitan.model.Location;
+import com.p92rdi.extendedweathertitan.model.Weather;
 import com.p92rdi.extendedweathertitan.model.WeatherForecast;
 
 import org.json.JSONException;
@@ -39,16 +42,16 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForecastActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class ForecastActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String SEARCH_KEY = "CityNameKey";
 
     private WeatherForecast weatherForecast;
+    private Location location;
     private DailyForecast dailyForecast;
     private List<DailyForecast> fillings = new ArrayList<>();
     private ListView lv_forecast;
-    private String mCity = "Cegled";
+    private String mCity = "Budapest";
 
     public String getmCity() {
         return mCity;
@@ -65,7 +68,6 @@ public class ForecastActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -77,7 +79,6 @@ public class ForecastActivity extends AppCompatActivity
 
         lv_forecast = (ListView) findViewById(R.id.lv_forecast);
 
-       // JSONWeatherForecastTask task = new JSONWeatherForecastTask();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
@@ -103,7 +104,6 @@ public class ForecastActivity extends AppCompatActivity
         }
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -125,8 +125,9 @@ public class ForecastActivity extends AppCompatActivity
             } else if (id == R.id.settings) {
 
             } else if (id == R.id.about) {
+
             }
-        } else{
+        } else {
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
         }
 
@@ -140,7 +141,6 @@ public class ForecastActivity extends AppCompatActivity
 
         @Override
         protected WeatherForecast doInBackground(String... params) {
-            Looper.prepare();
             WeatherForecast weatherForecast = new WeatherForecast();
             String data = ((new HttpClient("forecast")).getWeatherData(params[0]));
             if(data != null && !data.equals("")) {
@@ -166,16 +166,25 @@ public class ForecastActivity extends AppCompatActivity
             ForecastActivity.this.weatherForecast = weatherForecast;
             displayData();
         }
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        JSONWeatherForecastTask task = new JSONWeatherForecastTask();
+        task.execute(mCity);
     }
 
     private void displayData() {
         //header
+        TextView tvCity = (TextView) findViewById(R.id.tvCity);
+        TextView tvGpsLon = (TextView) findViewById(R.id.tvGPS_LON);
+        TextView tvGpsLat = (TextView) findViewById(R.id.tvGPS_LAT);
+        tvCity.setText(weatherForecast.getmLocation().getmCity());
+
+        tvGpsLon.setText(String.valueOf(weatherForecast.getmLocation().getmLongitude()));
+        tvGpsLat.setText(String.valueOf(weatherForecast.getmLocation().getmLatitude()));
 
         //Filling listview
         Log.e("displayData()", weatherForecast.getmDays().toString());

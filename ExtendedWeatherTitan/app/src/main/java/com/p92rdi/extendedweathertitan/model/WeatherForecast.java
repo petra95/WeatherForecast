@@ -2,12 +2,13 @@ package com.p92rdi.extendedweathertitan.model;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class WeatherForecast extends AppCompatActivity {
+public class WeatherForecast{
 
     private Location mLocation;
     private List<Long> mDays;
@@ -46,10 +47,14 @@ public class WeatherForecast extends AppCompatActivity {
         for(Forecast forecast : mForecastsList){
             calendar.setTimeInMillis(forecast.getmDate());
             int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-            if(prevDay != currentDay){
+            Log.d("ExtendedWeatherTitan", "currentDay: " + currentDay);
+            if(prevDay != currentDay && mDays.size() < 5){
                 mDays.add(forecast.getmDate());
             }
             prevDay = currentDay;
         }
+
+        Log.d("ExtendedWeatherTitan", "mDays.size(): " + mDays.size());
     }
+
 }

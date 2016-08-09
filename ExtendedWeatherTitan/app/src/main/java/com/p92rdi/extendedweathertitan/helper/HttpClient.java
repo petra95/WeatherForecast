@@ -19,6 +19,8 @@ public class HttpClient {
     private static String BASE_URL_ID = "http://api.openweathermap.org/data/2.5/forecast?id=";
     private static String IMG_URL = "http://openweathermap.org/img/w/";
 
+    public HttpClient(){}
+
     public HttpClient(String url_day_type){
         BASE_URL_NAME += url_day_type + "?q=";
     }
@@ -80,6 +82,7 @@ public class HttpClient {
     }
 
     public Bitmap getImage(String code) {
+        code += ".png";
         HttpURLConnection con = null ;
         InputStream is = null;
 

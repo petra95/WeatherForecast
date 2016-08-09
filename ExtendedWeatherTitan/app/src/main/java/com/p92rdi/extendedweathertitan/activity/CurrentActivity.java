@@ -42,7 +42,6 @@ public class CurrentActivity extends AppCompatActivity
 
     private String[] mSavedCities = new String[3];
     private String mActualCity;
-
     private TableLayout mDataTableLayout;
     private HttpClient mClient;
     private Weather mResultWeather;
@@ -80,7 +79,6 @@ public class CurrentActivity extends AppCompatActivity
             } else {
                 Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
             }
-
         }
     }
 
@@ -105,13 +103,14 @@ public class CurrentActivity extends AppCompatActivity
             ImageView mImageView = (ImageView) findViewById(R.id.weatherImageView);
             mImageView.setImageBitmap(weatherData.getmIcon());
         }
+
         String city = weatherData.getmCity().concat(" " + weatherData.getmCountry());
         String degree = String.valueOf(weatherData.getmTemperature() - 273) + " C°";
         String description = weatherData.getmDescription();
         String minDeg = String.valueOf(weatherData.getmTempMin() - 273) + " C°";
         String maxDeg = String.valueOf(weatherData.getmTempMax() - 273) + " C°";
         String wind = String.valueOf(weatherData.getmWind()) + " m/s";
-        String huminity = String.valueOf(weatherData.getmHumidity()) + "%";
+        String humidity = String.valueOf(weatherData.getmHumidity()) + "%";
 
         tv_city.setText(city);
         tv_degree.setText(degree);
@@ -119,7 +118,7 @@ public class CurrentActivity extends AppCompatActivity
         tv_minDeg.setText(minDeg);
         tv_maxDeg.setText(maxDeg);
         tv_wind.setText(wind);
-        tv_humidity.setText(huminity);
+        tv_humidity.setText(humidity);
     }
 
     private void getWeather(String query) {
@@ -138,6 +137,7 @@ public class CurrentActivity extends AppCompatActivity
                 }
             }
         });
+
         mNetworkThread.start();
         try {
             mNetworkThread.join();
@@ -157,7 +157,6 @@ public class CurrentActivity extends AppCompatActivity
         }
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -171,7 +170,7 @@ public class CurrentActivity extends AppCompatActivity
             } else if (id == R.id.saveCity) {
                 saveActualCityDialog();
             } else if (id == R.id.search5) {
-                searchDialog();
+                //searchDialog();
             } else if (id == R.id.loadCity5) {
 
             } else if (id == R.id.saveCity5) {
@@ -180,9 +179,10 @@ public class CurrentActivity extends AppCompatActivity
 
             } else if (id == R.id.about) {
             }
-        } else{
+        } else {
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -207,6 +207,7 @@ public class CurrentActivity extends AppCompatActivity
                 dialogBuilder.dismiss();
             }
         });
+
         dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -215,7 +216,6 @@ public class CurrentActivity extends AppCompatActivity
         });
 
         dialogBuilder.show();
-
     }
 
     public void saveActualCityDialog(){
@@ -226,6 +226,7 @@ public class CurrentActivity extends AppCompatActivity
                 openDialog(index);
             }
         });
+
         builder.create();
         builder.show();
     }
@@ -242,6 +243,7 @@ public class CurrentActivity extends AppCompatActivity
                 }
             }
         });
+
         builder.create();
         builder.show();
     }
@@ -258,6 +260,7 @@ public class CurrentActivity extends AppCompatActivity
                         dialog.dismiss();
                     }
                 });
+
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -267,9 +270,9 @@ public class CurrentActivity extends AppCompatActivity
         alertDialog.show();
     }
 
-    public void saveActualCity(int index){
+    public void saveActualCity(int index) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        switch (index){
+        switch (index) {
             case 0:
                 editor.putString(SLOT1_KEY, mActualCity);
                 break;
@@ -284,7 +287,7 @@ public class CurrentActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState){
+    public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putString(SEARCH_KEY,mActualCity);
     }
@@ -298,7 +301,6 @@ public class CurrentActivity extends AppCompatActivity
         } else {
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
         }
-
     }
 
     private boolean isNetworkAvailable() {
