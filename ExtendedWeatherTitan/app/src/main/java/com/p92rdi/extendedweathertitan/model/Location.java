@@ -10,10 +10,6 @@ public class Location {
     private String mCity;
     private int mCityId;
 
-    public Location(){
-        mCity = "unkown";
-    }
-
     public float getmLongitude() {
         return mLongitude;
     }

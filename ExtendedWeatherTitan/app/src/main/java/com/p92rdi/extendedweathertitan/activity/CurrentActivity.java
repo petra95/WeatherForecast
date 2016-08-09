@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
@@ -29,8 +30,13 @@ import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
-import com.p92rdi.extendedweathertitan.helper.JsonParser;
+import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
+import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
 import com.p92rdi.extendedweathertitan.model.WeatherForecastOneDay;
+
+import org.json.JSONException;
+
+import java.text.ParseException;
 
 public class CurrentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -77,7 +83,7 @@ public class CurrentActivity extends AppCompatActivity
         if(bundle != null) {
             mActualCity = (String) bundle.get(SEARCH_KEY);
             if(isNetworkAvailable()) {
-                getWeather(mActualCity);
+                getWeatherForecastOneDay();
             } else {
                 Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
             }
@@ -124,31 +130,45 @@ public class CurrentActivity extends AppCompatActivity
         tv_humidity.setText(humidity);
     }
 
-    private void getWeather(String query) {
-        final String mFinalQuery = query.replace(" ", "%20");
-        Thread mNetworkThread = new Thread(new Runnable() {
-            public void run() {
-                JsonParser mWeatherParser = new JsonParser();
-                String mRawJson = mClient.getWeatherData(mFinalQuery);
-                if(mRawJson != null && !mRawJson.equals("")){
-                    mResultWeatherForecastOneDay = mWeatherParser.processWeatherFromJson(mRawJson);
-                    Bitmap test = mClient.getImage(mResultWeatherForecastOneDay.getmIconCode());
-                    Log.e("ServiceHandler", "mResultWeatherForecastOneDay.getmIconCode(): "+ mResultWeatherForecastOneDay.getmIconCode());
-                    mResultWeatherForecastOneDay.setmIcon(test);
-                } else {
-                    Log.e("ServiceHandler", "No data received from HTTP request");
-                    mResultWeatherForecastOneDay = new WeatherForecastOneDay();
-                }
-            }
-        });
+    private class JSONWeatherForecastTask extends AsyncTask<String, Void, WeatherForecastOneDay> {
 
-        mNetworkThread.start();
-        try {
-            mNetworkThread.join();
-        } catch (InterruptedException e) {
+        @Override
+        protected WeatherForecastOneDay doInBackground(String... params) {
+            WeatherForecastOneDay weatherForecastOneDay = new WeatherForecastOneDay();
+            HttpClient httpClient = new HttpClient("weather");
+            String mRawJson = httpClient.getWeatherData(params[0]);
+            Log.d("ServiceHandler", "data: " + mRawJson);
+            if(mRawJson != null && !mRawJson.equals("")) {
+                try {
+                    try {
+                        weatherForecastOneDay = JSONWeatherParser.getWeatherForecastOneDay(mRawJson);
+                        Bitmap test = httpClient.getImage(weatherForecastOneDay.getmIconCode());
+                        weatherForecastOneDay.setmIcon(test);
+                        Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastOneDay);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.d("ServiceHandler", "No data received from HTTP request");
+                weatherForecastOneDay = new WeatherForecastOneDay();
+            }
+            return weatherForecastOneDay;
         }
-        assignWeatherValues(mResultWeatherForecastOneDay);
-        mDataTableLayout.setVisibility(View.VISIBLE);
+
+        @Override
+        protected void onPostExecute(WeatherForecastOneDay weatherForecastOneDay) {
+            super.onPostExecute(weatherForecastOneDay);
+            Log.d("ServiceHandler", "weatherForecastOneDay: " + weatherForecastOneDay);
+            if(weatherForecastOneDay != null) {
+                CurrentActivity.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
+                assignWeatherValues(mResultWeatherForecastOneDay);
+                mDataTableLayout.setVisibility(View.VISIBLE);
+            }
+
+        }
     }
 
     @Override
@@ -192,6 +212,13 @@ public class CurrentActivity extends AppCompatActivity
         return true;
     }
 
+    public void getWeatherForecastOneDay(){
+        mActualCity = mActualCity.replace(" ", "");
+        if(!mActualCity.equals("")) {
+            new JSONWeatherForecastTask().execute(mActualCity);
+        }
+    }
+
     public void searchDialog(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
@@ -205,10 +232,9 @@ public class CurrentActivity extends AppCompatActivity
         dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Search", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String mCityName = editText.getText().toString();
-                mActualCity = mCityName;
-                getWeather(mCityName);
+                mActualCity = editText.getText().toString();
                 dialogBuilder.dismiss();
+                getWeatherForecastOneDay();
             }
         });
 
@@ -224,8 +250,8 @@ public class CurrentActivity extends AppCompatActivity
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     String mCityName = editText.getText().toString();
                     mActualCity = mCityName;
-                    getWeather(mCityName);
                     dialogBuilder.dismiss();
+                    getWeatherForecastOneDay();
                     return true;
                 }
                 return false;
@@ -254,7 +280,7 @@ public class CurrentActivity extends AppCompatActivity
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(!mSavedCities[i].equals("slot" + (i+1))){
                     mActualCity = mSavedCities[i];
-                    getWeather(mActualCity);
+                    getWeatherForecastOneDay();
                 }
             }
         });
@@ -312,7 +338,7 @@ public class CurrentActivity extends AppCompatActivity
         super.onRestoreInstanceState(savedInstanceState);
         mActualCity = savedInstanceState.getString(SEARCH_KEY);
         if(isNetworkAvailable()) {
-            getWeather(mActualCity);
+            getWeatherForecastOneDay();
         } else {
             Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
         }

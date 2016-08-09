@@ -6,6 +6,7 @@ import com.p92rdi.extendedweathertitan.model.Forecast;
 import com.p92rdi.extendedweathertitan.model.Location;
 import com.p92rdi.extendedweathertitan.model.WeatherCondition;
 import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
+import com.p92rdi.extendedweathertitan.model.WeatherForecastOneDay;
 import com.p92rdi.extendedweathertitan.model.Wind;
 
 import org.json.JSONArray;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class JSONWeatherParser {
 
-    public static WeatherForecastFiveDays getWeatherForecast(String data) throws JSONException, ParseException {
+    public static WeatherForecastFiveDays getWeatherForecastFiveDays(String data) throws JSONException, ParseException {
         JSONObject jRoot = new JSONObject(data);
 
         String cod = getString("cod", jRoot);
@@ -92,6 +93,31 @@ public class JSONWeatherParser {
 
         return weatherForecastFiveDays;
     }
+
+    public static WeatherForecastOneDay getWeatherForecastOneDay(String data)  throws JSONException, ParseException {
+        try {
+            JSONObject jRoot = new JSONObject(data);
+            WeatherForecastOneDay mProducedWeatherForecastOneDay = new WeatherForecastOneDay();
+
+            mProducedWeatherForecastOneDay.setmCityId(jRoot.getInt("id"));
+            mProducedWeatherForecastOneDay.setmCountry(jRoot.getJSONObject("sys").getString("country"));
+            mProducedWeatherForecastOneDay.setmDescription(jRoot.getJSONArray("weather").getJSONObject(0).getString("description"));
+            mProducedWeatherForecastOneDay.setmIconCode(jRoot.getJSONArray("weather").getJSONObject(0).getString("icon"));
+            mProducedWeatherForecastOneDay.setmTemperature(jRoot.getJSONObject("main").getInt("temp"));
+            mProducedWeatherForecastOneDay.setmHumidity(jRoot.getJSONObject("main").getInt("humidity"));
+            mProducedWeatherForecastOneDay.setmTempMin(jRoot.getJSONObject("main").getInt("temp_min"));
+            mProducedWeatherForecastOneDay.setmTempMax(jRoot.getJSONObject("main").getInt("temp_max"));
+            mProducedWeatherForecastOneDay.setmWind(jRoot.getJSONObject("wind").getInt("speed"));
+            mProducedWeatherForecastOneDay.setmCity(jRoot.getString("name"));
+
+            return mProducedWeatherForecastOneDay;
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+            return new WeatherForecastOneDay();
+        }
+    }
+
 
 
     private static JSONObject getObject(String tagName, JSONObject jObj)  throws JSONException {

@@ -19,10 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.p92rdi.extendedweathertitan.R;
-import com.p92rdi.extendedweathertitan.helper.ExtendedWeatherTitanConstans;
-import com.p92rdi.extendedweathertitan.model.Forecast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         mSharedPreferences = getSharedPreferences(FILE_NAME, 0);
-        mSavedCities[0] = mSharedPreferences.getString(SLOT1_KEY, "Empty slot");
+        mSavedCities[0] = mSharedPreferences.getString(SLOT1_KEY, "");
         mSavedCities[1] = mSharedPreferences.getString(SLOT2_KEY, "Empty slot");
         mSavedCities[2] = mSharedPreferences.getString(SLOT3_KEY, "Empty slot");
         /*
@@ -109,6 +106,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     public void searchDialog(final Intent intent){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();

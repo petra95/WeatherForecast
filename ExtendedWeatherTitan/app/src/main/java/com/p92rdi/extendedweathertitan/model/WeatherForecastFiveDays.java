@@ -16,7 +16,6 @@ public class WeatherForecastFiveDays {
 
     public WeatherForecastFiveDays() {
         mDays = new ArrayList<>();
-        mLocation = new Location();
     }
 
     public Location getmLocation() {

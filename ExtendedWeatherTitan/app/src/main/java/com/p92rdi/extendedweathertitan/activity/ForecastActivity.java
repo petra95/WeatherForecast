@@ -139,12 +139,13 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         @Override
         protected WeatherForecastFiveDays doInBackground(String... params) {
             WeatherForecastFiveDays weatherForecastFiveDays = new WeatherForecastFiveDays();
-            String data = ((new HttpClient("forecast")).getWeatherData(params[0]));
-            Log.d("ServiceHandler", "data: " + data);
-            if(data != null && !data.equals("")) {
+            String mRawJson = ((new HttpClient("forecast")).getWeatherData(params[0]));
+            Log.d("ServiceHandler", "data: " + mRawJson);
+            if(mRawJson != null && !mRawJson.equals("")) {
                 try {
                     try {
-                        weatherForecastFiveDays = JSONWeatherParser.getWeatherForecast(data);
+                        weatherForecastFiveDays = JSONWeatherParser.getWeatherForecastFiveDays(mRawJson);
+                        Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastFiveDays);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -161,19 +162,17 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         @Override
         protected void onPostExecute(WeatherForecastFiveDays weatherForecastFiveDays) {
             super.onPostExecute(weatherForecastFiveDays);
-            ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
-            displayData();
+            Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastFiveDays);
+            if(weatherForecastFiveDays != null) {
+                ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
+                displayData();
+            }
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        /*if(!mCity.equals("unknown")) {
-            JSONWeatherForecastTask task = new JSONWeatherForecastTask();
-            task.execute(mCity);
-        }*/
     }
 
     private void displayData() {
@@ -230,6 +229,13 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
+    public void getWeatherForecastFiveDays(){
+        mCity = mCity.replace(" ", "");
+        Log.d("ServiceHandler", "cityName: " + mCity);
+        if(!mCity.equals("")) {
+            new JSONWeatherForecastTask().execute(mCity);
+        }
+    }
 
     public void searchDialog(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
@@ -244,9 +250,9 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Search", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mCity = editText.getText().toString();;
-                new JSONWeatherForecastTask().execute(mCity);
+                mCity = editText.getText().toString();
                 dialogBuilder.dismiss();
+                getWeatherForecastFiveDays();
             }
         });
         dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
@@ -259,8 +265,7 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
             @Override
             public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    mCity = editText.getText().toString();;
-                    new JSONWeatherForecastTask().execute(mCity);
+                    mCity = editText.getText().toString();
                     dialogBuilder.dismiss();
                     return true;
                 }
@@ -268,6 +273,5 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
             }
         }));
         dialogBuilder.show();
-
     }
 }

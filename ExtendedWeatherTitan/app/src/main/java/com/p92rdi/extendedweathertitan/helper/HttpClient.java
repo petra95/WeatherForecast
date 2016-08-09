@@ -28,7 +28,7 @@ public class HttpClient {
     public String getWeatherData(String cityName) {
         HttpURLConnection mConnection = null;
         InputStream mInputStream = null;
-
+        Log.d("Servicehandler", "BASE_URL_NAME + cityName + API_KEY: " + BASE_URL_NAME + cityName + API_KEY);
         try {
             mConnection = (HttpURLConnection) (new URL(BASE_URL_NAME + cityName + API_KEY)).openConnection();
             mConnection.setRequestMethod("GET");
