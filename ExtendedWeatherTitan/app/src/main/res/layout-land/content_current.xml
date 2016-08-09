@@ -13,18 +13,22 @@
     tools:context=".activity.CurrentActivity"
     tools:showIn="@layout/app_bar_current">
 
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
         android:orientation="vertical">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" >
         <TextView
             android:id="@+id/cityTextView"
             style="@style/mainTextViewTheme"
             android:paddingEnd="25dp"
             android:paddingStart="@dimen/activity_horizontal_margin" />
-
+        </LinearLayout>
         <ImageView
             android:id="@+id/weatherImageView"
             android:layout_width="76dp"
@@ -42,6 +46,8 @@
             style="@style/descriptionTextViewThem"
             android:paddingLeft="16dp" />
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="0dp"

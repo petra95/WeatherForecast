@@ -1,4 +1,4 @@
-package com.p92rdi.extendedweathertitan;
+package com.p92rdi.extendedweathertitan.helper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
 
 import java.io.InputStream;
@@ -78,12 +79,12 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
         if (newItem.getmTemperatureNight() == 0){
             holder.nightTempTextView5.setText(R.string.past);
         }else{
-            holder.nightTempTextView5.setText(String.format("%.1f",newItem.getmTemperatureNight()-273.15) + "°C");
+            holder.nightTempTextView5.setText(String.format("%.1f",newItem.getmTemperatureNight()) + "°C");
         }
         if (newItem.getmTemperatureDay() == 0){
             holder.dayTempTextView5.setText(R.string.past);
         }else{
-            holder.dayTempTextView5.setText(String.format("%.1f", newItem.getmTemperatureDay()-273.15) + "°C");
+            holder.dayTempTextView5.setText(String.format("%.1f", newItem.getmTemperatureDay()) + "°C");
         }
         holder.tvNightDescription.setText(newItem.getmDescriptionNight());
         holder.tvDayDescription.setText(newItem.getmDescriptionDay());

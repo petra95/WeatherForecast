@@ -21,6 +21,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
+<<<<<<< HEAD
+=======
+import com.p92rdi.extendedweathertitan.helper.ExtendedWeatherTitanConstans;
+import com.p92rdi.extendedweathertitan.model.Forecast;
+>>>>>>> 841660f480980a26a2877ebf0633e3fa10d41f4d
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,6 +66,8 @@ public class MainActivity extends AppCompatActivity
         mSavedCities5[1] = mSharedPreferences.getString(SLOT2_KEY, "Empty slot");
         mSavedCities5[2] = mSharedPreferences.getString(SLOT3_KEY, "Empty slot");
         */
+
+        //ExtendedWeatherTitanConstans.SharedPrefKeys.SLOT1;
     }
 
     @Override
@@ -79,7 +86,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if(isNetworkAvailable()){
             if (id == R.id.search) {
-                Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
+                Intent intent = new Intent(this, CurrentActivity.class);
                 searchDialog(intent);
             } else if (id == R.id.loadCity) {
                 loadCityDialog();
@@ -120,8 +127,10 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialogInterface, int i) {
                 String mCityName = editText.getText().toString();
                 mActualCity = mCityName;
-                intent.putExtra(SEARCH_KEY, mCityName);
-                startActivity(intent);
+                if(!mActualCity.equals("")){
+                    intent.putExtra(SEARCH_KEY, mCityName);
+                    startActivity(intent);
+                }
                 dialogBuilder.dismiss();
             }
         });
@@ -137,9 +146,10 @@ public class MainActivity extends AppCompatActivity
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     String mCityName = editText.getText().toString();
                     mActualCity = mCityName;
-                    Intent intent = new Intent(MainActivity.this, CurrentActivity.class);
-                    intent.putExtra(SEARCH_KEY, mCityName);
-                    startActivity(intent);
+                    if(!mActualCity.equals("")){
+                        intent.putExtra(SEARCH_KEY, mCityName);
+                        startActivity(intent);
+                    }
                     dialogBuilder.dismiss();
                     return true;
                 }

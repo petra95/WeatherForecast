@@ -5,7 +5,7 @@ import com.p92rdi.extendedweathertitan.model.Clouds;
 import com.p92rdi.extendedweathertitan.model.Forecast;
 import com.p92rdi.extendedweathertitan.model.Location;
 import com.p92rdi.extendedweathertitan.model.WeatherCondition;
-import com.p92rdi.extendedweathertitan.model.WeatherForecast;
+import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
 import com.p92rdi.extendedweathertitan.model.Wind;
 
 import org.json.JSONArray;
@@ -19,10 +19,15 @@ import java.util.ArrayList;
  */
 public class JSONWeatherParser {
 
-    public static WeatherForecast getWeather(String data) throws JSONException, ParseException {
+    public static WeatherForecastFiveDays getWeatherForecast(String data) throws JSONException, ParseException {
         JSONObject jRoot = new JSONObject(data);
-        //not found city
-        WeatherForecast weatherForecast = new WeatherForecast();
+
+        String cod = getString("cod", jRoot);
+        if(!cod.equals("200")){
+            return null;
+        }
+
+        WeatherForecastFiveDays weatherForecastFiveDays = new WeatherForecastFiveDays();
         Location location = new Location();
         ArrayList<Forecast> forecasts = new ArrayList<>();
 
@@ -82,10 +87,10 @@ public class JSONWeatherParser {
             forecasts.add(forecast);
         }
 
-        weatherForecast.setmLocation(location);
-        weatherForecast.setmForecastsList(forecasts);
+        weatherForecastFiveDays.setmLocation(location);
+        weatherForecastFiveDays.setmForecastsList(forecasts);
 
-        return weatherForecast;
+        return weatherForecastFiveDays;
     }
 
 

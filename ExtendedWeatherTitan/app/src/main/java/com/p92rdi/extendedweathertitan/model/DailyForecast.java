@@ -2,18 +2,12 @@ package com.p92rdi.extendedweathertitan.model;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Looper;
 import android.util.Log;
 
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
-import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 
-import org.json.JSONException;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -31,8 +25,8 @@ public class DailyForecast {
     private Bitmap mIconDay;
     private Bitmap mIconNight;
 
-    public DailyForecast(WeatherForecast weatherForecast, long date){
-        ArrayList<Forecast> forecastsList = new ArrayList<>(weatherForecast.getmForecastsList());
+    public DailyForecast(WeatherForecastFiveDays weatherForecastFiveDays, long date){
+        ArrayList<Forecast> forecastsList = new ArrayList<>(weatherForecastFiveDays.getmForecastsList());
         mDate = date;
 
         Calendar calendar = Calendar.getInstance();

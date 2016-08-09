@@ -2,7 +2,7 @@ package com.p92rdi.extendedweathertitan.model;
 
 import android.graphics.Bitmap;
 
-public class Weather {
+public class WeatherForecastOneDay {
     private int mCityId;
     private String mCity;
     private String mCountry;
@@ -15,7 +15,7 @@ public class Weather {
     private int mHumidity;
     private int mWind;
 
-    public Weather() {
+    public WeatherForecastOneDay() {
 
         mCityId = -1;
         mCity = "Unknown Settlement!";

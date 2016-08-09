@@ -19,6 +19,8 @@
             android:id="@+id/tvCity"
             style="@style/cityTextView5Days"
             android:layout_weight="0.4"
+            android:maxLines="3"
+            android:scrollbars="vertical"
             android:paddingTop="50dp" />
 
         <TextView

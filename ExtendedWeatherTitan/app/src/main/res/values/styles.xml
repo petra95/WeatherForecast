@@ -79,7 +79,7 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:maxLines">3</item>
-        <item name="android:singleLine">false</item>
+        <item name="android:scrollbars">vertical</item>
     </style>
 
     <style name="gpsTextViewTheme">

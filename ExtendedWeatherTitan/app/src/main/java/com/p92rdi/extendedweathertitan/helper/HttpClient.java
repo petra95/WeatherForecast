@@ -22,7 +22,7 @@ public class HttpClient {
     public HttpClient(){}
 
     public HttpClient(String url_day_type){
-        BASE_URL_NAME += url_day_type + "?q=";
+        BASE_URL_NAME += url_day_type + "?units=metric&q=";
     }
 
     public String getWeatherData(String cityName) {
