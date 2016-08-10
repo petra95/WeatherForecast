@@ -7,14 +7,9 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
@@ -22,7 +17,7 @@ import com.p92rdi.extendedweathertitan.helper.JsonParser;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 import com.p92rdi.extendedweathertitan.model.WeatherForecastOneDay;
 
-public class CurrentActivity extends LoadAndSaveMenuActivity {
+public class CurrentActivity extends MenuBarActivity {
 
     private TableLayout mDataTableLayout;
     private HttpClient mClient;
@@ -39,6 +34,7 @@ public class CurrentActivity extends LoadAndSaveMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current);
+        navigationMenu(this);
         init();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

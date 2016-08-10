@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 
-public class LoadAndSaveMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MenuBarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected String mActualCity;
 
@@ -30,17 +30,21 @@ public class LoadAndSaveMenuActivity extends AppCompatActivity implements Naviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        navigationMenu(this);
+
+    }
+    protected void navigationMenu(MenuBarActivity activity) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                activity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(activity);
 
     }
 
@@ -52,11 +56,6 @@ public class LoadAndSaveMenuActivity extends AppCompatActivity implements Naviga
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -93,7 +92,7 @@ public class LoadAndSaveMenuActivity extends AppCompatActivity implements Naviga
         return true;
     }
 
-    private boolean isNetworkAvailable() {
+    protected boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
