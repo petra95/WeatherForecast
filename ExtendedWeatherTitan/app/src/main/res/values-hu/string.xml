@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title">Időjárás-előrejelzés applikáció</string>
+    <string name="nav_title">Időjárás-előrejelzés</string>
+    <string name="actual">Aktuális időjárás</string>
+    <string name="five_day">5 napos előrejelzés</string>
+    <string name="more">Továbbiak</string>
+    <string name="search_city">Város keresése</string>
+    <string name="load">Város betöltése</string>
+    <string name="save">Város mentése</string>
+    <string name="setting">Beállítások</string>
+    <string name="about">Információ</string>
+
+    <string name="dialog_title">Figyelem</string>
+    <string name="add_city">Adjon meg egy várost!</string>
+    <string name="dialog_message">Biztosan menteni szeretné a várost?</string>
+    <string name="ok">MENTÉS</string>
+    <style name="cap_search">KERESÉS</style>
+    <string name="cancel">MÉGSE</string>
+
+    <string name="min">Minimum</string>
+    <string name="max">Maximum</string>
+    <string name="wind">Szélerősség</string>
+    <string name="hum">Páratartalom</string>
+    <string name="search">Keresés</string>
+
+    <string name="empty">Üres</string>
+    <string name="internet">Nincs kapcsolat!</string>
+    <string name="nothing">Nincs mit menteni!</string>
+
+    <string name="gps">GPS koordináták:</string>
+    <string name="forecast">A várható időjárás:</string>
+    <string name="celsius">°C</string>
+    <string name="past">Elmúlt</string>
+
+    <string name="save_dialog_title">Mentés</string>
+    <string name="load_dialog_title">Betöltés</string>
+    <string name="title_activity_current2">CurrentActivity2</string>
+    <string name="title_activity_forecast">ForecastActivity</string>
+</resources>

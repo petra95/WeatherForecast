@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -44,6 +45,8 @@ public class MainActivity extends HistorySharedPreferences
     private String[] mSavedCities5 = new String[3];
     private String mActualCity;
 
+    private Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,7 @@ public class MainActivity extends HistorySharedPreferences
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         mSharedPreferences = getSharedPreferences(FILE_NAME, 0);
         mSavedCities[0] = mSharedPreferences.getString(SLOT1_KEY, "");
         mSavedCities[1] = mSharedPreferences.getString(SLOT2_KEY, "Empty slot");
@@ -70,6 +74,10 @@ public class MainActivity extends HistorySharedPreferences
         */
 
         //ExtendedWeatherTitanConstans.SharedPrefKeys.SLOT1;
+
+        String locale = this.getResources().getConfiguration().locale.getDisplayName();
+
+        button = (Button) findViewById(R.id.historyButton);
     }
 
     @Override
@@ -254,6 +262,11 @@ public class MainActivity extends HistorySharedPreferences
         super.onResume();
         retrieveSearchedCitiesNames();
         loadHistory();
+    }
+
+    public void clearHistory(View view) {
+        super.clearHistory();
+        super.loadHistory();
     }
 }
 

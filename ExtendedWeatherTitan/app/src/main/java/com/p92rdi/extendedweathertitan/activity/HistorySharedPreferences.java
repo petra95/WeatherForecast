@@ -47,6 +47,10 @@ public class HistorySharedPreferences extends AppCompatActivity{
         listView.setAdapter(adapter);
     }
 
+    public void clearHistory(){
+        searchedCities.clear();
+    }
+
     public ArrayList<String> getSearchedCities(){
         return searchedCities;
     }

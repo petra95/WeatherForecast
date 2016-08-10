@@ -37,7 +37,6 @@
             style="@style/degreeTextViewTheme" />
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/descriptionTextView"
         style="@style/descriptionTextViewThem" />

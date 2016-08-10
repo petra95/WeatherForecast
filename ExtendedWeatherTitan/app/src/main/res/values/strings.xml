@@ -4,37 +4,43 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="search">Search City</string>
+    <string name="nav_title">Weather Forecast</string>
+    <string name="actual">Actual Weather</string>
+    <string name="five_day">5 Days Forecast</string>
+    <string name="more">More</string>
+    <string name="search_city">Search City</string>
     <string name="load">Load City</string>
     <string name="save">Save City</string>
+    <string name="setting">Settings</string>
+    <string name="about">About</string>
+
     <string name="dialog_title">Warning</string>
+    <string name="add_city">Enter City name</string>
     <string name="dialog_message">Do you want to save this city?</string>
     <string name="ok">SAVE</string>
-    <string name="cancel">CANCEL</string>
-    <string name="gps">GPS coordinates:</string>
+    <style name="cap_search">SEARCH</style>
+    <string name="cancel">"Cancel"</string>
 
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>
     <string name="wind">Wind force</string>
     <string name="hum">Humidity</string>
-    <string name="searchButton">Search</string>
-    <string name="searchable">Searchable</string>
-    <string name="menu_search">Search</string>
-    <string name="searchable_hint">Search</string>
-    <string name="slot1_load_title">load_slot1_empty</string>
-    <string name="slot1_save_title">save_slot1</string>
-    <string name="slot2_load_title">load_slot2_empty</string>
-    <string name="slot2_save_title">save_slot2</string>
-    <string name="slot3_load_title">load_slot3_empty</string>
-    <string name="slot3_save_title">save_slot3</string>
-    <string name="dialog_search">Search</string>
+    <string name="search">Search</string>
+
+    <string name="empty">Empty slot</string>
+    <string name="internet">Internet is not available!</string>
+    <string name="nothing">Nothing to save!</string>
+
+    <string name="gps">GPS coordinates:</string>
+    <string name="forecast">The expected weather:</string>
     <string name="celsius">°C</string>
     <string name="past">This is the past</string>
+
     <string name="save_dialog_title">Save</string>
     <string name="load_dialog_title">Load</string>
-    <string name="title_activity_current2">CurrentActivity2</string>
+
     <string name="action_settings">Settings</string>
-    <string name="title_activity_forecast">ForecastActivity</string>
     <string name="history">Browser History</string>
+    <string name="clear">Clear history</string>
 
 </resources>

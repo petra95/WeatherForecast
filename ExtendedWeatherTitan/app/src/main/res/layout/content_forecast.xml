@@ -12,38 +12,56 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.49"
+        android:layout_weight="0.5"
+        android:background="@drawable/picture2"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvCity"
             style="@style/cityTextView5Days"
-            android:layout_weight="0.4"
-            android:maxLines="3"
-            android:scrollbars="vertical"
-            android:paddingTop="50dp" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:paddingTop="30dp" />
 
         <TextView
             style="@style/gpsTextViewTheme"
-            android:layout_weight="0.1" />
+            android:layout_weight="0.2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"
+            android:paddingStart="20dp">
+
+            <TextView
+                android:id="@+id/tvGPS_LON"
+                style="@style/gpsCoordinatesTextViewTheme"
+                android:layout_weight="0.3"
+                android:gravity="start"/>
+
+            <TextView
+                android:id="@+id/tvGPS_LAT"
+                style="@style/gpsCoordinatesTextViewTheme"
+                android:layout_weight="0.3"
+                android:gravity="start"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvGPS_LON"
-            style="@style/gpsCoordinatesTextViewTheme"
-            android:layout_weight="0.15" />
-
-        <TextView
-            android:id="@+id/tvGPS_LAT"
-            style="@style/gpsCoordinatesTextViewTheme"
-            android:layout_weight="0.15" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:paddingTop="8dp"
+            android:text="@string/forecast"
+            android:textColor="@color/textColor"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lv_forecast"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.75">
-
+        android:layout_weight="0.78">
     </ListView>
 </LinearLayout>
 

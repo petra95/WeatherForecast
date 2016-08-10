@@ -23,12 +23,11 @@
         </activity>
         <activity
             android:name=".activity.CurrentActivity"
-            android:label="Actual Weather"
-            />
+            android:label="@string/actual" />
         <activity
             android:name=".activity.ForecastActivity"
-            android:label="@string/title_activity_forecast"
-            android:configChanges="orientation"/>
+            android:configChanges="orientation"
+            android:label="@string/five_day" />
     </application>
 
 </manifest>

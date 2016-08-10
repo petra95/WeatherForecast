@@ -1,0 +1,162 @@
+[1mdiff --git a/ExtendedWeatherTitan/app/src/main/java/com/p92rdi/extendedweathertitan/FillingListAdapter.java b/ExtendedWeatherTitan/app/src/main/java/com/p92rdi/extendedweathertitan/FillingListAdapter.java[m
+[1mdeleted file mode 100644[m
+[1mindex 5402268..0000000[m
+[1m--- a/ExtendedWeatherTitan/app/src/main/java/com/p92rdi/extendedweathertitan/FillingListAdapter.java[m
+[1m+++ /dev/null[m
+[36m@@ -1,120 +0,0 @@[m
+[31m-package com.p92rdi.extendedweathertitan;[m
+[31m-[m
+[31m-import android.content.Context;[m
+[31m-import android.graphics.Bitmap;[m
+[31m-import android.graphics.BitmapFactory;[m
+[31m-import android.graphics.drawable.Drawable;[m
+[31m-import android.util.Log;[m
+[31m-import android.view.LayoutInflater;[m
+[31m-import android.view.View;[m
+[31m-import android.view.ViewGroup;[m
+[31m-import android.widget.ArrayAdapter;[m
+[31m-import android.widget.ImageView;[m
+[31m-import android.widget.TextView;[m
+[31m-[m
+[31m-import com.p92rdi.extendedweathertitan.model.DailyForecast;[m
+[31m-[m
+[31m-import java.io.InputStream;[m
+[31m-import java.net.URL;[m
+[31m-import java.text.DateFormat;[m
+[31m-import java.text.SimpleDateFormat;[m
+[31m-import java.util.Calendar;[m
+[31m-import java.util.Date;[m
+[31m-import java.util.List;[m
+[31m-import java.util.Locale;[m
+[31m-import java.util.logging.Logger;[m
+[31m-[m
+[31m-/**[m
+[31m- * Created by antalicsp on 2016. 08. 03..[m
+[31m- */[m
+[31m-public class FillingListAdapter extends ArrayAdapter<DailyForecast> {[m
+[31m-[m
+[31m-    private List<DailyForecast> fillings;[m
+[31m-    private LayoutInflater inflater;[m
+[31m-[m
+[31m-    public FillingListAdapter(Context context, List<DailyForecast> fillings) {[m
+[31m-        super(context, R.layout.list_forecast, fillings);[m
+[31m-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);[m
+[31m-        this.fillings = fillings;[m
+[31m-    }[m
+[31m-[m
+[31m-    @Override[m
+[31m-    public int getCount() {[m
+[31m-        return fillings.size();[m
+[31m-    }[m
+[31m-[m
+[31m-    @Override[m
+[31m-    public DailyForecast getItem(int position) {[m
+[31m-        return fillings.get(position);[m
+[31m-    }[m
+[31m-[m
+[31m-    @Override[m
+[31m-    public long getItemId(int position) {[m
+[31m-        return position;[m
+[31m-    }[m
+[31m-[m
+[31m-    @Override[m
+[31m-    public View getView(int position, View convertView, ViewGroup parent) {[m
+[31m-        Holder holder;[m
+[31m-        if (convertView == null) {[m
+[31m-            convertView = inflater.inflate(R.layout.list_forecast, parent, false);[m
+[31m-            holder = new Holder();[m
+[31m-            holder.tvDate = (TextView) convertView.findViewById(R.id.tvDate);[m
+[31m-            holder.nightTempTextView5 = (TextView) convertView.findViewById(R.id.nightDegTextView5);[m
+[31m-            holder.nightImageView = (ImageView) convertView.findViewById(R.id.nightImageView);[m
+[31m-            holder.tvNightDescription = (TextView) convertView.findViewById(R.id.tvNightDescription);[m
+[31m-            holder.dayTempTextView5 = (TextView) convertView.findViewById(R.id.dayDegTextView5);[m
+[31m-            holder.dayImageView = (ImageView) convertView.findViewById(R.id.dayImageView);[m
+[31m-            holder.tvDayDescription = (TextView) convertView.findViewById(R.id.tvDayDescription);[m
+[31m-            convertView.setTag(holder);[m
+[31m-        } else {[m
+[31m-            holder = (Holder) convertView.getTag();[m
+[31m-        }[m
+[31m-        DailyForecast newItem = getItem(position);[m
+[31m-[m
+[31m-        SimpleDateFormat myFormat = new SimpleDateFormat( "d/M/yyyy EEEE");[m
+[31m-[m
+[31m-        holder.tvDate.setText(myFormat.format(new Date(newItem.getmDate())));[m
+[31m-        if (newItem.getmTemperatureNight() == 0){[m
+[31m-            holder.nightTempTextView5.setText(R.string.past);[m
+[31m-        }else{[m
+[31m-            holder.nightTempTextView5.setText(String.format("%.1f",newItem.getmTemperatureNight()) + "°C");[m
+[31m-        }[m
+[31m-        if (newItem.getmTemperatureDay() == 0){[m
+[31m-            holder.dayTempTextView5.setText(R.string.past);[m
+[31m-        }else{[m
+[31m-            holder.dayTempTextView5.setText(String.format("%.1f", newItem.getmTemperatureDay()) + "°C");[m
+[31m-        }[m
+[31m-        holder.tvNightDescription.setText(newItem.getmDescriptionNight());[m
+[31m-        holder.tvDayDescription.setText(newItem.getmDescriptionDay());[m
+[31m-[m
+[31m-        /*if (weather.iconData != null && weather.iconData.length > 0) {[m
+[31m-            Bitmap img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length);[m
+[31m-            holder.nightImageView.setImageBitmap(img);[m
+[31m-        }*/[m
+[31m-[m
+[31m-        if (newItem.getmIconDay() != null ) {[m
+[31m-            holder.dayImageView.setImageBitmap(newItem.getmIconDay());[m
+[31m-        } else {[m
+[31m-            Log.d("ExtendedWeatherTitan","FillingListAdapter / No day icon");[m
+[31m-        }[m
+[31m-[m
+[31m-        if (newItem.getmIconNight() != null ) {[m
+[31m-            holder.nightImageView.setImageBitmap(newItem.getmIconNight());[m
+[31m-        } else {[m
+[31m-            Log.d("ExtendedWeatherTitan","FillingListAdapter / No night icon");[m
+[31m-        }[m
+[31m-[m
+[31m-        return convertView;[m
+[31m-    }[m
+[31m-[m
+[31m-    public class Holder {[m
+[31m-        TextView tvDate;[m
+[31m-        ImageView nightImageView;[m
+[31m-        TextView nightTempTextView5;[m
+[31m-        TextView dayTempTextView5;[m
+[31m-        ImageView dayImageView;[m
+[31m-        TextView tvNightDescription;[m
+[31m-        TextView tvDayDescription;[m
+[31m-    }[m
+[31m-}[m
+[1mdiff --git a/ExtendedWeatherTitan/app/src/main/java/com/p92rdi/extendedweathertitan/activity/ForecastActivity.java b/ExtendedWeatherTitan/app/src/main/java/com/p92rdi/extendedweathertitan/activity/ForecastActivity.java[m
+[1mindex 414bf4e..44c6b27 100644[m
+[1m--- a/ExtendedWeatherTitan/app/src/main/java/com/p92rdi/extendedweathertitan/activity/ForecastActivity.java[m
+[1m+++ b/ExtendedWeatherTitan/app/src/main/java/com/p92rdi/extendedweathertitan/activity/ForecastActivity.java[m
+[36m@@ -7,9 +7,6 @@[m [mimport android.net.ConnectivityManager;[m
+ import android.net.NetworkInfo;[m
+ import android.os.AsyncTask;[m
+ import android.os.Bundle;[m
+[31m-import android.os.Looper;[m
+[31m-import android.support.design.widget.FloatingActionButton;[m
+[31m-import android.support.design.widget.Snackbar;[m
+ import android.support.v7.app.AlertDialog;[m
+ import android.text.method.ScrollingMovementMethod;[m
+ import android.util.Log;[m
+[36m@@ -22,20 +19,18 @@[m [mimport android.support.v4.widget.DrawerLayout;[m
+ import android.support.v7.app.ActionBarDrawerToggle;[m
+ import android.support.v7.app.AppCompatActivity;[m
+ import android.support.v7.widget.Toolbar;[m
+[31m-import android.view.Menu;[m
+ import android.view.MenuItem;[m
+ import android.widget.EditText;[m
+ import android.widget.ListView;[m
+ import android.widget.TextView;[m
+ import android.widget.Toast;[m
+ [m
+[31m-import com.p92rdi.extendedweathertitan.FillingListAdapter;[m
+[32m+[m[32mimport com.p92rdi.extendedweathertitan.helper.FillingListAdapter;[m
+ import com.p92rdi.extendedweathertitan.R;[m
+ import com.p92rdi.extendedweathertitan.helper.HttpClient;[m
+ import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;[m
+ import com.p92rdi.extendedweathertitan.model.DailyForecast;[m
+ import com.p92rdi.extendedweathertitan.model.Location;[m
+[31m-import com.p92rdi.extendedweathertitan.model.Weather;[m
+ import com.p92rdi.extendedweathertitan.model.WeatherForecast;[m
+ [m
+ import org.json.JSONException;[m

@@ -31,7 +31,9 @@ import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
 import com.p92rdi.extendedweathertitan.model.Location;
+
 import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
+
 
 import org.json.JSONException;
 
