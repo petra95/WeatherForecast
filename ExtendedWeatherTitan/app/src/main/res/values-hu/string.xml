@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title">Időjárás-előrejelzés applikáció</string>
+    <string name="title">Időjárás-előrejelzés</string>
     <string name="nav_title">Időjárás-előrejelzés</string>
     <string name="actual">Aktuális időjárás</string>
     <string name="five_day">5 napos előrejelzés</string>
@@ -31,10 +31,14 @@
     <string name="gps">GPS koordináták:</string>
     <string name="forecast">A várható időjárás:</string>
     <string name="celsius">°C</string>
-    <string name="past">Elmúlt</string>
 
     <string name="save_dialog_title">Mentés</string>
     <string name="load_dialog_title">Betöltés</string>
-    <string name="title_activity_current2">CurrentActivity2</string>
-    <string name="title_activity_forecast">ForecastActivity</string>
+
+    <string name="past">Elmúlt</string>
+
+    <string name="history">Keresett városok</string>
+    <string name="clear">Lista törlése</string>
+    <string name="butt_temp">Akkumulátor hőmérséklete: </string>
+    <string name="env_temp">Környezet hőmérséklete: </string>
 </resources>
