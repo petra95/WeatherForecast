@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity
         */
 
         //ExtendedWeatherTitanConstans.SharedPrefKeys.SLOT1;
+
+        String locale = this.getResources().getConfiguration().locale.getDisplayName();
     }
 
     @Override

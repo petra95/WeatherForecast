@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Actual Weather">
+    <item android:title="@string/actual">
         <menu>
             <item
                 android:id="@+id/search"
                 android:icon="@drawable/search"
-                android:title="@string/search" />
+                android:title="@string/search_city" />
             <item
                 android:id="@+id/loadCity"
                 android:icon="@drawable/load"
@@ -19,12 +19,12 @@
         </menu>
     </item>
 
-    <item android:title="5 Days Forecast">
+    <item android:title="@string/five_day">
         <menu>
             <item
                 android:id="@+id/search5"
                 android:icon="@drawable/search"
-                android:title="@string/search" />
+                android:title="@string/search_city" />
             <item
                 android:id="@+id/loadCity5"
                 android:icon="@drawable/load"
@@ -36,16 +36,16 @@
         </menu>
     </item>
 
-    <item android:title="More">
+    <item android:title="@string/more">
         <menu>
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/setting"
-                android:title="Settings" />
+                android:title="@string/setting" />
             <item
                 android:id="@+id/about"
                 android:icon="@drawable/about"
-                android:title="About" />
+                android:title="@string/about" />
         </menu>
     </item>
 </menu>
