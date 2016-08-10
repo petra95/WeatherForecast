@@ -1,6 +1,7 @@
 package com.p92rdi.extendedweathertitan.activity;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,12 @@ public class HistorySharedPreferences extends AppCompatActivity{
     public static final String HISTORY = "History";
 
     private static ArrayList<String> searchedCities = new ArrayList<>();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveSearchedCityNames();
+    }
 
     public void saveSearchedCityNames(){
         SharedPreferences.Editor editor = getSharedPreferences(HISTORY, MODE_PRIVATE).edit();
@@ -43,21 +50,18 @@ public class HistorySharedPreferences extends AppCompatActivity{
 
     public void loadHistory(){
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.history_row,R.id.rowTextView,searchedCities);
-        ListView listView = (ListView) findViewById(R.id.historyListView);
-        listView.setAdapter(adapter);
+        ListView historyListView = (ListView) findViewById(R.id.historyListView);
+        historyListView.setAdapter(adapter);
     }
 
     public void clearHistory(){
         searchedCities.clear();
     }
 
-    public ArrayList<String> getSearchedCities(){
-        return searchedCities;
+    public String[] getSearchedCitiesInArray(){
+        String[] searchedCitiesArray = new String[searchedCities.size()];
+        searchedCitiesArray = searchedCities.toArray(searchedCitiesArray);
+        return searchedCitiesArray;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        saveSearchedCityNames();
-    }
 }
