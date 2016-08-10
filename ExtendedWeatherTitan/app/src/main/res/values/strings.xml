@@ -12,6 +12,7 @@
     <string name="ok">SAVE</string>
     <string name="cancel">CANCEL</string>
     <string name="gps">GPS coordinates:</string>
+    <string name="forecast">The expected weather:</string>
 
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>
