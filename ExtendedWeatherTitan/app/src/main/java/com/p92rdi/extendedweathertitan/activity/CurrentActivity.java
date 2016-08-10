@@ -38,7 +38,7 @@ import org.json.JSONException;
 
 import java.text.ParseException;
 
-public class CurrentActivity extends AppCompatActivity
+public class CurrentActivity extends HistorySharedPreferences
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SharedPreferences mSharedPreferences;
@@ -216,6 +216,7 @@ public class CurrentActivity extends AppCompatActivity
         mActualCity = mActualCity.replace(" ", "");
         if(!mActualCity.equals("")) {
             new JSONWeatherForecastTask().execute(mActualCity);
+            addToSearchedCities(mActualCity);
         }
     }
 
@@ -252,6 +253,7 @@ public class CurrentActivity extends AppCompatActivity
                     mActualCity = mCityName;
                     dialogBuilder.dismiss();
                     getWeatherForecastOneDay();
+                    addToSearchedCities(mActualCity);
                     return true;
                 }
                 return false;

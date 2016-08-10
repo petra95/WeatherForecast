@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,14 +15,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 import com.p92rdi.extendedweathertitan.R;
 
-public class MainActivity extends AppCompatActivity
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+public class MainActivity extends HistorySharedPreferences
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SharedPreferences mSharedPreferences;
@@ -127,6 +135,7 @@ public class MainActivity extends AppCompatActivity
                     startActivity(intent);
                 }
                 dialogBuilder.dismiss();
+                addToSearchedCities(mActualCity);
             }
         });
         dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
@@ -239,5 +248,12 @@ public class MainActivity extends AppCompatActivity
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        retrieveSearchedCitiesNames();
+        loadHistory();
+    }
 }
 

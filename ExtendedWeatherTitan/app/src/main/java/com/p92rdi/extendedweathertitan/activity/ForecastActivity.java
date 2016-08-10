@@ -39,7 +39,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForecastActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ForecastActivity extends HistorySharedPreferences implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String SEARCH_KEY = "CityNameKey";
 
@@ -170,11 +170,6 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     private void displayData() {
         //header
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
@@ -234,6 +229,7 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         Log.d("ServiceHandler", "cityName: " + mCity);
         if(!mCity.equals("")) {
             new JSONWeatherForecastTask().execute(mCity);
+            addToSearchedCities(mCity);
         }
     }
 
