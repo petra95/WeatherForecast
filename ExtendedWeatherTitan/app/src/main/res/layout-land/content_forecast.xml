@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="horizontal"
-    tools:context="com.p92rdi.extendedweathertitan.activity.ForecastActivity"
+    tools:context=".activity.ForecastActivity"
     tools:showIn="@layout/app_bar_forecast">
 
     <LinearLayout

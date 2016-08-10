@@ -17,7 +17,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -39,7 +38,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForecastActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ForecastActivity extends LoadAndSaveMenuActivity {
 
     private static final String SEARCH_KEY = "CityNameKey";
 
@@ -112,7 +111,7 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
             } else if (id == R.id.loadCity) {
                 //loadCityDialog();
             } else if (id == R.id.saveCity) {
-                //saveActualCityDialog();
+                //saveCityDialog();
             } else if (id == R.id.search5) {
                 searchDialog();
             } else if (id == R.id.loadCity5) {
@@ -166,15 +165,6 @@ public class ForecastActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        /*if(!mCity.equals("unknown")) {
-            JSONWeatherForecastTask task = new JSONWeatherForecastTask();
-            task.execute(mCity);
-        }*/
-    }
 
     private void displayData() {
         //header
