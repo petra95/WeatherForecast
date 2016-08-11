@@ -9,7 +9,6 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.p92rdi.extendedweathertitan.helper.FillingListAdapter;
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
@@ -17,10 +16,7 @@ import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 import com.p92rdi.extendedweathertitan.model.DailyForecast;
 import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
-
-
 import org.json.JSONException;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +125,7 @@ public class ForecastActivity extends MenuBarActivity {
         if(!mActualCity.equals("")) {
             new JSONWeatherForecastTask().execute(mActualCity);
         }
-    } 
+    }
 
     @Override
     public void saveClickAction(){

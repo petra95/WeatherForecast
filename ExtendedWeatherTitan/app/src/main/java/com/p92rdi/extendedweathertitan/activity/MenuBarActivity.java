@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -30,9 +31,8 @@ import java.util.Set;
 
 public class MenuBarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String HISTORY = "History";
-    private static ArrayList<String> searchedCities = new ArrayList<>();
 
+    protected static ArrayList<String> searchedCities = new ArrayList<>();
     protected String mActualCity;
 
     @Override
@@ -73,18 +73,23 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
             if (id == R.id.search) {
                 Intent intent = new Intent(this, CurrentActivity.class);
                 searchDialog(intent);
-            } else if (id == R.id.loadCity) {
+            }
+            else if (id == R.id.loadCity) {
                 loadCityDialog(new Intent(this, CurrentActivity.class), getSharedPreferences(
                         getString(R.string.preference_file_key_current), Context.MODE_PRIVATE));
-            } else if (id == R.id.saveCity) {
+            }
+            else if (id == R.id.saveCity) {
                 saveClickAction();
-            } else if (id == R.id.search5) {
+            }
+            else if (id == R.id.search5) {
                 Intent intent = new Intent(this, ForecastActivity.class);
                 searchDialog(intent);
-            } else if (id == R.id.loadCity5) {
+            }
+            else if (id == R.id.loadCity5) {
                 loadCityDialog(new Intent(this, ForecastActivity.class), getSharedPreferences(
                         getString(R.string.preference_file_key_forecast), Context.MODE_PRIVATE));
-            } else if (id == R.id.saveCity5) {
+            }
+            else if (id == R.id.saveCity5) {
                 saveClickAction();
             } else if (id == R.id.settings) {
                 Toast.makeText(this, "There are no settings yet! lol", Toast.LENGTH_LONG).show();
@@ -146,13 +151,18 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mActualCity = savedCities[i];
-                intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
-                startActivity(intent);
+                if(!mActualCity.equals(getString(R.string.empty))){
+                    intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(MenuBarActivity.this, R.string.cant_load, Toast.LENGTH_LONG).show();
+                }
             }
         });
         builder.create();
         builder.show();
     }
+
     public void openSaveDialog(final int index, final SharedPreferences sharedPref) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Warning");
@@ -228,38 +238,18 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
     }
 
     public void saveSearchedCityNames(){
-        SharedPreferences.Editor editor = getSharedPreferences(HISTORY, MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences(SharedPrefKeys.HISTORY, MODE_PRIVATE).edit();
         Set<String> set = new HashSet<>();
         set.addAll(searchedCities);
         editor.putStringSet("searchedCities", set);
         editor.apply();
     }
 
-    public void retrieveSearchedCitiesNames(){
-        SharedPreferences editor = getSharedPreferences(HISTORY, MODE_PRIVATE);
-        Set<String> set = editor.getStringSet("searchedCities", null);
-        if (set != null) {
-            searchedCities = new ArrayList<>(set);
-        }
-    }
 
     public void addToSearchedCities(String newCity){
         searchedCities.add(newCity);
     }
 
-    public void loadHistory(){
-        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.history_row,R.id.rowTextView,searchedCities);
-        ListView historyListView = (ListView) findViewById(R.id.historyListView);
-        historyListView.setAdapter(adapter);
-    }
 
-    public void clearHistory(){
-        searchedCities.clear();
-    }
 
-    public String[] getSearchedCitiesInArray(){
-        String[] searchedCitiesArray = new String[searchedCities.size()];
-        searchedCitiesArray = searchedCities.toArray(searchedCitiesArray);
-        return searchedCitiesArray;
-    }
 }
