@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,8 +25,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
+import com.p92rdi.extendedweathertitan.helper.HttpClient;
+import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
+import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
 
+import org.json.JSONException;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,6 +42,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
 
     protected static ArrayList<String> searchedCities = new ArrayList<>();
     protected String mActualCity;
+    protected boolean cityNameExists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,12 +154,17 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mActualCity = editText.getText().toString();
+                mActualCity = mActualCity.replace(" ", "");
                 if(!mActualCity.equals("")){
-                    intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
-                    startActivity(intent);
+                    //new CheckWeatherExistsTask().execute(mActualCity);
+                    //if(cityNameExists) {
+                        intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
+                        startActivity(intent);
+                    //}
                 }
                 dialogBuilder.dismiss();
             }
+
         });
         dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
             @Override
@@ -160,6 +174,40 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
         });
         dialogBuilder.show();
     }
+
+    /*private class CheckWeatherExistsTask extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            WeatherForecastFiveDays weatherForecastFiveDays = new WeatherForecastFiveDays();
+            String mRawJson = ((new HttpClient("forecast")).getWeatherData(params[0]));
+            Log.d("ServiceHandler", "data: " + mRawJson);
+            if(mRawJson != null && !mRawJson.equals("")) {
+                try {
+                    try {
+                        weatherForecastFiveDays = JSONWeatherParser.getWeatherForecastFiveDays(mRawJson);
+                        if(weatherForecastFiveDays == null){
+                            return false;
+                        }
+                        Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastFiveDays);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean cityNameExists) {
+            super.onPostExecute(cityNameExists);
+            MenuBarActivity.this.cityNameExists = cityNameExists;
+        }
+    }*/
 
     public void loadCityDialog(final Intent intent, final SharedPreferences sharedPref) {
         final String[] savedCities = new String[]{sharedPref.getString(SharedPrefKeys.SLOT1_KEY,
@@ -269,7 +317,5 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
     public void addToSearchedCities(String newCity){
         searchedCities.add(newCity);
     }
-
-
 
 }

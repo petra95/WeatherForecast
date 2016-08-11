@@ -42,7 +42,6 @@ public class CurrentActivity extends MenuBarActivity {
         Bundle bundle = intent.getExtras();
         if(bundle != null) {
             mActualCity = (String) bundle.get(SharedPrefKeys.SEARCH_KEY);
-            addToSearchedCities(mActualCity);
             getWeatherForecastOneDay();
         }
     }
@@ -119,16 +118,13 @@ public class CurrentActivity extends MenuBarActivity {
                 CurrentActivity.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
                 assignWeatherValues(mResultWeatherForecastOneDay);
                 mDataTableLayout.setVisibility(View.VISIBLE);
+                addToSearchedCities(weatherForecastOneDay.getmCity());
             }
-
         }
     }
 
     public void getWeatherForecastOneDay(){
-        mActualCity = mActualCity.replace(" ", "");
-        if(!mActualCity.equals("")) {
-            new JSONWeatherForecastTask().execute(mActualCity);
-        }
+        new JSONWeatherForecastTask().execute(mActualCity);
     }
 
 

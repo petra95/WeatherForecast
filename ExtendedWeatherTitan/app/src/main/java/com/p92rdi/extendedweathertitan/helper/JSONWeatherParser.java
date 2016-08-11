@@ -94,6 +94,12 @@ public class JSONWeatherParser {
     public static WeatherForecastOneDay getWeatherForecastOneDay(String data)  throws JSONException, ParseException {
         try {
             JSONObject jRoot = new JSONObject(data);
+
+            String cod = getString("cod", jRoot);
+            if(!cod.equals("200")){
+                return null;
+            }
+
             WeatherForecastOneDay mProducedWeatherForecastOneDay = new WeatherForecastOneDay();
 
             mProducedWeatherForecastOneDay.setmCityId(jRoot.getInt("id"));

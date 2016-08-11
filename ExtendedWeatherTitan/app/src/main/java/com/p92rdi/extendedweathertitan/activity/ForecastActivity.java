@@ -42,7 +42,6 @@ public class ForecastActivity extends MenuBarActivity {
 
         if(bundle != null) {
             mActualCity = (String) bundle.get(SharedPrefKeys.SEARCH_KEY);
-            addToSearchedCities(mActualCity);
             getWeatherForecastFiveDays();
         }
     }
@@ -79,6 +78,7 @@ public class ForecastActivity extends MenuBarActivity {
             if(weatherForecastFiveDays != null) {
                 ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
                 displayData();
+                addToSearchedCities(weatherForecastFiveDays.getmLocation().getmCity());
             }
         }
     }
@@ -104,9 +104,9 @@ public class ForecastActivity extends MenuBarActivity {
             DailyForecast currentDay = new DailyForecast(weatherForecastFiveDays, date);
             fiveDaysForecastsList.add(currentDay);
         }
-
         return fiveDaysForecastsList;
     }
+
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -115,7 +115,8 @@ public class ForecastActivity extends MenuBarActivity {
     }
 
     public void getWeatherForecastFiveDays(){
-        mActualCity = mActualCity.replace(" ", "");
+        Log.d("ServiceHandler", "cityName: " + mActualCity);
+        mActualCity = mActualCity.replace(" ", "%20");
         Log.d("ServiceHandler", "cityName: " + mActualCity);
         if(!mActualCity.equals("")) {
             new JSONWeatherForecastTask().execute(mActualCity);
