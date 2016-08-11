@@ -15,9 +15,6 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-/**
- * Created by totha on 2016. 08. 03..
- */
 public class JSONWeatherParser {
 
     public static WeatherForecastFiveDays getWeatherForecastFiveDays(String data) throws JSONException, ParseException {

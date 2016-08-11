@@ -43,7 +43,6 @@ public class MainActivity extends MenuBarActivity {
         historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO Auto-generated method stub
                 Toast.makeText(MainActivity.this, searchedCities[position], Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
                 intent.putExtra(SharedPrefKeys.SEARCH_KEY, searchedCities[position]);

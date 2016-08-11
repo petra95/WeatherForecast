@@ -111,12 +111,7 @@ public class ForecastActivity extends MenuBarActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mActualCity = savedInstanceState.getString(SharedPrefKeys.SEARCH_KEY);
-
-        if(isNetworkAvailable()){
-            new JSONWeatherForecastTask().execute(mActualCity);
-        } else{
-            Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
-        }
+        new JSONWeatherForecastTask().execute(mActualCity);
     }
 
     public void getWeatherForecastFiveDays(){
