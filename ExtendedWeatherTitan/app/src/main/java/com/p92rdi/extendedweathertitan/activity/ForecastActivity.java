@@ -125,9 +125,4 @@ public class ForecastActivity extends MenuBarActivity {
             new JSONWeatherForecastTask().execute(mActualCity);
         }
     }
-
-    @Override
-    public void saveClickAction(){
-        saveCityDialog(getSharedPreferences(getString(R.string.preference_file_key_forecast), Context.MODE_PRIVATE));
-    }
 }

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
+import com.p92rdi.extendedweathertitan.model.Forecast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -69,9 +70,10 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        boolean netWorkAccess = isNetworkAvailable();
         switch(id) {
             case R.id.search:
-                if(!isNetworkAvailable()) {
+                if(!netWorkAccess) {
                     Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
                 }
                 else {
@@ -80,7 +82,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
                 }
                 break;
             case R.id.loadCity:
-                if(!isNetworkAvailable()) {
+                if(!netWorkAccess) {
                     Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
                 }
                 else {
@@ -89,10 +91,15 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
                 }
                 break;
             case R.id.saveCity:
-                saveClickAction();
+                if(this.getClass().equals(CurrentActivity.class)){
+                    saveCityDialog(getSharedPreferences(getString(R.string.preference_file_key_current), Context.MODE_PRIVATE));
+                }
+                else {
+                    Toast.makeText(this, "Cannot save here!", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.search5:
-                if(!isNetworkAvailable()) {
+                if(!netWorkAccess) {
                     Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
                 }
                 else {
@@ -101,7 +108,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
                 }
                 break;
             case R.id.loadCity5:
-                if(!isNetworkAvailable()) {
+                if(!netWorkAccess) {
                     Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
                 }
                 else {
@@ -110,7 +117,12 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
                 }
                 break;
             case R.id.saveCity5:
-                saveClickAction();
+                if(this.getClass().equals(ForecastActivity.class)){
+                    saveCityDialog(getSharedPreferences(getString(R.string.preference_file_key_forecast), Context.MODE_PRIVATE));
+                }
+                else {
+                    Toast.makeText(this, "Cannot save here!", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.settings:
                 Toast.makeText(this, "There are no settings yet! lol", Toast.LENGTH_LONG).show();
@@ -241,9 +253,6 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
 
         builder.create();
         builder.show();
-    }
-    public void saveClickAction(){
-        Toast.makeText(this, "Nothing to save!", Toast.LENGTH_LONG).show();
     }
 
     @Override

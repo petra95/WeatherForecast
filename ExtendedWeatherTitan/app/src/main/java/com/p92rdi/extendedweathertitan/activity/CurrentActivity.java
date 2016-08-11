@@ -137,9 +137,4 @@ public class CurrentActivity extends MenuBarActivity {
         super.onRestoreInstanceState(savedInstanceState);
         mActualCity = savedInstanceState.getString(SharedPrefKeys.SEARCH_KEY);
     }
-
-    @Override
-    public void saveClickAction(){
-        saveCityDialog(getSharedPreferences(getString(R.string.preference_file_key_current), Context.MODE_PRIVATE));
-    }
 }
