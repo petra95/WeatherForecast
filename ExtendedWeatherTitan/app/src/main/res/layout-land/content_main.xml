@@ -17,30 +17,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
+        android:layout_weight="0.7"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:maxLines="3"
-            android:paddingTop="10dp"
-            android:singleLine="false"
-            android:text="@string/title"
-            android:textColor="@color/textColor"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+        <TextView style="@style/mainTitleTextViewTheme" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingTop="30dp"
-            android:text="@string/history"
-            android:textColor="@color/textColor"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            style="@style/historyTextViewTheme"
+            android:paddingTop="10dp" />
 
         <ListView
             android:id="@+id/historyListView"
@@ -54,22 +38,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.3"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/historyButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.2"
-            android:onClick="clearHistory"
-            android:text="@string/clear" />
+            style="@style/historyButton"
+            android:onClick="clearHistory" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="40dp"
             android:layout_weight="0.8"
             android:orientation="vertical">
 
