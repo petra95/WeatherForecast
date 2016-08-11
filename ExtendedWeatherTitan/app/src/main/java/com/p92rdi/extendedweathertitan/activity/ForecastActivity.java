@@ -129,7 +129,7 @@ public class ForecastActivity extends MenuBarActivity {
         if(!mActualCity.equals("")) {
             new JSONWeatherForecastTask().execute(mActualCity);
         }
-    }
+    } 
 
     @Override
     public void saveClickAction(){
