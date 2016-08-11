@@ -17,7 +17,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -41,7 +40,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForecastActivity extends HistorySharedPreferences implements NavigationView.OnNavigationItemSelectedListener {
+public class ForecastActivity_origin extends HistorySharedPreferences implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String SEARCH_KEY = "CityNameKey";
 
@@ -166,7 +165,7 @@ public class ForecastActivity extends HistorySharedPreferences implements Naviga
             super.onPostExecute(weatherForecastFiveDays);
             Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastFiveDays);
             if(weatherForecastFiveDays != null) {
-                ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
+                ForecastActivity_origin.this.weatherForecastFiveDays = weatherForecastFiveDays;
                 displayData();
             }
         }

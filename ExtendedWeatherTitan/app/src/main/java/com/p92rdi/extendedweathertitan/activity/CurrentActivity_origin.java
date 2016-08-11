@@ -19,7 +19,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -31,14 +30,13 @@ import android.widget.Toast;
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
-import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
 import com.p92rdi.extendedweathertitan.model.WeatherForecastOneDay;
 
 import org.json.JSONException;
 
 import java.text.ParseException;
 
-public class CurrentActivity extends HistorySharedPreferences
+public class CurrentActivity_origin extends HistorySharedPreferences
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SharedPreferences mSharedPreferences;
@@ -163,7 +161,7 @@ public class CurrentActivity extends HistorySharedPreferences
             super.onPostExecute(weatherForecastOneDay);
             Log.d("ServiceHandler", "weatherForecastOneDay: " + weatherForecastOneDay);
             if(weatherForecastOneDay != null) {
-                CurrentActivity.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
+                CurrentActivity_origin.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
                 assignWeatherValues(mResultWeatherForecastOneDay);
                 mDataTableLayout.setVisibility(View.VISIBLE);
             }
