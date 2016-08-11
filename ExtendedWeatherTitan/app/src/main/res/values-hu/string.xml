@@ -15,7 +15,7 @@
     <string name="add_city">Adjon meg egy várost!</string>
     <string name="dialog_message">Biztosan menteni szeretné a várost?</string>
     <string name="ok">MENTÉS</string>
-    <style name="cap_search">KERESÉS</style>
+    <string name="cap_search">KERESÉS</string>
     <string name="cancel">MÉGSE</string>
 
     <string name="min">Minimum</string>
