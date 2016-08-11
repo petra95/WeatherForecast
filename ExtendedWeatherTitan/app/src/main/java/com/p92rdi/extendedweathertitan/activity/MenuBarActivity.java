@@ -69,30 +69,55 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(isNetworkAvailable()){
-            if (id == R.id.search) {
-                Intent intent = new Intent(this, CurrentActivity.class);
-                searchDialog(intent);
-            } else if (id == R.id.loadCity) {
-                loadCityDialog(new Intent(this, CurrentActivity.class), getSharedPreferences(
-                        getString(R.string.preference_file_key_current), Context.MODE_PRIVATE));
-            } else if (id == R.id.saveCity) {
+        switch(id) {
+            case R.id.search:
+                if(!isNetworkAvailable()) {
+                    Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent intent = new Intent(this, CurrentActivity.class);
+                    searchDialog(intent);
+                }
+                break;
+            case R.id.loadCity:
+                if(!isNetworkAvailable()) {
+                    Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    loadCityDialog(new Intent(this, CurrentActivity.class), getSharedPreferences(
+                            getString(R.string.preference_file_key_current), Context.MODE_PRIVATE));
+                }
+                break;
+            case R.id.saveCity:
                 saveClickAction();
-            } else if (id == R.id.search5) {
-                Intent intent = new Intent(this, ForecastActivity.class);
-                searchDialog(intent);
-            } else if (id == R.id.loadCity5) {
-                loadCityDialog(new Intent(this, ForecastActivity.class), getSharedPreferences(
-                        getString(R.string.preference_file_key_forecast), Context.MODE_PRIVATE));
-            } else if (id == R.id.saveCity5) {
+                break;
+            case R.id.search5:
+                if(!isNetworkAvailable()) {
+                    Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent intent = new Intent(this, ForecastActivity.class);
+                    searchDialog(intent);
+                }
+                break;
+            case R.id.loadCity5:
+                if(!isNetworkAvailable()) {
+                    Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    loadCityDialog(new Intent(this, ForecastActivity.class), getSharedPreferences(
+                            getString(R.string.preference_file_key_forecast), Context.MODE_PRIVATE));
+                }
+                break;
+            case R.id.saveCity5:
                 saveClickAction();
-            } else if (id == R.id.settings) {
+                break;
+            case R.id.settings:
                 Toast.makeText(this, "There are no settings yet! lol", Toast.LENGTH_LONG).show();
-            } else if (id == R.id.about) {
+                break;
+            case R.id.about:
                 Toast.makeText(this, "I'm ABOUT to finish this app.", Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

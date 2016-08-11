@@ -43,7 +43,7 @@
 
     <string name="history">Browser History</string>
     <string name="clear">Clear history</string>
-    <string name="butt_temp">Buttery temperature: </string>
+    <string name="butt_temp">Battery temperature: </string>
     <string name="env_temp">Environment temperature: </string>
 
     <string name="title_activity_forecast">ForecastActivity</string>

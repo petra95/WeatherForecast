@@ -52,7 +52,7 @@ public class HttpClient {
             return null;
         }
     }
-
+/*
     public String getWeatherData(int cityId) {
         HttpURLConnection mConnection = null;
         InputStream mInputStream = null;
@@ -80,7 +80,7 @@ public class HttpClient {
             return null;
         }
     }
-
+*/
     public Bitmap getImage(String code) {
         code += ".png";
         HttpURLConnection con = null ;
