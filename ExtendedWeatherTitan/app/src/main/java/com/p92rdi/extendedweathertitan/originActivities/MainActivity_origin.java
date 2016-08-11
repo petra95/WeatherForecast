@@ -79,7 +79,7 @@ public class MainActivity_origin extends HistorySharedPreferences
 
         Toast.makeText(this, "searchedCities: " + searchedCities.length, Toast.LENGTH_LONG).show();
 
-        button = (Button) findViewById(R.id.historyButton);
+        //button = (Button) findViewById(R.id.historyButton);
         historyListView = (ListView) findViewById(R.id.historyListView);
 
         historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener()

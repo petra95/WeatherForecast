@@ -16,7 +16,7 @@ public class HttpClient {
 
     private String BASE_URL_NAME = "http://api.openweathermap.org/data/2.5/";
     private static String API_KEY = "&appid=6400cc1cfebfb4e0cab17b0eb34472da";
-    private static String BASE_URL_ID = "http://api.openweathermap.org/data/2.5/forecast?id=";
+    //private static String BASE_URL_ID = "http://api.openweathermap.org/data/2.5/forecast?id=";
     private static String IMG_URL = "http://openweathermap.org/img/w/";
 
     public HttpClient(){}

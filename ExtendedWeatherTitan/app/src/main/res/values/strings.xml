@@ -5,6 +5,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_title">Weather Forecast</string>
+    <string name="home">Back to home</string>
     <string name="actual">Actual Weather</string>
     <string name="five_day">5 Days Forecast</string>
     <string name="more">More</string>
@@ -12,9 +13,11 @@
     <string name="load">Load City</string>
     <string name="save">Save City</string>
     <string name="setting">Settings</string>
+    <string name="setting_text">There are no settings yet!</string>
     <string name="about">About</string>
+    <string name="about_text">"I'm ABOUT to finish this app."</string>
 
-    <string name="dialog_title">Warning</string>
+    <string name="warning">Warning</string>
     <string name="add_city">Enter City name</string>
     <string name="dialog_message">Do you want to save this city?</string>
     <string name="ok">SAVE</string>
@@ -32,18 +35,24 @@
     <string name="nothing">Nothing to save!</string>
 
     <string name="gps">GPS coordinates:</string>
-    <string name="forecast">The expected weather:</string>
-    <string name="celsius">°C</string>
-    <string name="past">This is the past</string>
+    <string name="past">--.-</string>
+
+    <string name="degree"> °</string>
+    <string name="celsius"> °C</string>
+    <string name="windms"> m/s</string>
+    <string name="percent"> %</string>
 
     <string name="save_dialog_title">Save</string>
     <string name="load_dialog_title">Load</string>
-
-    <string name="action_settings">Settings</string>
+    <string name="no_save">Cannot save here!</string>
 
     <string name="history">Browser History</string>
     <string name="clear">Clear history</string>
+
     <string name="butt_temp">Battery temperature: </string>
+
+    <string name="searched">Number of cities: </string>
+
     <string name="env_temp">Environment temperature: </string>
 
     <string name="title_activity_forecast">ForecastActivity</string>
