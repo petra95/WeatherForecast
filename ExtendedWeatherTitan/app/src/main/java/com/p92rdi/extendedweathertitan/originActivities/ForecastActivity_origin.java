@@ -173,13 +173,15 @@ public class ForecastActivity_origin extends HistorySharedPreferences implements
     private void displayData() {
         //header
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
-        TextView tvGpsLon = (TextView) findViewById(R.id.tvGPS_LON);
-        TextView tvGpsLat = (TextView) findViewById(R.id.tvGPS_LAT);
+        TextView tvGps = (TextView) findViewById(R.id.tvGPS);
         tvCity.setText(weatherForecastFiveDays.getmLocation().getmCity());
         tvCity.setMovementMethod(new ScrollingMovementMethod());
 
-        tvGpsLon.setText(String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()));
-        tvGpsLat.setText(String.valueOf(weatherForecastFiveDays.getmLocation().getmLatitude()));
+        String lon = String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()).concat(getResources().getString(R.string.degree));
+        String lat = String.valueOf(weatherForecastFiveDays.getmLocation().getmLatitude()).concat(getResources().getString(R.string.degree));
+        String gps = "( Lon: " + lon + ", Lat: " + lat + " )";
+
+        tvGps.setText(gps);
 
         //Filling listview
         Log.e("displayData()", weatherForecastFiveDays.getmDays().toString());

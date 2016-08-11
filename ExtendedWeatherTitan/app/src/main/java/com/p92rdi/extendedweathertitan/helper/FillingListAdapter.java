@@ -34,7 +34,7 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
     private LayoutInflater inflater;
 
     public FillingListAdapter(Context context, List<DailyForecast> fillings) {
-        super(context, R.layout.list_forecast, fillings);
+        super(context, R.layout.list_5daysforecast, fillings);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.fillings = fillings;
     }
@@ -58,7 +58,7 @@ public class FillingListAdapter extends ArrayAdapter<DailyForecast> {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.list_forecast, parent, false);
+            convertView = inflater.inflate(R.layout.list_5daysforecast, parent, false);
             holder = new Holder();
             holder.tvDate = (TextView) convertView.findViewById(R.id.tvDate);
             holder.nightTempTextView5 = (TextView) convertView.findViewById(R.id.nightDegTextView5);

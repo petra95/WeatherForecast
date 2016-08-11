@@ -2,6 +2,8 @@ package com.p92rdi.extendedweathertitan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,9 +27,17 @@ public class MainActivity extends MenuBarActivity {
         setContentView(R.layout.activity_main);
         navigationMenu(this);
 
-        Toast.makeText(this, "searchedCities: " + searchedCities.length, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(R.string.searched) + searchedCities.length, Toast.LENGTH_LONG).show();
 
-        button = (Button) findViewById(R.id.historyButton);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               clearHistory(view);
+            }
+        });
+
+        //button = (Button) findViewById(R.id.historyButton);
         historyListView = (ListView) findViewById(R.id.historyListView);
 
         historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -89,14 +89,15 @@ public class ForecastActivity extends MenuBarActivity {
 
     private void displayData() {
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
-        TextView tvGpsLon = (TextView) findViewById(R.id.tvGPS_LON);
-        TextView tvGpsLat = (TextView) findViewById(R.id.tvGPS_LAT);
+        TextView tvGps = (TextView) findViewById(R.id.tvGPS);
         tvCity.setText(weatherForecastFiveDays.getmLocation().getmCity());
         tvCity.setMovementMethod(new ScrollingMovementMethod());
 
-        tvGpsLon.setText(String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()));
-        tvGpsLat.setText(String.valueOf(weatherForecastFiveDays.getmLocation().getmLatitude()));
+        String lon = String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()).concat(getResources().getString(R.string.degree));
+        String lat = String.valueOf(weatherForecastFiveDays.getmLocation().getmLatitude()).concat(getResources().getString(R.string.degree));
+        String gps = "( Lon: " + lon + ", Lat: " + lat + " )";
 
+        tvGps.setText(gps);
         fillings = generateFiveDaysForecastsList(weatherForecastFiveDays, weatherForecastFiveDays.getmDays());
         FillingListAdapter adapter = new FillingListAdapter(this, fillings);
         lv_forecast.setAdapter(adapter);
@@ -111,6 +112,7 @@ public class ForecastActivity extends MenuBarActivity {
 
         return fiveDaysForecastsList;
     }
+
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -119,7 +121,7 @@ public class ForecastActivity extends MenuBarActivity {
         if(isNetworkAvailable()){
             new JSONWeatherForecastTask().execute(mActualCity);
         } else{
-            Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
         }
     }
 

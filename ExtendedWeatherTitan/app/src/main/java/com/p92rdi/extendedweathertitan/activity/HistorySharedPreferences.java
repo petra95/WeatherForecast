@@ -1,9 +1,7 @@
 package com.p92rdi.extendedweathertitan.activity;
 
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -63,5 +61,4 @@ public class HistorySharedPreferences extends AppCompatActivity{
         searchedCitiesArray = searchedCities.toArray(searchedCitiesArray);
         return searchedCitiesArray;
     }
-
 }
