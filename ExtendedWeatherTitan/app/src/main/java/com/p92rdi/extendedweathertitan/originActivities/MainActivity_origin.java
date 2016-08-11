@@ -1,4 +1,4 @@
-package com.p92rdi.extendedweathertitan.activity;
+package com.p92rdi.extendedweathertitan.originActivities;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,11 +7,11 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -21,7 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.p92rdi.extendedweathertitan.R;
+import com.p92rdi.extendedweathertitan.activity.HistorySharedPreferences;
 
 public class MainActivity_origin extends HistorySharedPreferences
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -217,7 +219,7 @@ public class MainActivity_origin extends HistorySharedPreferences
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mActualCity = mSavedCities5[i];
-                Intent intent = new Intent(MainActivity_origin.this, ForecastActivity_origin.class);
+                Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
                 intent.putExtra(SEARCH_KEY, mActualCity);
                 startActivity(intent);
             }

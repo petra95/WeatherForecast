@@ -40,7 +40,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForecastActivity_origin extends HistorySharedPreferences implements NavigationView.OnNavigationItemSelectedListener {
+public class ForecastActivity extends HistorySharedPreferences implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String SEARCH_KEY = "CityNameKey";
 
@@ -165,7 +165,7 @@ public class ForecastActivity_origin extends HistorySharedPreferences implements
             super.onPostExecute(weatherForecastFiveDays);
             Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastFiveDays);
             if(weatherForecastFiveDays != null) {
-                ForecastActivity_origin.this.weatherForecastFiveDays = weatherForecastFiveDays;
+                ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
                 displayData();
             }
         }

@@ -36,7 +36,7 @@ import org.json.JSONException;
 
 import java.text.ParseException;
 
-public class CurrentActivity_origin extends HistorySharedPreferences
+public class CurrentActivity extends HistorySharedPreferences
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SharedPreferences mSharedPreferences;
@@ -161,7 +161,7 @@ public class CurrentActivity_origin extends HistorySharedPreferences
             super.onPostExecute(weatherForecastOneDay);
             Log.d("ServiceHandler", "weatherForecastOneDay: " + weatherForecastOneDay);
             if(weatherForecastOneDay != null) {
-                CurrentActivity_origin.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
+                CurrentActivity.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
                 assignWeatherValues(mResultWeatherForecastOneDay);
                 mDataTableLayout.setVisibility(View.VISIBLE);
             }
