@@ -31,9 +31,7 @@
     <string name="internet">Nincs kapcsolat!</string>
     <string name="nothing">Nincs mit menteni!</string>
 
-    <string name="gps">GPS koordináták:</string>
     <string name="past">--.-</string>
-
     <string name="degree"> °</string>
     <string name="celsius"> °C</string>
     <string name="windms"> m/s</string>
@@ -44,8 +42,8 @@
     <string name="no_save">Itt nem menthet!</string>
 
     <string name="history">Keresett városok</string>
-    <string name="clear">Lista törlése</string>
     <string name="searched">Keresett városok száma: </string>
+
     <string name="butt_temp">Akkumulátor hőmérséklete: </string>
     <string name="env_temp">Környezet hőmérséklete: </string>
 </resources>

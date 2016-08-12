@@ -30,7 +30,7 @@
             <TextView
                 style="@style/mainTitleTextViewTheme"
                 android:textColor="@color/textColor"
-                android:layout_weight="0.15" />
+                android:layout_weight="0.25" />
 
             <TextView
                 style="@style/historyTextViewTheme"
@@ -46,7 +46,7 @@
                 android:id="@+id/historyListView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.75"
+                android:layout_weight="0.7"
                 android:divider="@color/indigo400"
                 android:dividerHeight="2dp"
                 android:background="@color/indigo100">
