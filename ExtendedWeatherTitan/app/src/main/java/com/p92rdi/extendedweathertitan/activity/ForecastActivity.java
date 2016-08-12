@@ -19,7 +19,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForecastActivity extends MenuBarActivity {
+public class ForecastActivity extends AbstractActivity {
 
     private WeatherForecastFiveDays weatherForecastFiveDays;
     private List<DailyForecast> fillings;
@@ -72,7 +72,7 @@ public class ForecastActivity extends MenuBarActivity {
             if(weatherForecastFiveDays != null) {
                 ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
                 displayData();
-                addToSearchedCities(weatherForecastFiveDays.getmLocation().getmCity());
+                addToSearchedCities(weatherForecastFiveDays.getmLocation().getmCity().concat(" " + weatherForecastFiveDays.getmLocation().getmCountry()));
             }else{
                 displayNotFoundCity();
             }
@@ -87,7 +87,7 @@ public class ForecastActivity extends MenuBarActivity {
     private void displayData() {
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
         TextView tvGps = (TextView) findViewById(R.id.tvGPS);
-        tvCity.setText(weatherForecastFiveDays.getmLocation().getmCity());
+        tvCity.setText(weatherForecastFiveDays.getmLocation().getmCity().concat(" " + weatherForecastFiveDays.getmLocation().getmCountry()));
         tvCity.setMovementMethod(new ScrollingMovementMethod());
 
         String lon = String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()).concat(getResources().getString(R.string.degree));

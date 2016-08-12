@@ -44,8 +44,8 @@
     <string name="history">Keresett városok</string>
     <string name="searched">Keresett városok száma:\t</string>
 
-    <string name="battery_temp">Akkumulátor hőmérséklete:\t</string>
-    <string name="env_temp">Környezet hőmérséklete:\t</string>
+    <string name="battery_temp">Akkumulátor hőmérséklete:</string>
+    <string name="env_temp">Környezet hőmérséklete:</string>
 
     <string name="cant_load">Nem lehet betölteni!</string>
     <string name="not_found_city">Nem talált várost!</string>

@@ -18,7 +18,7 @@ import org.json.JSONException;
 import java.text.ParseException;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 
-public class CurrentActivity extends MenuBarActivity {
+public class CurrentActivity extends AbstractActivity {
 
     private TableLayout mDataTableLayout;
     protected WeatherForecastOneDay mResultWeatherForecastOneDay;
@@ -55,19 +55,19 @@ public class CurrentActivity extends MenuBarActivity {
         mDataTableLayout = (TableLayout) findViewById(R.id.dataTableLayout);
     }
 
-    private void assignWeatherValues(WeatherForecastOneDay weatherForecastOneDayData) {
-        if (weatherForecastOneDayData.getmIcon() != null) {
+    private void assignWeatherValues(WeatherForecastOneDay weatherForecastOneDay) {
+        if (weatherForecastOneDay.getmIcon() != null) {
             ImageView mImageView = (ImageView) findViewById(R.id.weatherImageView);
-            mImageView.setImageBitmap(weatherForecastOneDayData.getmIcon());
+            mImageView.setImageBitmap(weatherForecastOneDay.getmIcon());
         }
 
-        String city = weatherForecastOneDayData.getmCity().concat(" " + weatherForecastOneDayData.getmCountry());
-        String degree = String.valueOf(weatherForecastOneDayData.getmTemperature()) + getResources().getString(R.string.celsius);
-        String description = weatherForecastOneDayData.getmDescription();
-        String minDeg = String.valueOf(weatherForecastOneDayData.getmTempMin()) + getResources().getString(R.string.celsius);
-        String maxDeg = String.valueOf(weatherForecastOneDayData.getmTempMax()) + getResources().getString(R.string.celsius);
-        String wind = String.valueOf(weatherForecastOneDayData.getmWind()) + getResources().getString(R.string.windms);
-        String humidity = String.valueOf(weatherForecastOneDayData.getmHumidity()) + getResources().getString(R.string.percent);
+        String city = weatherForecastOneDay.getmCity().concat(" " + weatherForecastOneDay.getmCountry());
+        String degree = String.valueOf(weatherForecastOneDay.getmTemperature()) + getResources().getString(R.string.celsius);
+        String description = weatherForecastOneDay.getmDescription();
+        String minDeg = String.valueOf(weatherForecastOneDay.getmTempMin()) + getResources().getString(R.string.celsius);
+        String maxDeg = String.valueOf(weatherForecastOneDay.getmTempMax()) + getResources().getString(R.string.celsius);
+        String wind = String.valueOf(weatherForecastOneDay.getmWind()) + getResources().getString(R.string.windms);
+        String humidity = String.valueOf(weatherForecastOneDay.getmHumidity()) + getResources().getString(R.string.percent);
 
         tv_city.setText(city);
         tv_city.setMovementMethod(new ScrollingMovementMethod());
@@ -115,7 +115,7 @@ public class CurrentActivity extends MenuBarActivity {
                 CurrentActivity.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
                 assignWeatherValues(mResultWeatherForecastOneDay);
                 mDataTableLayout.setVisibility(View.VISIBLE);
-                addToSearchedCities(weatherForecastOneDay.getmCity());
+                addToSearchedCities(weatherForecastOneDay.getmCity().concat(" " + weatherForecastOneDay.getmCountry()));
             }else{
                 displayNotFoundCity();
             }

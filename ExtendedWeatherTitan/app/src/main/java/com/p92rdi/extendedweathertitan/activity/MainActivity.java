@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Set;
 
-public class MainActivity extends MenuBarActivity implements SensorEventListener {
+public class MainActivity extends AbstractActivity implements SensorEventListener {
 
     ListView historyListView;
 
@@ -35,11 +35,11 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
     private SensorManager sensorManager;
     private Sensor temperatureSensor;
 
-    private BroadcastReceiver batteryBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver batteryBroadcastReceiver =  new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             float batteryTemp = (float)(intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0))/10;
-            batteryTV.setText(getResources().getString(R.string.battery_temp) + String.format(Locale.getDefault(), "%.1f",batteryTemp) + getResources().getString(R.string.celsius));
+            batteryTV.setText(getResources().getString(R.string.battery_temp).concat(" " + String.format(Locale.getDefault(), "%.1f",batteryTemp) + getResources().getString(R.string.celsius)));
         }
     };
 
@@ -65,7 +65,7 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
 
         temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         if(temperatureSensor == null){
-            environmentTV.setText(getResources().getString(R.string.env_temp) + getResources().getString(R.string.not_available));
+            environmentTV.setText(getResources().getString(R.string.env_temp).concat(" " + getResources().getString(R.string.not_available)));
         }
     }
 
@@ -89,7 +89,7 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
 
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
-            environmentTV.setText(getResources().getString(R.string.env_temp) + String.format(Locale.getDefault(), "%.1f", event.values[0]) + getResources().getString(R.string.celsius));
+            environmentTV.setText(getResources().getString(R.string.env_temp).concat( " " + String.format(Locale.getDefault(), "%.1f", event.values[0]) + getResources().getString(R.string.celsius)));
         }
     }
 
@@ -98,9 +98,13 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
         historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
-                intent.putExtra(SharedPrefKeys.SEARCH_KEY, searchedCities[position]);
-                startActivity(intent);
+                if(isNetworkAvailable()) {
+                    Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
+                    intent.putExtra(SharedPrefKeys.SEARCH_KEY, searchedCities[position]);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
+                }
             }
         });
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.history_row,R.id.rowTextView,searchedCities);

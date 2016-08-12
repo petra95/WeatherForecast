@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MenuBarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class AbstractActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected static ArrayList<String> searchedCities = new ArrayList<>();
     protected String mActualCity;
@@ -37,7 +37,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
         navigationMenu(this);
     }
 
-    protected void navigationMenu(MenuBarActivity activity) {
+    protected void navigationMenu(AbstractActivity activity) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -179,7 +179,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
                     intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(MenuBarActivity.this, R.string.cant_load, Toast.LENGTH_LONG).show();
+                    Toast.makeText(AbstractActivity.this, R.string.cant_load, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -260,9 +260,9 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
 
     public void saveSearchedCityNames(){
         SharedPreferences.Editor editor = getSharedPreferences(SharedPrefKeys.HISTORY, MODE_PRIVATE).edit();
-        Set<String> set = new HashSet<>();
-        set.addAll(searchedCities);
-        editor.putStringSet(getResources().getString(R.string.searched), set);
+        Set<String> cityNamesSet = new HashSet<>();
+        cityNamesSet.addAll(searchedCities);
+        editor.putStringSet("searchedCities", cityNamesSet);
         editor.apply();
     }
 

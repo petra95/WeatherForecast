@@ -48,7 +48,7 @@
                 android:id="@+id/historyListView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.7"
+                android:layout_weight="0.65"
                 android:divider="@color/indigo400"
                 android:dividerHeight="2dp"
                 android:background="@color/indigo100">
