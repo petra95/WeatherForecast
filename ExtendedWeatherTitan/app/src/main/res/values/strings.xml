@@ -47,8 +47,8 @@
     <string name="history">Browser History</string>
     <string name="clear">Clear history</string>
 
-    <string name="battery_temp">Battery temperature: </string>
-    <string name="env_temp">Environment temperature: </string>
+    <string name="battery_temp">Battery temperature:\t</string>
+    <string name="env_temp">Environment temperature:\t</string>
     <string name="searched">Number of cities: </string>
 
     <string name="preference_file_key_current">com.p92rdi.extendedweathertitan.CURRENT</string>
