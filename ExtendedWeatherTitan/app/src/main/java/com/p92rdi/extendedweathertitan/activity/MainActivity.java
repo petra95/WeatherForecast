@@ -39,7 +39,7 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
         @Override
         public void onReceive(Context context, Intent intent) {
             float batteryTemp = (float)(intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0))/10;
-            batteryTV.setText(String.format(Locale.getDefault(), "%.1f",batteryTemp) + " °C");
+            batteryTV.setText(getResources().getString(R.string.battery_temp) + String.format(Locale.getDefault(), "%.1f",batteryTemp) + getResources().getString(R.string.celsius));
         }
     };
 
@@ -65,19 +65,17 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
 
         temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         if(temperatureSensor == null){
-            environmentTV.setText(R.string.not_available);
+            environmentTV.setText(getResources().getString(R.string.env_temp) + getResources().getString(R.string.not_available));
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_NORMAL);
         registerReceiver(batteryBroadcastReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         loadHistory();
-        Toast.makeText(this, getResources().getString(R.string.searched) + searchedCities.size(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -91,7 +89,7 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
 
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
-            environmentTV.setText(String.format(Locale.getDefault(), "%.1f", event.values[0]));
+            environmentTV.setText(getResources().getString(R.string.env_temp) + String.format(Locale.getDefault(), "%.1f", event.values[0]) + getResources().getString(R.string.celsius));
         }
     }
 
@@ -110,7 +108,6 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
     }
 
     public void clearHistoryOnClick(View view) {
-        Toast.makeText(this, "clearHistoryOnClick()", Toast.LENGTH_LONG).show();
         searchedCities.clear();
         saveSearchedCityNames();
         loadHistory();

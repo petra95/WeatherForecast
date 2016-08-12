@@ -1,6 +1,5 @@
 package com.p92rdi.extendedweathertitan.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.p92rdi.extendedweathertitan.helper.FillingListAdapter;
 import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.HttpClient;
@@ -20,7 +18,6 @@ import org.json.JSONException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class ForecastActivity extends MenuBarActivity {
 
@@ -85,7 +82,6 @@ public class ForecastActivity extends MenuBarActivity {
     private void displayNotFoundCity() {
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
         tvCity.setText(R.string.not_found_city);
-
     }
 
     private void displayData() {

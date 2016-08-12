@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ExtendedWeatherTitan</string>
+    <string name="app_name">Titans Weather Forecast</string>
     <string name="title">Weather forecast</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -55,6 +55,7 @@
     <string name="preference_file_key_forecast">com.p92rdi.extendedweathertitan.FORECAST</string>
     <string name="cant_load">Can\'t load empty slot!</string>
     <string name="not_found_city">Not found city!</string>
-    <string name="not_available">Not available </string>>
+    <string name="not_available">Not available </string>
+    <string name="homeScreen">Home</string>>
 
 </resources>

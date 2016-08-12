@@ -1,6 +1,5 @@
 package com.p92rdi.extendedweathertitan.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -22,7 +21,7 @@ import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 public class CurrentActivity extends MenuBarActivity {
 
     private TableLayout mDataTableLayout;
-    private WeatherForecastOneDay mResultWeatherForecastOneDay;
+    protected WeatherForecastOneDay mResultWeatherForecastOneDay;
     private TextView tv_city;
     private TextView tv_degree;
     private TextView tv_description;

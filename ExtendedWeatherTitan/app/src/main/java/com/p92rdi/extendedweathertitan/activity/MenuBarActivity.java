@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,25 +14,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.p92rdi.extendedweathertitan.R;
-import com.p92rdi.extendedweathertitan.helper.HttpClient;
-import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
-import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class MenuBarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
 
     protected static ArrayList<String> searchedCities = new ArrayList<>();
     protected String mActualCity;
@@ -43,7 +34,6 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         navigationMenu(this);
     }
 
@@ -157,7 +147,6 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mActualCity = editText.getText().toString();
-                //mActualCity = mActualCity.replace(" ", "");
                 if(!mActualCity.equals("")){
                     intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
                     startActivity(intent);
@@ -221,6 +210,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
 
     public void saveCity(final int index, final SharedPreferences sharedPref) {
         SharedPreferences.Editor editor = sharedPref.edit();
+        mActualCity = mActualCity.replace("%20"," ");
         switch (index) {
             case 0:
                 editor.putString(SharedPrefKeys.SLOT1_KEY, mActualCity);
@@ -281,5 +271,4 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
             searchedCities.add(newCity);
         }
     }
-
 }

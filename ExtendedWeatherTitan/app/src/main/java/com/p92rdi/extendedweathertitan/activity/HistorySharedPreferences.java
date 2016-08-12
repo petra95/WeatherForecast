@@ -4,9 +4,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import com.p92rdi.extendedweathertitan.R;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
