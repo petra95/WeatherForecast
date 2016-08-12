@@ -2,6 +2,7 @@
 <resources>
     <string name="title">Időjárás-előrejelzés</string>
     <string name="nav_title">Időjárás-előrejelzés</string>
+    <string name="home">Főképernyő</string>
     <string name="actual">Aktuális időjárás</string>
     <string name="five_day">5 napos előrejelzés</string>
     <string name="more">Továbbiak</string>
@@ -9,9 +10,11 @@
     <string name="load">Város betöltése</string>
     <string name="save">Város mentése</string>
     <string name="setting">Beállítások</string>
+    <string name="setting_text">Nincsenek beállítások!</string>
     <string name="about">Információ</string>
+    <string name="about_text">"Információk"</string>
 
-    <string name="dialog_title">Figyelem</string>
+    <string name="warning">Figyelem</string>
     <string name="add_city">Adjon meg egy várost!</string>
     <string name="dialog_message">Biztosan menteni szeretné a várost?</string>
     <string name="ok">MENTÉS</string>
@@ -28,17 +31,19 @@
     <string name="internet">Nincs kapcsolat!</string>
     <string name="nothing">Nincs mit menteni!</string>
 
-    <string name="gps">GPS koordináták:</string>
-    <string name="forecast">A várható időjárás:</string>
-    <string name="celsius">°C</string>
+    <string name="past">--.-</string>
+    <string name="degree"> °</string>
+    <string name="celsius"> °C</string>
+    <string name="windms"> m/s</string>
+    <string name="percent"> %</string>
 
     <string name="save_dialog_title">Mentés</string>
     <string name="load_dialog_title">Betöltés</string>
-
-    <string name="past">Elmúlt</string>
+    <string name="no_save">Itt nem menthet!</string>
 
     <string name="history">Keresett városok</string>
-    <string name="clear">Lista törlése</string>
+    <string name="searched">Keresett városok száma: </string>
+
     <string name="butt_temp">Akkumulátor hőmérséklete: </string>
     <string name="env_temp">Környezet hőmérséklete: </string>
 

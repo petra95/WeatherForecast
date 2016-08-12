@@ -29,10 +29,6 @@ import com.p92rdi.extendedweathertitan.helper.HttpClient;
 import com.p92rdi.extendedweathertitan.helper.JSONWeatherParser;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 import com.p92rdi.extendedweathertitan.model.WeatherForecastFiveDays;
-
-import org.json.JSONException;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -77,57 +73,65 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        boolean netWorkAccess = isNetworkAvailable();
         switch(id) {
+            case R.id.home:
+                Intent intent2 = new Intent(this, MainActivity.class);
+                startActivity(intent2);
+                break;
             case R.id.search:
-                if(!isNetworkAvailable()) {
-                    Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
-                }
-                else {
+                if (!netWorkAccess) {
+                    Toast.makeText(this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
+                } else {
                     Intent intent = new Intent(this, CurrentActivity.class);
                     searchDialog(intent);
                 }
                 break;
             case R.id.loadCity:
-                if(!isNetworkAvailable()) {
-                    Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
-                }
-                else {
+                if (!netWorkAccess) {
+                    Toast.makeText(this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
+                } else {
                     loadCityDialog(new Intent(this, CurrentActivity.class), getSharedPreferences(
                             getString(R.string.preference_file_key_current), Context.MODE_PRIVATE));
                 }
                 break;
             case R.id.saveCity:
-                saveClickAction();
+                if (this.getClass().equals(CurrentActivity.class)) {
+                    saveCityDialog(getSharedPreferences(getString(R.string.preference_file_key_current), Context.MODE_PRIVATE));
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.no_save), Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.search5:
-                if(!isNetworkAvailable()) {
-                    Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
-                }
-                else {
+                if (!netWorkAccess) {
+                    Toast.makeText(this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
+                } else {
                     Intent intent = new Intent(this, ForecastActivity.class);
                     searchDialog(intent);
                 }
                 break;
             case R.id.loadCity5:
-                if(!isNetworkAvailable()) {
-                    Toast.makeText(this, "Internet is not available!", Toast.LENGTH_LONG).show();
-                }
-                else {
+                if (!netWorkAccess) {
+                    Toast.makeText(this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
+                } else {
                     loadCityDialog(new Intent(this, ForecastActivity.class), getSharedPreferences(
                             getString(R.string.preference_file_key_forecast), Context.MODE_PRIVATE));
                 }
                 break;
             case R.id.saveCity5:
-                saveClickAction();
+                if (this.getClass().equals(ForecastActivity.class)) {
+                    saveCityDialog(getSharedPreferences(getString(R.string.preference_file_key_forecast), Context.MODE_PRIVATE));
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.no_save), Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.settings:
-                Toast.makeText(this, "There are no settings yet!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.setting_text), Toast.LENGTH_LONG).show();
                 break;
             case R.id.about:
-                Toast.makeText(this, "I'm ABOUT to finish this app.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.about_text), Toast.LENGTH_LONG).show();
                 break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -147,9 +151,9 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
 
         final EditText editText = (EditText) dialogView.findViewById(R.id.dialog_search);
 
-        dialogBuilder.setTitle("Search");
-        dialogBuilder.setMessage("Enter City name");
-        dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Search", new DialogInterface.OnClickListener() {
+        dialogBuilder.setTitle(getResources().getString(R.string.search));
+        dialogBuilder.setMessage(getResources().getString(R.string.add_city));
+        dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.cap_search), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mActualCity = editText.getText().toString();
@@ -162,7 +166,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
             }
 
         });
-        dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
+        dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogBuilder.dismiss();
@@ -196,9 +200,9 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
 
     public void openSaveDialog(final int index, final SharedPreferences sharedPref) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Warning");
-        alertDialog.setMessage("Do you want to save this city?");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SAVE",
+        alertDialog.setTitle(getResources().getString(R.string.warning));
+        alertDialog.setMessage(getResources().getString(R.string.dialog_message));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         saveCity(index, sharedPref);
@@ -206,7 +210,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
                     }
                 });
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -258,10 +262,6 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
         builder.create();
         builder.show();
     }
-    public void saveClickAction(){
-        Toast.makeText(this, "Nothing to save!", Toast.LENGTH_LONG).show();
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -272,10 +272,9 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
         SharedPreferences.Editor editor = getSharedPreferences(SharedPrefKeys.HISTORY, MODE_PRIVATE).edit();
         Set<String> set = new HashSet<>();
         set.addAll(searchedCities);
-        editor.putStringSet("searchedCities", set);
+        editor.putStringSet(getResources().getString(R.string.searched), set);
         editor.apply();
     }
-
 
     public void addToSearchedCities(String newCity){
         searchedCities.add(newCity);

@@ -63,12 +63,12 @@ public class CurrentActivity extends MenuBarActivity {
         }
 
         String city = weatherForecastOneDayData.getmCity().concat(" " + weatherForecastOneDayData.getmCountry());
-        String degree = String.valueOf(weatherForecastOneDayData.getmTemperature()) + " °C";
+        String degree = String.valueOf(weatherForecastOneDayData.getmTemperature()) + getResources().getString(R.string.celsius);
         String description = weatherForecastOneDayData.getmDescription();
-        String minDeg = String.valueOf(weatherForecastOneDayData.getmTempMin()) + " °C";
-        String maxDeg = String.valueOf(weatherForecastOneDayData.getmTempMax()) + " °C";
-        String wind = String.valueOf(weatherForecastOneDayData.getmWind()) + " m/s";
-        String humidity = String.valueOf(weatherForecastOneDayData.getmHumidity()) + "%";
+        String minDeg = String.valueOf(weatherForecastOneDayData.getmTempMin()) + getResources().getString(R.string.celsius);
+        String maxDeg = String.valueOf(weatherForecastOneDayData.getmTempMax()) + getResources().getString(R.string.celsius);
+        String wind = String.valueOf(weatherForecastOneDayData.getmWind()) + getResources().getString(R.string.windms);
+        String humidity = String.valueOf(weatherForecastOneDayData.getmHumidity()) + getResources().getString(R.string.percent);
 
         tv_city.setText(city);
         tv_city.setMovementMethod(new ScrollingMovementMethod());
@@ -87,7 +87,6 @@ public class CurrentActivity extends MenuBarActivity {
             WeatherForecastOneDay weatherForecastOneDay = new WeatherForecastOneDay();
             HttpClient httpClient = new HttpClient("weather");
             String mRawJson = httpClient.getWeatherData(params[0]);
-            Log.d("ServiceHandler", "data: " + mRawJson);
             if(mRawJson != null && !mRawJson.equals("")) {
                 try {
                     try {
@@ -113,7 +112,6 @@ public class CurrentActivity extends MenuBarActivity {
         @Override
         protected void onPostExecute(WeatherForecastOneDay weatherForecastOneDay) {
             super.onPostExecute(weatherForecastOneDay);
-            Log.d("ServiceHandler", "weatherForecastOneDay: " + weatherForecastOneDay);
             if(weatherForecastOneDay != null) {
                 CurrentActivity.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
                 assignWeatherValues(mResultWeatherForecastOneDay);
@@ -133,15 +131,9 @@ public class CurrentActivity extends MenuBarActivity {
         new JSONWeatherForecastTask().execute(mActualCity);
     }
 
-
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
         mActualCity = savedInstanceState.getString(SharedPrefKeys.SEARCH_KEY);
-    }
-
-    @Override
-    public void saveClickAction(){
-        saveCityDialog(getSharedPreferences(getString(R.string.preference_file_key_current), Context.MODE_PRIVATE));
     }
 }

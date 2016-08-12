@@ -3,6 +3,7 @@ package com.p92rdi.extendedweathertitan.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +19,6 @@ import java.util.Set;
 
 public class MainActivity extends MenuBarActivity {
 
-    private Button historyButton;
     ListView historyListView;
 
     @Override
@@ -27,7 +27,16 @@ public class MainActivity extends MenuBarActivity {
         setContentView(R.layout.activity_main);
         navigationMenu(this);
 
-        historyButton = (Button) findViewById(R.id.historyButton);
+        //Toast.makeText(this, getResources().getString(R.string.searched) + searchedCities.length, Toast.LENGTH_LONG).show();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearHistoryOnClick(view);
+            }
+        });
+
         historyListView = (ListView) findViewById(R.id.historyListView);
     }
 
@@ -43,7 +52,7 @@ public class MainActivity extends MenuBarActivity {
         historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, searchedCities[position], Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, searchedCities[position], Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
                 intent.putExtra(SharedPrefKeys.SEARCH_KEY, searchedCities[position]);
                 startActivity(intent);
@@ -53,10 +62,9 @@ public class MainActivity extends MenuBarActivity {
         historyListView.setAdapter(adapter);
     }
 
-    public void clearHistoryOnClick(View view){
+    public void clearHistoryOnClick(View view) {
         searchedCities.clear();
         saveSearchedCityNames();
-        loadHistory();
     }
 
     public String[] getSearchedCitiesInArray(){

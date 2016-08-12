@@ -102,10 +102,6 @@ public class WeatherForecastOneDay {
         this.mWind = mWind;
     }
 
-    public int getmCityId() {
-        return mCityId;
-    }
-
     public void setmCityId(int mCityId) {
         this.mCityId = mCityId;
     }

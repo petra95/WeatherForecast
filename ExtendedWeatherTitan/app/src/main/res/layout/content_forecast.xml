@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context=".activity.ForecastActivity"
     tools:showIn="@layout/app_bar_forecast">
@@ -12,56 +12,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:background="@drawable/picture2"
+        android:layout_weight="0.2"
+        android:background="@color/indigo100"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvCity"
             style="@style/cityTextView5Days"
             android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:textColor="@color/forecast_textColor"
+            android:layout_marginTop="50dp" />
+        <TextView
+            android:id="@+id/tvGPS"
+            style="@style/gpsCoordinatesTextViewTheme"
             android:layout_weight="0.3"
-            android:paddingTop="30dp" />
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/forecast_textColor"
+            />
 
-        <TextView
-            style="@style/gpsTextViewTheme"
-            android:layout_weight="0.2" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:orientation="horizontal"
-            android:paddingStart="20dp">
-
-            <TextView
-                android:id="@+id/tvGPS_LON"
-                style="@style/gpsCoordinatesTextViewTheme"
-                android:layout_weight="0.3"
-                android:gravity="start"/>
-
-            <TextView
-                android:id="@+id/tvGPS_LAT"
-                style="@style/gpsCoordinatesTextViewTheme"
-                android:layout_weight="0.3"
-                android:gravity="start"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:paddingTop="8dp"
-            android:text="@string/forecast"
-            android:textColor="@color/textColor"
-            android:textStyle="bold" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lv_forecast"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.78">
+        android:layout_weight="0.78"
+        android:divider="@color/indigo400"
+        android:dividerHeight="2dp"
+        android:background="@color/indigo100">
     </ListView>
 </LinearLayout>
 

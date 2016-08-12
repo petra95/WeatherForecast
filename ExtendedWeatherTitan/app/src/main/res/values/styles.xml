@@ -73,7 +73,7 @@
 
     <style name="cityTextView5Days">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">16pt</item>
         <item name="android:textColor">@color/textColor</item>
@@ -82,19 +82,9 @@
         <item name="android:scrollbars">vertical</item>
     </style>
 
-    <style name="gpsTextViewTheme">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:gravity">start</item>
-        <item name="android:text">@string/gps</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">17dp</item>
-    </style>
-
     <style name="gpsCoordinatesTextViewTheme">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">51dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:maxLines">2</item>
         <item name="android:singleLine">false</item>
         <item name="android:textColor">@color/textColor</item>"
@@ -107,6 +97,7 @@
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_weight">0.3</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/textColor</item>
     </style>
@@ -131,7 +122,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">0.5</item>
-        <item name="android:paddingStart">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/textColor</item>
@@ -139,10 +130,10 @@
 
     <style name="mainTitleTextViewTheme">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:paddingTop">5dp</item>
-        <item name="android:maxLines">3</item>
+        <item name="android:maxLines">2</item>
         <item name="android:singleLine">false</item>
         <item name="android:text">@string/title</item>
         <item name="android:textColor">@color/textColor</item>
@@ -152,20 +143,10 @@
 
     <style name="historyTextViewTheme">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingStart">20dp</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:text">@string/history</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="historyButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">0.2</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:text">@string/clear</item>
-    </style>
-
 </resources>

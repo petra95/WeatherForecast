@@ -52,12 +52,10 @@ public class ForecastActivity extends MenuBarActivity {
         protected WeatherForecastFiveDays doInBackground(String... params) {
             WeatherForecastFiveDays weatherForecastFiveDays = new WeatherForecastFiveDays();
             String mRawJson = ((new HttpClient("forecast")).getWeatherData(params[0]));
-            Log.d("ServiceHandler", "data: " + mRawJson);
             if(mRawJson != null && !mRawJson.equals("")) {
                 try {
                     try {
                         weatherForecastFiveDays = JSONWeatherParser.getWeatherForecastFiveDays(mRawJson);
-                        Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastFiveDays);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -74,7 +72,6 @@ public class ForecastActivity extends MenuBarActivity {
         @Override
         protected void onPostExecute(WeatherForecastFiveDays weatherForecastFiveDays) {
             super.onPostExecute(weatherForecastFiveDays);
-            Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastFiveDays);
             if(weatherForecastFiveDays != null) {
                 ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
                 displayData();
@@ -93,14 +90,15 @@ public class ForecastActivity extends MenuBarActivity {
 
     private void displayData() {
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
-        TextView tvGpsLon = (TextView) findViewById(R.id.tvGPS_LON);
-        TextView tvGpsLat = (TextView) findViewById(R.id.tvGPS_LAT);
+        TextView tvGps = (TextView) findViewById(R.id.tvGPS);
         tvCity.setText(weatherForecastFiveDays.getmLocation().getmCity());
         tvCity.setMovementMethod(new ScrollingMovementMethod());
 
-        tvGpsLon.setText(String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()));
-        tvGpsLat.setText(String.valueOf(weatherForecastFiveDays.getmLocation().getmLatitude()));
+        String lon = String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()).concat(getResources().getString(R.string.degree));
+        String lat = String.valueOf(weatherForecastFiveDays.getmLocation().getmLatitude()).concat(getResources().getString(R.string.degree));
+        String gps = "( Lon: " + lon + ", Lat: " + lat + " )";
 
+        tvGps.setText(gps);
         fillings = generateFiveDaysForecastsList(weatherForecastFiveDays, weatherForecastFiveDays.getmDays());
         FillingListAdapter adapter = new FillingListAdapter(this, fillings);
         lv_forecast.setAdapter(adapter);
@@ -129,10 +127,5 @@ public class ForecastActivity extends MenuBarActivity {
         if(!mActualCity.equals("")) {
             new JSONWeatherForecastTask().execute(mActualCity);
         }
-    }
-
-    @Override
-    public void saveClickAction(){
-        saveCityDialog(getSharedPreferences(getString(R.string.preference_file_key_forecast), Context.MODE_PRIVATE));
     }
 }

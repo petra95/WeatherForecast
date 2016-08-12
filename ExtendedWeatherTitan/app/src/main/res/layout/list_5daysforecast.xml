@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/indigo100"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/nightImageView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:layout_weight="0.2"/>
+
+    <LinearLayout
+        android:id="@+id/ll_details"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.6"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_weight="0.2"/>
+
+        <LinearLayout
+            android:id="@+id/ll_weatherinfo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/ll_weatherNight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nightDegTextView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:layout_weight="0.5"/>
+                <TextView
+                    android:id="@+id/tvNightDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:layout_weight="0.5"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_weatherDay"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dayDegTextView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:layout_weight="0.5"/>
+                <TextView
+                    android:id="@+id/tvDayDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:layout_weight="0.5"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dayImageView"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:padding="5dp"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
