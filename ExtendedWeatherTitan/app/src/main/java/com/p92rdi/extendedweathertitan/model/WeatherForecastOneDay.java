@@ -15,21 +15,6 @@ public class WeatherForecastOneDay {
     private int mHumidity;
     private int mWind;
 
-    public WeatherForecastOneDay() {
-
-        mCityId = -1;
-        mCity = "Unknown Settlement!";
-        mCountry = "";
-        mDescription = "";
-        mTemperature = 273;
-        mTempMin = 273;
-        mTempMax = 273;
-        mIcon = null;
-        mIconCode = "";
-        mHumidity = 0;
-        mWind = 0;
-    }
-
     public String getmCity() {
         return mCity;
     }

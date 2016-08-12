@@ -27,8 +27,6 @@ public class MainActivity extends MenuBarActivity {
         setContentView(R.layout.activity_main);
         navigationMenu(this);
 
-        //Toast.makeText(this, getResources().getString(R.string.searched) + searchedCities.length, Toast.LENGTH_LONG).show();
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +61,10 @@ public class MainActivity extends MenuBarActivity {
     }
 
     public void clearHistoryOnClick(View view) {
+
         searchedCities.clear();
         saveSearchedCityNames();
+        loadHistory();
     }
 
     public String[] getSearchedCitiesInArray(){

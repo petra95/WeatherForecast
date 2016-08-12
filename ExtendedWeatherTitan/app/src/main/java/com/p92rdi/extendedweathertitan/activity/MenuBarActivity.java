@@ -157,7 +157,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mActualCity = editText.getText().toString();
-                mActualCity = mActualCity.replace(" ", "");
+                //mActualCity = mActualCity.replace(" ", "");
                 if(!mActualCity.equals("")){
                     intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
                     startActivity(intent);

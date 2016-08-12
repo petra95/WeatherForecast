@@ -128,7 +128,10 @@ public class CurrentActivity extends MenuBarActivity {
     }
 
     public void getWeatherForecastOneDay(){
-        new JSONWeatherForecastTask().execute(mActualCity);
+        mActualCity = mActualCity.replace(" ", "%20");
+        if(!mActualCity.equals("")) {
+            new JSONWeatherForecastTask().execute(mActualCity);
+        }
     }
 
     @Override

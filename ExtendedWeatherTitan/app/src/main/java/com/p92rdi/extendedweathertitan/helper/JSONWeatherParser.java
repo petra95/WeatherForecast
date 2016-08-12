@@ -43,7 +43,6 @@ public class JSONWeatherParser {
         for(int i = 0; i < lists.length(); ++i)
         {
             JSONObject jForecast = lists.getJSONObject(i);
-            //if notnull jForecast
             Forecast forecast = new Forecast();
             WeatherCondition weatherCondition = new WeatherCondition();
             Clouds clouds = new Clouds();
@@ -92,7 +91,6 @@ public class JSONWeatherParser {
     }
 
     public static WeatherForecastOneDay getWeatherForecastOneDay(String data)  throws JSONException, ParseException {
-        try {
             JSONObject jRoot = new JSONObject(data);
 
             String cod = getString("cod", jRoot);
@@ -102,23 +100,29 @@ public class JSONWeatherParser {
 
             WeatherForecastOneDay mProducedWeatherForecastOneDay = new WeatherForecastOneDay();
 
-            mProducedWeatherForecastOneDay.setmCityId(jRoot.getInt("id"));
-            mProducedWeatherForecastOneDay.setmCountry(jRoot.getJSONObject("sys").getString("country"));
-            mProducedWeatherForecastOneDay.setmDescription(jRoot.getJSONArray("weather").getJSONObject(0).getString("description"));
-            mProducedWeatherForecastOneDay.setmIconCode(jRoot.getJSONArray("weather").getJSONObject(0).getString("icon"));
-            mProducedWeatherForecastOneDay.setmTemperature(jRoot.getJSONObject("main").getInt("temp"));
-            mProducedWeatherForecastOneDay.setmHumidity(jRoot.getJSONObject("main").getInt("humidity"));
-            mProducedWeatherForecastOneDay.setmTempMin(jRoot.getJSONObject("main").getInt("temp_min"));
-            mProducedWeatherForecastOneDay.setmTempMax(jRoot.getJSONObject("main").getInt("temp_max"));
-            mProducedWeatherForecastOneDay.setmWind(jRoot.getJSONObject("wind").getInt("speed"));
-            mProducedWeatherForecastOneDay.setmCity(jRoot.getString("name"));
+            mProducedWeatherForecastOneDay.setmCityId(getInt("id", jRoot));
+            mProducedWeatherForecastOneDay.setmCity(getString("name", jRoot));
+
+            JSONObject jSys = getObject("sys",jRoot);
+            mProducedWeatherForecastOneDay.setmCountry(getString("country", jSys));
+
+            JSONArray jWeatherList = jRoot.getJSONArray("weather");
+            JSONObject jWeatherList0 = jWeatherList.getJSONObject(0);
+
+            mProducedWeatherForecastOneDay.setmDescription(getString("description", jWeatherList0));
+            mProducedWeatherForecastOneDay.setmIconCode(getString("icon", jWeatherList0));
+
+            JSONObject jMain = getObject("main",jRoot);
+
+            mProducedWeatherForecastOneDay.setmTemperature(getInt("temp", jMain));
+            mProducedWeatherForecastOneDay.setmHumidity(getInt("humidity", jMain));
+            mProducedWeatherForecastOneDay.setmTempMin(getInt("temp_min", jMain));
+            mProducedWeatherForecastOneDay.setmTempMax(getInt("temp_max", jMain));
+
+            JSONObject jWind = getObject("wind",jRoot);
+            mProducedWeatherForecastOneDay.setmWind(getInt("speed", jWind));
 
             return mProducedWeatherForecastOneDay;
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-            return new WeatherForecastOneDay();
-        }
     }
 
 

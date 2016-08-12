@@ -39,7 +39,6 @@ public class WeatherForecastFiveDays {
         return mDays;
     }
 
-    //collect all different days, we dont know nothing about hours
     private void collectDays() {
         Calendar calendar = Calendar.getInstance();
         int prevDay = 0;
