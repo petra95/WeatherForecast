@@ -62,13 +62,15 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/environmentTV"
                 style="@style/temperaturesTextViewTheme"
                 android:text="@string/env_temp"
                 android:textColor="@color/textColor"/>
 
             <TextView
+                android:id="@+id/batteryTV"
                 style="@style/temperaturesTextViewTheme"
-                android:text="@string/butt_temp"
+                android:text="@string/battery_temp"
                 android:textColor="@color/textColor"/>
 
         </LinearLayout>

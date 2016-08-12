@@ -277,7 +277,9 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
     }
 
     public void addToSearchedCities(String newCity){
-        searchedCities.add(newCity);
+        if(!searchedCities.contains(newCity)) {
+            searchedCities.add(newCity);
+        }
     }
 
 }
