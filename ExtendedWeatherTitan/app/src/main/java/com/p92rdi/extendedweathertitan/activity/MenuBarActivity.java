@@ -42,7 +42,6 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
 
     protected static ArrayList<String> searchedCities = new ArrayList<>();
     protected String mActualCity;
-    protected boolean cityNameExists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +121,7 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
                 saveClickAction();
                 break;
             case R.id.settings:
-                Toast.makeText(this, "There are no settings yet! lol", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "There are no settings yet!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.about:
                 Toast.makeText(this, "I'm ABOUT to finish this app.", Toast.LENGTH_LONG).show();
@@ -156,11 +155,8 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
                 mActualCity = editText.getText().toString();
                 mActualCity = mActualCity.replace(" ", "");
                 if(!mActualCity.equals("")){
-                    //new CheckWeatherExistsTask().execute(mActualCity);
-                    //if(cityNameExists) {
-                        intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
-                        startActivity(intent);
-                    //}
+                    intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
+                    startActivity(intent);
                 }
                 dialogBuilder.dismiss();
             }
@@ -175,39 +171,6 @@ public class MenuBarActivity extends AppCompatActivity implements NavigationView
         dialogBuilder.show();
     }
 
-    /*private class CheckWeatherExistsTask extends AsyncTask<String, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            WeatherForecastFiveDays weatherForecastFiveDays = new WeatherForecastFiveDays();
-            String mRawJson = ((new HttpClient("forecast")).getWeatherData(params[0]));
-            Log.d("ServiceHandler", "data: " + mRawJson);
-            if(mRawJson != null && !mRawJson.equals("")) {
-                try {
-                    try {
-                        weatherForecastFiveDays = JSONWeatherParser.getWeatherForecastFiveDays(mRawJson);
-                        if(weatherForecastFiveDays == null){
-                            return false;
-                        }
-                        Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastFiveDays);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean cityNameExists) {
-            super.onPostExecute(cityNameExists);
-            MenuBarActivity.this.cityNameExists = cityNameExists;
-        }
-    }*/
 
     public void loadCityDialog(final Intent intent, final SharedPreferences sharedPref) {
         final String[] savedCities = new String[]{sharedPref.getString(SharedPrefKeys.SLOT1_KEY,

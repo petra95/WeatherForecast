@@ -50,4 +50,5 @@
     <string name="preference_file_key_current">com.p92rdi.extendedweathertitan.CURRENT</string>
     <string name="preference_file_key_forecast">com.p92rdi.extendedweathertitan.FORECAST</string>
     <string name="cant_load">Can\'t load empty slot!</string>
+    <string name="not_found_city">Not found city!</string>
 </resources>

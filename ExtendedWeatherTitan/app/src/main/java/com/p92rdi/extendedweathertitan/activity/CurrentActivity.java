@@ -22,7 +22,6 @@ import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 public class CurrentActivity extends MenuBarActivity {
 
     private TableLayout mDataTableLayout;
-    private HttpClient mClient;
     private WeatherForecastOneDay mResultWeatherForecastOneDay;
     private TextView tv_city;
     private TextView tv_degree;
@@ -54,7 +53,6 @@ public class CurrentActivity extends MenuBarActivity {
         tv_maxDeg = (TextView) findViewById(R.id.maxDegTextView);
         tv_wind = (TextView) findViewById(R.id.windTextView);
         tv_humidity = (TextView) findViewById(R.id.humidityTextView);
-        mClient = new HttpClient("weather");
         mDataTableLayout = (TableLayout) findViewById(R.id.dataTableLayout);
     }
 
@@ -94,8 +92,10 @@ public class CurrentActivity extends MenuBarActivity {
                 try {
                     try {
                         weatherForecastOneDay = JSONWeatherParser.getWeatherForecastOneDay(mRawJson);
-                        Bitmap test = httpClient.getImage(weatherForecastOneDay.getmIconCode());
-                        weatherForecastOneDay.setmIcon(test);
+                        if(weatherForecastOneDay != null) {
+                            Bitmap test = httpClient.getImage(weatherForecastOneDay.getmIconCode());
+                            weatherForecastOneDay.setmIcon(test);
+                        }
                         Log.d("ServiceHandler", "weatherForecastFiveDays: " + weatherForecastOneDay);
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -119,8 +119,14 @@ public class CurrentActivity extends MenuBarActivity {
                 assignWeatherValues(mResultWeatherForecastOneDay);
                 mDataTableLayout.setVisibility(View.VISIBLE);
                 addToSearchedCities(weatherForecastOneDay.getmCity());
+            }else{
+                displayNotFoundCity();
             }
         }
+    }
+
+    private void displayNotFoundCity() {
+        tv_city.setText(R.string.not_found_city);
     }
 
     public void getWeatherForecastOneDay(){

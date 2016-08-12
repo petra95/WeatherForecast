@@ -79,8 +79,16 @@ public class ForecastActivity extends MenuBarActivity {
                 ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
                 displayData();
                 addToSearchedCities(weatherForecastFiveDays.getmLocation().getmCity());
+            }else{
+                displayNotFoundCity();
             }
         }
+    }
+
+    private void displayNotFoundCity() {
+        TextView tvCity = (TextView) findViewById(R.id.tvCity);
+        tvCity.setText(R.string.not_found_city);
+
     }
 
     private void displayData() {
