@@ -14,7 +14,7 @@
         android:layout_weight="0.2"/>
 
     <LinearLayout
-        android:id="@+id/ll_details"
+        android:id="@+id/detailsLL"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.6"
@@ -29,13 +29,13 @@
             android:layout_weight="0.2"/>
 
         <LinearLayout
-            android:id="@+id/ll_weatherinfo"
+            android:id="@+id/weatherinfoLL"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.8"
             android:orientation="horizontal">
             <LinearLayout
-                android:id="@+id/ll_weatherNight"
+                android:id="@+id/weatherNightLL"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
@@ -58,7 +58,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_weatherDay"
+                android:id="@+id/weatherDayLL"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"

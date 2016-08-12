@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -17,6 +16,30 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--Main window-->
+    <style name="mainTitleTextViewTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:text">@string/title</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="historyTextViewTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:text">@string/history</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Current weather-->
     <style name="mainTextViewTheme">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -71,6 +94,7 @@
         <item name="android:textColor">@color/textColor</item>
     </style>
 
+    <!--Forecast-->
     <style name="cityTextView5Days">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -88,7 +112,7 @@
         <item name="android:maxLines">2</item>
         <item name="android:singleLine">false</item>
         <item name="android:textColor">@color/textColor</item>"
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">italic</item>"
     </style>
 
@@ -126,27 +150,5 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/textColor</item>
-    </style>
-
-    <style name="mainTitleTextViewTheme">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:maxLines">2</item>
-        <item name="android:singleLine">false</item>
-        <item name="android:text">@string/title</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textSize">40sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="historyTextViewTheme">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:text">@string/history</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 </resources>

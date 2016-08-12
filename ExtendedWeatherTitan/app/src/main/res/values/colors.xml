@@ -7,7 +7,7 @@
     <color name="colorBackground">#CFD8DC</color>
     <color name="colorListBackground">#B0BEC5</color>
     <color name="textColor">#3F51B5</color>
-
+    <color name="forecast_textColor">#616161</color>
 
     <color name="red50">#FDE0DC</color>
     <color name="red100">#F9BDBB</color>
@@ -284,7 +284,4 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-
-    <color name="forecast_textColor">#616161</color>
-
 </resources>

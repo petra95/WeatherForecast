@@ -77,7 +77,7 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
         registerReceiver(batteryBroadcastReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         loadHistory();
-        Toast.makeText(this, "searchedCities: " + searchedCities.size(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(R.string.searched) + searchedCities.size(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -100,7 +100,6 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
         historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(MainActivity.this, searchedCities[position], Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
                 intent.putExtra(SharedPrefKeys.SEARCH_KEY, searchedCities[position]);
                 startActivity(intent);
@@ -111,7 +110,7 @@ public class MainActivity extends MenuBarActivity implements SensorEventListener
     }
 
     public void clearHistoryOnClick(View view) {
-
+        Toast.makeText(this, "clearHistoryOnClick()", Toast.LENGTH_LONG).show();
         searchedCities.clear();
         saveSearchedCityNames();
         loadHistory();

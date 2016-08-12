@@ -28,11 +28,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/titleTV"
                 style="@style/mainTitleTextViewTheme"
                 android:textColor="@color/textColor"
                 android:layout_weight="0.25" />
 
             <TextView
+                android:id="@+id/historyTV"
                 style="@style/historyTextViewTheme"
                 android:layout_weight="0.1"
                 android:paddingTop="10dp"

@@ -13,13 +13,12 @@
     tools:context=".activity.CurrentActivity"
     tools:showIn="@layout/app_bar_current">
 
-
     <TextView
         android:id="@+id/cityTextView"
-        style="@style/mainTextViewTheme"
-        android:textSize="@dimen/text_view_size" />
+        style="@style/mainTextViewTheme" />
 
     <LinearLayout
+        android:id="@+id/currentLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -49,11 +48,13 @@
             android:paddingTop="70dp">
 
             <TableRow
+                android:id="@+id/firstTR"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
                 <TextView
+                    android:id="@+id/fixMinTV"
                     style="@style/fixedTextViewTheme"
                     android:text="@string/min" />
 
@@ -63,11 +64,13 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/secondTR"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
                 <TextView
+                    android:id="@+id/fixMaxTV"
                     style="@style/fixedTextViewTheme"
                     android:text="@string/max" />
 
@@ -77,11 +80,13 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/thirdTR"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
                 <TextView
+                    android:id="@+id/fixWindTV"
                     style="@style/fixedTextViewTheme"
                     android:text="@string/wind" />
 
@@ -91,11 +96,13 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/fourthTR"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
                 <TextView
+                    android:id="@+id/fixHumTV"
                     style="@style/fixedTextViewTheme"
                     android:text="@string/hum" />
 
