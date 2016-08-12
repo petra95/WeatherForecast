@@ -28,11 +28,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/titleTV"
                 style="@style/mainTitleTextViewTheme"
                 android:textColor="@color/textColor"
                 android:layout_weight="0.25" />
 
             <TextView
+                android:id="@+id/historyTV"
                 style="@style/historyTextViewTheme"
                 android:layout_weight="0.1"
                 android:paddingTop="10dp"
@@ -62,13 +64,15 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/environmentTV"
                 style="@style/temperaturesTextViewTheme"
                 android:text="@string/env_temp"
                 android:textColor="@color/textColor"/>
 
             <TextView
+                android:id="@+id/batteryTV"
                 style="@style/temperaturesTextViewTheme"
-                android:text="@string/butt_temp"
+                android:text="@string/battery_temp"
                 android:textColor="@color/textColor"/>
 
         </LinearLayout>

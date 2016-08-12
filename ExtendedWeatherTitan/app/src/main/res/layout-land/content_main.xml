@@ -21,10 +21,12 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/titleTV"
             style="@style/mainTitleTextViewTheme"
             android:layout_weight="0.25" />
 
         <TextView
+            android:id="@+id/historyTV"
             style="@style/historyTextViewTheme"
             android:layout_weight="0.15"
             android:layout_marginStart="20dp"

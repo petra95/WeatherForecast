@@ -4,7 +4,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_title">Weather Forecast</string>
+
     <string name="home">Back to home</string>
     <string name="actual">Actual Weather</string>
     <string name="five_day">5 Days Forecast</string>
@@ -35,26 +35,23 @@
     <string name="nothing">Nothing to save!</string>
 
     <string name="past">--.-</string>
-    <string name="degree"> °</string>
-    <string name="celsius"> °C</string>
-    <string name="windms"> m/s</string>
-    <string name="percent"> %</string>
+    <string name="degree">°</string>
+    <string name="celsius">\t°C</string>
+    <string name="windms">\tm/s</string>
+    <string name="percent">\t%</string>
 
     <string name="save_dialog_title">Save</string>
     <string name="load_dialog_title">Load</string>
     <string name="no_save">Cannot save here!</string>
 
     <string name="history">Browser History</string>
-    <string name="clear">Clear history</string>
+    <string name="searched">Number of cities:</string>
 
-    <string name="butt_temp">Battery temperature: </string>
-    <string name="env_temp">Environment temperature: </string>
-    <string name="searched">Number of cities: </string>
-
-
+    <string name="battery_temp">Battery temperature:\t</string>
+    <string name="env_temp">Environment temperature:\t</string>
 
     <string name="preference_file_key_current">com.p92rdi.extendedweathertitan.CURRENT</string>
     <string name="preference_file_key_forecast">com.p92rdi.extendedweathertitan.FORECAST</string>
     <string name="cant_load">Can\'t load empty slot!</string>
-    <string name="not_found_city">Not found city!</string>
+    <string name="not_found_city">City not found!</string>
 </resources>

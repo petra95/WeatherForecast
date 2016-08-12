@@ -44,7 +44,7 @@ public class MainActivity extends MenuBarActivity {
     protected void onResume() {
         super.onResume();
         loadHistory();
-        Toast.makeText(this, "searchedCities: " + searchedCities.size(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(R.string.searched) + searchedCities.size(), Toast.LENGTH_LONG).show();
     }
 
     public void loadHistory(){

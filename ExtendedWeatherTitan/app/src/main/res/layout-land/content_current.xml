@@ -19,16 +19,20 @@
         android:layout_height="match_parent"
         android:layout_weight="0.5"
         android:orientation="vertical">
+
         <LinearLayout
+            android:id="@+id/currentLL"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5" >
-        <TextView
-            android:id="@+id/cityTextView"
-            style="@style/mainTextViewTheme"
-            android:paddingEnd="25dp"
-            android:paddingStart="@dimen/activity_horizontal_margin" />
+            android:layout_weight="0.5">
+
+            <TextView
+                android:id="@+id/cityTextView"
+                style="@style/mainTextViewTheme"
+                android:paddingEnd="25dp"
+                android:paddingStart="@dimen/activity_horizontal_margin" />
         </LinearLayout>
+
         <ImageView
             android:id="@+id/weatherImageView"
             android:layout_width="76dp"
@@ -48,8 +52,8 @@
     </LinearLayout>
 
 
-
     <LinearLayout
+        android:id="@+id/currentWeatherLL"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
@@ -57,6 +61,7 @@
         android:paddingStart="10dp">
 
         <ScrollView
+            android:id="@+id/weatherSV"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -66,11 +71,13 @@
                 android:paddingTop="70dp">
 
                 <TableRow
+                    android:id="@+id/firstTR"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
                     <TextView
+                        android:id="@+id/fixMinTV"
                         style="@style/fixedTextViewTheme"
                         android:text="@string/min" />
 
@@ -80,11 +87,13 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/secondTR"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
                     <TextView
+                        android:id="@+id/fixMaxTV"
                         style="@style/fixedTextViewTheme"
                         android:text="@string/max" />
 
@@ -94,11 +103,13 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/thirdTR"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
                     <TextView
+                        android:id="@+id/fixWindTV"
                         style="@style/fixedTextViewTheme"
                         android:text="@string/wind" />
 
@@ -108,11 +119,13 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/fourthTR"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
                     <TextView
+                        android:id="@+id/fixHumTV"
                         style="@style/fixedTextViewTheme"
                         android:text="@string/hum" />
 
