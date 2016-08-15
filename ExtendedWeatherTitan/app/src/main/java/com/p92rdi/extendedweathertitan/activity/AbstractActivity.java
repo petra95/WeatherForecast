@@ -176,7 +176,8 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
             public void onClick(DialogInterface dialogInterface, int i) {
                 mActualCity = savedCities[i];
                 if(!mActualCity.equals(getString(R.string.empty))){
-                    intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
+                    String cityName = removeLastWord(mActualCity);
+                    intent.putExtra(SharedPrefKeys.SEARCH_KEY, cityName);
                     startActivity(intent);
                 }else{
                     Toast.makeText(AbstractActivity.this, R.string.cant_load, Toast.LENGTH_LONG).show();
@@ -186,6 +187,12 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         builder.create();
         builder.show();
     }
+
+    public String removeLastWord(String text) {
+        return text.substring(0, text.lastIndexOf(" "));
+    }
+
+
 
     public void openSaveDialog(final int index, final SharedPreferences sharedPref) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();

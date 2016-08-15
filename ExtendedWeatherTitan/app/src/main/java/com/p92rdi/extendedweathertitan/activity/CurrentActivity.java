@@ -1,6 +1,7 @@
 package com.p92rdi.extendedweathertitan.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -137,5 +138,23 @@ public class CurrentActivity extends AbstractActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
         mActualCity = savedInstanceState.getString(SharedPrefKeys.SEARCH_KEY);
+    }
+
+    @Override
+    public void saveCity(final int index, final SharedPreferences sharedPref) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        mActualCity = mResultWeatherForecastOneDay.getmCity().concat(" " + mResultWeatherForecastOneDay.getmCountry());
+        switch (index) {
+            case 0:
+                editor.putString(SharedPrefKeys.SLOT1_KEY, mActualCity);
+                break;
+            case 1:
+                editor.putString(SharedPrefKeys.SLOT2_KEY, mActualCity);
+                break;
+            case 2:
+                editor.putString(SharedPrefKeys.SLOT3_KEY, mActualCity);
+                break;
+        }
+        editor.apply();
     }
 }

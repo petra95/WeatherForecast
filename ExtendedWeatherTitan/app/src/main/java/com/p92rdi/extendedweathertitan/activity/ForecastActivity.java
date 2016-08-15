@@ -1,6 +1,7 @@
 package com.p92rdi.extendedweathertitan.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -123,5 +124,23 @@ public class ForecastActivity extends AbstractActivity {
         if(!mActualCity.equals("")) {
             new JSONWeatherForecastTask().execute(mActualCity);
         }
+    }
+
+    @Override
+    public void saveCity(final int index, final SharedPreferences sharedPref) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        mActualCity = weatherForecastFiveDays.getmLocation().getmCity().concat(" " + weatherForecastFiveDays.getmLocation().getmCountry());
+        switch (index) {
+            case 0:
+                editor.putString(SharedPrefKeys.SLOT1_KEY, mActualCity);
+                break;
+            case 1:
+                editor.putString(SharedPrefKeys.SLOT2_KEY, mActualCity);
+                break;
+            case 2:
+                editor.putString(SharedPrefKeys.SLOT3_KEY, mActualCity);
+                break;
+        }
+        editor.apply();
     }
 }

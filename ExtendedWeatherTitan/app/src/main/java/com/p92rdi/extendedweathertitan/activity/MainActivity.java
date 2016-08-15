@@ -100,7 +100,8 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(isNetworkAvailable()) {
                     Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
-                    intent.putExtra(SharedPrefKeys.SEARCH_KEY, searchedCities[position]);
+                    String cityName = removeLastWord(searchedCities[position]);
+                    intent.putExtra(SharedPrefKeys.SEARCH_KEY, cityName);
                     startActivity(intent);
                 }else{
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
