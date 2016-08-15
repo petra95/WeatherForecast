@@ -45,10 +45,10 @@
     <string name="searched">Keresett városok száma:\t</string>
 
     <string name="battery_temp">Akkumulátor hőmérséklete:</string>
-    <string name="env_temp">Környezet hőmérséklete:</string>
+    <string name="environment_temp">Környezet hőmérséklete:</string>
 
     <string name="cant_load">Nem lehet betölteni!</string>
-    <string name="not_found_city">Nem talált várost!</string>
+    <string name="city_not_found">Nem talált várost!</string>
     <string name="not_available">Nem elérhető</string>
     <string name="homeScreen">Főoldal</string>
 

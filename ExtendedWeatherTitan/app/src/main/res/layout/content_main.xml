@@ -66,7 +66,7 @@
             <TextView
                 android:id="@+id/environmentTV"
                 style="@style/temperaturesTextViewTheme"
-                android:text="@string/env_temp"
+                android:text="@string/environment_temp"
                 android:textColor="@color/textColor"/>
 
             <TextView

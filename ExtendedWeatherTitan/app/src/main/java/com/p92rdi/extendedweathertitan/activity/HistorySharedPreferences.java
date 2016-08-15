@@ -25,13 +25,13 @@ public class HistorySharedPreferences extends AppCompatActivity{
         SharedPreferences.Editor editor = getSharedPreferences(HISTORY, MODE_PRIVATE).edit();
         Set<String> set = new HashSet<>();
         set.addAll(searchedCities);
-        editor.putStringSet("searchedCities", set);
+        editor.putStringSet("mSearchedCities", set);
         editor.apply();
     }
 
     public void retrieveSearchedCitiesNames(){
         SharedPreferences editor = getSharedPreferences(HISTORY, MODE_PRIVATE);
-        Set<String> set = editor.getStringSet("searchedCities", null);
+        Set<String> set = editor.getStringSet("mSearchedCities", null);
         if (set != null) {
             searchedCities = new ArrayList<>(set);
         }

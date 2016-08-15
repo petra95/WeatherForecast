@@ -22,7 +22,7 @@ import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 public class CurrentActivity extends AbstractActivity {
 
     private TableLayout mDataTableLayout;
-    protected WeatherForecastOneDay mResultWeatherForecastOneDay;
+    protected WeatherForecastOneDay mWeatherForecastOneDay;
     private TextView tv_city;
     private TextView tv_degree;
     private TextView tv_description;
@@ -113,8 +113,8 @@ public class CurrentActivity extends AbstractActivity {
         protected void onPostExecute(WeatherForecastOneDay weatherForecastOneDay) {
             super.onPostExecute(weatherForecastOneDay);
             if(weatherForecastOneDay != null) {
-                CurrentActivity.this.mResultWeatherForecastOneDay = weatherForecastOneDay;
-                assignWeatherValues(mResultWeatherForecastOneDay);
+                CurrentActivity.this.mWeatherForecastOneDay = weatherForecastOneDay;
+                assignWeatherValues(CurrentActivity.this.mWeatherForecastOneDay);
                 mDataTableLayout.setVisibility(View.VISIBLE);
                 addToSearchedCities(weatherForecastOneDay.getmCity().concat(" " + weatherForecastOneDay.getmCountry()));
             }else{
@@ -124,7 +124,7 @@ public class CurrentActivity extends AbstractActivity {
     }
 
     private void displayNotFoundCity() {
-        tv_city.setText(R.string.not_found_city);
+        tv_city.setText(R.string.city_not_found);
     }
 
     public void getWeatherForecastOneDay(){
@@ -135,24 +135,18 @@ public class CurrentActivity extends AbstractActivity {
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        mActualCity = savedInstanceState.getString(SharedPrefKeys.SEARCH_KEY);
-    }
-
-    @Override
     public void saveCity(final int index, final SharedPreferences sharedPref) {
         SharedPreferences.Editor editor = sharedPref.edit();
-        mActualCity = mResultWeatherForecastOneDay.getmCity().concat(" " + mResultWeatherForecastOneDay.getmCountry());
+        String cityAndCountry = mWeatherForecastOneDay.getmCity().concat(" " + mWeatherForecastOneDay.getmCountry());
         switch (index) {
             case 0:
-                editor.putString(SharedPrefKeys.SLOT1_KEY, mActualCity);
+                editor.putString(SharedPrefKeys.SLOT1_KEY, cityAndCountry);
                 break;
             case 1:
-                editor.putString(SharedPrefKeys.SLOT2_KEY, mActualCity);
+                editor.putString(SharedPrefKeys.SLOT2_KEY, cityAndCountry);
                 break;
             case 2:
-                editor.putString(SharedPrefKeys.SLOT3_KEY, mActualCity);
+                editor.putString(SharedPrefKeys.SLOT3_KEY, cityAndCountry);
                 break;
         }
         editor.apply();

@@ -23,6 +23,7 @@ import com.p92rdi.extendedweathertitan.R;
 import com.p92rdi.extendedweathertitan.helper.SharedPrefKeys;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Set;
 
@@ -30,18 +31,10 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
 
     ListView historyListView;
 
-    private TextView environmentTV;
-    private TextView batteryTV;
+    private TextView tv_environment;
+    private TextView tv_battery;
     private SensorManager sensorManager;
     private Sensor temperatureSensor;
-
-    private BroadcastReceiver batteryBroadcastReceiver =  new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            float batteryTemp = (float)(intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0))/10;
-            batteryTV.setText(getResources().getString(R.string.battery_temp).concat(" " + String.format(Locale.getDefault(), "%.1f",batteryTemp) + getResources().getString(R.string.celsius)));
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +52,13 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
 
         historyListView = (ListView) findViewById(R.id.historyListView);
 
-        environmentTV = (TextView) findViewById(R.id.environmentTV);
-        batteryTV = (TextView) findViewById(R.id.batteryTV);
+        tv_environment = (TextView) findViewById(R.id.environmentTV);
+        tv_battery = (TextView) findViewById(R.id.batteryTV);
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
 
         temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         if(temperatureSensor == null){
-            environmentTV.setText(getResources().getString(R.string.env_temp).concat(" " + getResources().getString(R.string.not_available)));
+            tv_environment.setText(getResources().getString(R.string.environment_temp).concat(" " + getResources().getString(R.string.not_available)));
         }
     }
 
@@ -85,11 +78,19 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
         unregisterReceiver(batteryBroadcastReceiver);
     }
 
+    private BroadcastReceiver batteryBroadcastReceiver =  new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            float batteryTemp = (float)(intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0))/10;
+            tv_battery.setText(getResources().getString(R.string.battery_temp).concat(" " + String.format(Locale.getDefault(), "%.1f",batteryTemp) + getResources().getString(R.string.celsius)));
+        }
+    };
+
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
-            environmentTV.setText(getResources().getString(R.string.env_temp).concat( " " + String.format(Locale.getDefault(), "%.1f", event.values[0]) + getResources().getString(R.string.celsius)));
+            tv_environment.setText(getResources().getString(R.string.environment_temp).concat(" " + String.format(Locale.getDefault(), "%.1f", event.values[0]) + getResources().getString(R.string.celsius)));
         }
     }
 
@@ -113,23 +114,27 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
     }
 
     public void clearHistoryOnClick(View view) {
-        searchedCities.clear();
+        mSearchedCities.clear();
         saveSearchedCityNames();
         loadHistory();
     }
 
     public String[] getSearchedCitiesInArray(){
         retrieveSearchedCitiesNames();
-        String[] searchedCitiesArray = new String[searchedCities.size()];
-        searchedCitiesArray = searchedCities.toArray(searchedCitiesArray);
+        Collections.sort(mSearchedCities);
+        String[] searchedCitiesArray = new String[mSearchedCities.size()];
+        searchedCitiesArray = mSearchedCities.toArray(searchedCitiesArray);
         return searchedCitiesArray;
     }
 
     private void retrieveSearchedCitiesNames(){
         SharedPreferences editor = getSharedPreferences(SharedPrefKeys.HISTORY, MODE_PRIVATE);
-        Set<String> set = editor.getStringSet("searchedCities", null);
+        Set<String> set = editor.getStringSet("SearchedCities", null);
         if (set != null) {
-            searchedCities = new ArrayList<>(set);
+            mSearchedCities = new ArrayList<>(set);
         }
     }
+
+    @Override
+    public void saveCity(int index, SharedPreferences sharedPref) {}
 }

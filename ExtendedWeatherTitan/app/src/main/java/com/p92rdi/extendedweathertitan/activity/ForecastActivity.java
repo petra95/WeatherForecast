@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ForecastActivity extends AbstractActivity {
 
-    private WeatherForecastFiveDays weatherForecastFiveDays;
+    private WeatherForecastFiveDays mWeatherForecastFiveDays;
     private List<DailyForecast> fillings;
     private ListView lv_forecast;
 
@@ -48,6 +48,7 @@ public class ForecastActivity extends AbstractActivity {
 
         @Override
         protected WeatherForecastFiveDays doInBackground(String... params) {
+            Log.d("ServiceHandler", "JSONWeatherForecastTask: " + mActualCity);
             WeatherForecastFiveDays weatherForecastFiveDays = new WeatherForecastFiveDays();
             String mRawJson = ((new HttpClient("forecast")).getWeatherData(params[0]));
             if(mRawJson != null && !mRawJson.equals("")) {
@@ -71,7 +72,7 @@ public class ForecastActivity extends AbstractActivity {
         protected void onPostExecute(WeatherForecastFiveDays weatherForecastFiveDays) {
             super.onPostExecute(weatherForecastFiveDays);
             if(weatherForecastFiveDays != null) {
-                ForecastActivity.this.weatherForecastFiveDays = weatherForecastFiveDays;
+                ForecastActivity.this.mWeatherForecastFiveDays = weatherForecastFiveDays;
                 displayData();
                 addToSearchedCities(weatherForecastFiveDays.getmLocation().getmCity().concat(" " + weatherForecastFiveDays.getmLocation().getmCountry()));
             }else{
@@ -82,21 +83,21 @@ public class ForecastActivity extends AbstractActivity {
 
     private void displayNotFoundCity() {
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
-        tvCity.setText(R.string.not_found_city);
+        tvCity.setText(R.string.city_not_found);
     }
 
     private void displayData() {
-        TextView tvCity = (TextView) findViewById(R.id.tvCity);
-        TextView tvGps = (TextView) findViewById(R.id.tvGPS);
-        tvCity.setText(weatherForecastFiveDays.getmLocation().getmCity().concat(" " + weatherForecastFiveDays.getmLocation().getmCountry()));
-        tvCity.setMovementMethod(new ScrollingMovementMethod());
+        TextView tv_City = (TextView) findViewById(R.id.tvCity);
+        TextView tv_GpsCoords = (TextView) findViewById(R.id.tvGPS);
+        tv_City.setText(mWeatherForecastFiveDays.getmLocation().getmCity().concat(" " + mWeatherForecastFiveDays.getmLocation().getmCountry()));
+        tv_City.setMovementMethod(new ScrollingMovementMethod());
 
-        String lon = String.valueOf(weatherForecastFiveDays.getmLocation().getmLongitude()).concat(getResources().getString(R.string.degree));
-        String lat = String.valueOf(weatherForecastFiveDays.getmLocation().getmLatitude()).concat(getResources().getString(R.string.degree));
-        String gps = "( Lon: " + lon + ", Lat: " + lat + " )";
+        String lon = String.valueOf(mWeatherForecastFiveDays.getmLocation().getmLongitude()).concat(getResources().getString(R.string.degree));
+        String lat = String.valueOf(mWeatherForecastFiveDays.getmLocation().getmLatitude()).concat(getResources().getString(R.string.degree));
+        String gpsCoords = "( Lon: " + lon + ", Lat: " + lat + " )";
 
-        tvGps.setText(gps);
-        fillings = generateFiveDaysForecastsList(weatherForecastFiveDays, weatherForecastFiveDays.getmDays());
+        tv_GpsCoords.setText(gpsCoords);
+        fillings = generateFiveDaysForecastsList(mWeatherForecastFiveDays, mWeatherForecastFiveDays.getmDays());
         FillingListAdapter adapter = new FillingListAdapter(this, fillings);
         lv_forecast.setAdapter(adapter);
     }
@@ -108,13 +109,6 @@ public class ForecastActivity extends AbstractActivity {
             fiveDaysForecastsList.add(currentDay);
         }
         return fiveDaysForecastsList;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mActualCity = savedInstanceState.getString(SharedPrefKeys.SEARCH_KEY);
-        new JSONWeatherForecastTask().execute(mActualCity);
     }
 
     public void getWeatherForecastFiveDays(){
@@ -129,16 +123,16 @@ public class ForecastActivity extends AbstractActivity {
     @Override
     public void saveCity(final int index, final SharedPreferences sharedPref) {
         SharedPreferences.Editor editor = sharedPref.edit();
-        mActualCity = weatherForecastFiveDays.getmLocation().getmCity().concat(" " + weatherForecastFiveDays.getmLocation().getmCountry());
+        String cityAndCountry = mWeatherForecastFiveDays.getmLocation().getmCity().concat(" " + mWeatherForecastFiveDays.getmLocation().getmCountry());
         switch (index) {
             case 0:
-                editor.putString(SharedPrefKeys.SLOT1_KEY, mActualCity);
+                editor.putString(SharedPrefKeys.SLOT1_KEY, cityAndCountry);
                 break;
             case 1:
-                editor.putString(SharedPrefKeys.SLOT2_KEY, mActualCity);
+                editor.putString(SharedPrefKeys.SLOT2_KEY, cityAndCountry);
                 break;
             case 2:
-                editor.putString(SharedPrefKeys.SLOT3_KEY, mActualCity);
+                editor.putString(SharedPrefKeys.SLOT3_KEY, cityAndCountry);
                 break;
         }
         editor.apply();

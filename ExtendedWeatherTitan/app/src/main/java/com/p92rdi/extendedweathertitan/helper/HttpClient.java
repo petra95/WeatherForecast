@@ -16,7 +16,6 @@ public class HttpClient {
 
     private String BASE_URL_NAME = "http://api.openweathermap.org/data/2.5/";
     private static String API_KEY = "&appid=6400cc1cfebfb4e0cab17b0eb34472da";
-    //private static String BASE_URL_ID = "http://api.openweathermap.org/data/2.5/forecast?id=";
     private static String IMG_URL = "http://openweathermap.org/img/w/";
 
     public HttpClient(){}
@@ -52,35 +51,7 @@ public class HttpClient {
             return null;
         }
     }
-/*
-    public String getWeatherData(int cityId) {
-        HttpURLConnection mConnection = null;
-        InputStream mInputStream = null;
 
-        try {
-            mConnection = (HttpURLConnection) (new URL(BASE_URL_ID + cityId + API_KEY)).openConnection();
-            mConnection.setRequestMethod("GET");
-            mConnection.setDoInput(true);
-            mConnection.setDoOutput(true);
-            mConnection.connect();
-
-            StringBuilder mStringBuilder = new StringBuilder();
-            mInputStream = mConnection.getInputStream();
-            BufferedReader mBufferedReader = new BufferedReader(new InputStreamReader(mInputStream));
-            String mNewLine = null;
-            while ( (mNewLine = mBufferedReader.readLine()) != null )
-                mStringBuilder.append(mNewLine).append("\n");
-
-            mInputStream.close();
-            mConnection.disconnect();
-            return mStringBuilder.toString();
-        }
-        catch(Throwable t) {
-            t.printStackTrace();
-            return null;
-        }
-    }
-*/
     public Bitmap getImage(String code) {
         code += ".png";
         HttpURLConnection con = null ;

@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -27,7 +28,7 @@ import java.util.Set;
 
 public abstract class AbstractActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    protected static ArrayList<String> searchedCities = new ArrayList<>();
+    protected static ArrayList<String> mSearchedCities = new ArrayList<>();
     protected String mActualCity;
 
     @Override
@@ -61,20 +62,20 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        int id = menuItem.getItemId();
         boolean netWorkAccess = isNetworkAvailable();
         switch(id) {
             case R.id.home:
-                Intent intent2 = new Intent(this, MainActivity.class);
-                startActivity(intent2);
+                Intent intentM = new Intent(this, MainActivity.class);
+                startActivity(intentM);
                 break;
             case R.id.search:
                 if (!netWorkAccess) {
                     Toast.makeText(this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
                 } else {
-                    Intent intent = new Intent(this, CurrentActivity.class);
-                    searchDialog(intent);
+                    Intent intentC = new Intent(this, CurrentActivity.class);
+                    searchDialog(intentC);
                 }
                 break;
             case R.id.loadCity:
@@ -96,8 +97,8 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
                 if (!netWorkAccess) {
                     Toast.makeText(this, getResources().getString(R.string.internet), Toast.LENGTH_LONG).show();
                 } else {
-                    Intent intent = new Intent(this, ForecastActivity.class);
-                    searchDialog(intent);
+                    Intent intentF = new Intent(this, ForecastActivity.class);
+                    searchDialog(intentF);
                 }
                 break;
             case R.id.loadCity5:
@@ -128,8 +129,7 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
     }
 
     protected boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -147,6 +147,7 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mActualCity = editText.getText().toString();
+                Log.d("ServiceHandler", "searchDialog/ mActualCity: " + mActualCity);
                 if(!mActualCity.equals("")){
                     intent.putExtra(SharedPrefKeys.SEARCH_KEY, mActualCity);
                     startActivity(intent);
@@ -192,8 +193,6 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         return text.substring(0, text.lastIndexOf(" "));
     }
 
-
-
     public void openSaveDialog(final int index, final SharedPreferences sharedPref) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(getResources().getString(R.string.warning));
@@ -215,22 +214,7 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         alertDialog.show();
     }
 
-    public void saveCity(final int index, final SharedPreferences sharedPref) {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        mActualCity = mActualCity.replace("%20"," ");
-        switch (index) {
-            case 0:
-                editor.putString(SharedPrefKeys.SLOT1_KEY, mActualCity);
-                break;
-            case 1:
-                editor.putString(SharedPrefKeys.SLOT2_KEY, mActualCity);
-                break;
-            case 2:
-                editor.putString(SharedPrefKeys.SLOT3_KEY, mActualCity);
-                break;
-        }
-        editor.apply();
-    }
+    public abstract void saveCity(final int index, final SharedPreferences sharedPref);
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -243,8 +227,8 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         super.onRestoreInstanceState(savedInstanceState);
         mActualCity = savedInstanceState.getString(SharedPrefKeys.SEARCH_KEY);
     }
-    public void saveCityDialog(final SharedPreferences sharedPref){
 
+    public void saveCityDialog(final SharedPreferences sharedPref){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.save_dialog_title).setItems(new String[]{sharedPref.getString(SharedPrefKeys.SLOT1_KEY,
                 getResources().getString(R.string.empty)), sharedPref.getString(SharedPrefKeys.SLOT2_KEY,
@@ -259,6 +243,7 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         builder.create();
         builder.show();
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -268,14 +253,14 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
     public void saveSearchedCityNames(){
         SharedPreferences.Editor editor = getSharedPreferences(SharedPrefKeys.HISTORY, MODE_PRIVATE).edit();
         Set<String> cityNamesSet = new HashSet<>();
-        cityNamesSet.addAll(searchedCities);
-        editor.putStringSet("searchedCities", cityNamesSet);
+        cityNamesSet.addAll(mSearchedCities);
+        editor.putStringSet("SearchedCities", cityNamesSet);
         editor.apply();
     }
 
     public void addToSearchedCities(String newCity){
-        if(!searchedCities.contains(newCity)) {
-            searchedCities.add(newCity);
+        if(!mSearchedCities.contains(newCity)) {
+            mSearchedCities.add(newCity);
         }
     }
 }
