@@ -1,8 +1,5 @@
 package com.p92rdi.extendedweathertitan.model;
 
-/**
- * Created by totha on 2016. 08. 03..
- */
 public class Wind {
     private float mSpeed;
     private float mDegree;

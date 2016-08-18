@@ -2,9 +2,6 @@ package com.p92rdi.extendedweathertitan.activity;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import com.p92rdi.extendedweathertitan.R;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +25,7 @@ public class HistorySharedPreferences extends AppCompatActivity{
         editor.putStringSet("mSearchedCities", set);
         editor.apply();
     }
-
+/*
     public void retrieveSearchedCitiesNames(){
         SharedPreferences editor = getSharedPreferences(HISTORY, MODE_PRIVATE);
         Set<String> set = editor.getStringSet("mSearchedCities", null);
@@ -55,5 +52,5 @@ public class HistorySharedPreferences extends AppCompatActivity{
         String[] searchedCitiesArray = new String[searchedCities.size()];
         searchedCitiesArray = searchedCities.toArray(searchedCitiesArray);
         return searchedCitiesArray;
-    }
+    }*/
 }

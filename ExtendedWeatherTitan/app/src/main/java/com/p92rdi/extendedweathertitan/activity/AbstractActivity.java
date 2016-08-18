@@ -249,7 +249,6 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         super.onPause();
         saveSearchedCityNames();
     }
-
     public void saveSearchedCityNames(){
         SharedPreferences.Editor editor = getSharedPreferences(SharedPrefKeys.HISTORY, MODE_PRIVATE).edit();
         Set<String> cityNamesSet = new HashSet<>();

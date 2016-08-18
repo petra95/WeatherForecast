@@ -30,7 +30,9 @@
                 android:id="@+id/cityTextView"
                 style="@style/mainTextViewTheme"
                 android:paddingEnd="25dp"
-                android:paddingStart="@dimen/activity_horizontal_margin" />
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="25dp" />
         </LinearLayout>
 
         <ImageView
