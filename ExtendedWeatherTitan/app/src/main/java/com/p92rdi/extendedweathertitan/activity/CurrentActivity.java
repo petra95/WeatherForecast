@@ -45,6 +45,10 @@ public class CurrentActivity extends AbstractActivity {
         }
     }
 
+    /**
+     * Initializes the layout and the text views in which the datas
+     * will be displayed describing the current weather.
+     */
     private void init() {
         tv_city = (TextView) findViewById(R.id.cityTextView);
         tv_degree = (TextView) findViewById(R.id.degreeTextView);
@@ -56,6 +60,10 @@ public class CurrentActivity extends AbstractActivity {
         mDataTableLayout = (TableLayout) findViewById(R.id.dataTableLayout);
     }
 
+    /**
+     * Sets the displayed text views' texts to the values from a WeatherForeCastOneDay object.
+     * @param weatherForecastOneDay The object from which the values are assigned.
+     */
     private void assignWeatherValues(WeatherForecastOneDay weatherForecastOneDay) {
         if (weatherForecastOneDay.getmIcon() != null) {
             ImageView mImageView = (ImageView) findViewById(R.id.weatherImageView);
@@ -123,10 +131,17 @@ public class CurrentActivity extends AbstractActivity {
         }
     }
 
+    /**
+     * Sets the city's text view to city not found.
+     */
     private void displayNotFoundCity() {
         tv_city.setText(R.string.city_not_found);
     }
 
+    /**
+     * Formats the input string with replacing " " to %20 and
+     * starts the http calls.
+     */
     public void getWeatherForecastOneDay(){
         mActualCity = mActualCity.replace(" ", "%20");
         if(!mActualCity.equals("")) {

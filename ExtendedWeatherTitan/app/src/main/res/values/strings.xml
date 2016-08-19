@@ -12,10 +12,6 @@
     <string name="search_city">Search City</string>
     <string name="load">Load City</string>
     <string name="save">Save City</string>
-    <string name="setting">Settings</string>
-    <string name="setting_text">There are no settings yet!</string>
-    <string name="about">About</string>
-    <string name="about_text">"ABOUT"</string>
 
     <string name="warning">Warning</string>
     <string name="add_city">Enter City name</string>

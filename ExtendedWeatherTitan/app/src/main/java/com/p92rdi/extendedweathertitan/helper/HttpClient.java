@@ -24,6 +24,11 @@ public class HttpClient {
         BASE_URL_NAME += url_day_type + "?units=metric&q=";
     }
 
+    /**
+     * Gets the queried weather data through a http request for the specified city name.
+     * @param cityName The name of the city from which we need to gather the weather data.
+     * @return Return the data in string in a format of JSON.
+     */
     public String getWeatherData(String cityName) {
         HttpURLConnection mConnection = null;
         InputStream mInputStream = null;
@@ -52,6 +57,11 @@ public class HttpClient {
         }
     }
 
+    /**
+     * Gets an image through a http request.
+     * @param code The url code of the image.
+     * @return An image as a bitmap.
+     */
     public Bitmap getImage(String code) {
         code += ".png";
         HttpURLConnection con = null ;

@@ -1,10 +1,5 @@
 package com.p92rdi.extendedweathertitan.model;
 
-import java.util.Date;
-
-/**
- * Created by totha on 2016. 08. 03..
- */
 public class Forecast {
 
     private long mDate;

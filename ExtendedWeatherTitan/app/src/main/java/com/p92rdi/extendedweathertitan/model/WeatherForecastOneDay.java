@@ -15,6 +15,10 @@ public class WeatherForecastOneDay {
     private int mHumidity;
     private int mWind;
 
+    public int getmCityId() {
+        return mCityId;
+    }
+
     public String getmCity() {
         return mCity;
     }

@@ -80,12 +80,16 @@ public class ForecastActivity extends AbstractActivity {
             }
         }
     }
-
+    /**
+     * Sets the city's text view to city not found.
+     */
     private void displayNotFoundCity() {
         TextView tvCity = (TextView) findViewById(R.id.tvCity);
         tvCity.setText(R.string.city_not_found);
     }
-
+    /**
+     * Sets the displayed text views' texts to the values from a WeatherForeCastFiveDay object.
+     */
     private void displayData() {
         TextView tv_City = (TextView) findViewById(R.id.tvCity);
         TextView tv_GpsCoords = (TextView) findViewById(R.id.tvGPS);
@@ -102,6 +106,12 @@ public class ForecastActivity extends AbstractActivity {
         lv_forecast.setAdapter(adapter);
     }
 
+    /**
+     * Fills an array list with the appropriate datas gathered from a WeatherForeCastFiveDays object.
+     * @param weatherForecastFiveDays The object from which the datas are gathered.
+     * @param mDays All the days gathered from the JSON parsing.
+     * @return The filled array list.
+     */
     public ArrayList<DailyForecast> generateFiveDaysForecastsList(WeatherForecastFiveDays weatherForecastFiveDays, List<Long> mDays){
         ArrayList<DailyForecast> fiveDaysForecastsList = new ArrayList<>();
         for(long date : mDays){
@@ -111,10 +121,12 @@ public class ForecastActivity extends AbstractActivity {
         return fiveDaysForecastsList;
     }
 
+    /**
+     * Formats the input string with replacing " " to %20 and
+     * starts the http calls.
+     */
     public void getWeatherForecastFiveDays(){
-        Log.d("ServiceHandler", "cityName: " + mActualCity);
         mActualCity = mActualCity.replace(" ", "%20");
-        Log.d("ServiceHandler", "cityName: " + mActualCity);
         if(!mActualCity.equals("")) {
             new JSONWeatherForecastTask().execute(mActualCity);
         }

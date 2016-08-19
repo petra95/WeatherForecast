@@ -20,18 +20,18 @@
     <style name="mainTitleTextViewTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:paddingTop">5dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:maxLines">2</item>
         <item name="android:singleLine">false</item>
         <item name="android:text">@string/title</item>
         <item name="android:textColor">@color/textColor</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="historyTextViewTheme">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:text">@string/history</item>
         <item name="android:textColor">@color/textColor</item>
@@ -146,7 +146,6 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">0.5</item>
-        <item name="android:layout_marginTop">5dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/textColor</item>

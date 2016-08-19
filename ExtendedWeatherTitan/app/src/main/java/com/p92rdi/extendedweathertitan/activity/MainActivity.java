@@ -78,6 +78,9 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
         unregisterReceiver(batteryBroadcastReceiver);
     }
 
+    /**
+     * Queries and sets the battery's text view to the appropriate data.
+     */
     private BroadcastReceiver batteryBroadcastReceiver =  new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -88,12 +91,20 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
+    /**
+     * Sets the environment temperature's text view.
+     * @param event The sensonr's event
+     */
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
             tv_environment.setText(getResources().getString(R.string.environment_temp).concat(" " + String.format(Locale.getDefault(), "%.1f", event.values[0]) + getResources().getString(R.string.celsius)));
         }
     }
 
+    /**
+     * Creates the load history with click listener and fills its view
+     * with the searched cities.
+     */
     public void loadHistory(){
         final String[] searchedCities = getSearchedCitiesInArray();
         historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,12 +124,20 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
         historyListView.setAdapter(adapter);
     }
 
+    /**
+     * Clears the browser history when clicked.
+     * @param view The clickable button.
+     */
     public void clearHistoryOnClick(View view) {
         mSearchedCities.clear();
         saveSearchedCityNames();
         loadHistory();
     }
 
+    /**
+     * Retrieves the searched cities in an array.
+     * @return A string array with the searched cities.
+     */
     public String[] getSearchedCitiesInArray(){
         retrieveSearchedCitiesNames();
         Collections.sort(mSearchedCities);
@@ -127,6 +146,9 @@ public class MainActivity extends AbstractActivity implements SensorEventListene
         return searchedCitiesArray;
     }
 
+    /**
+     * Sets the searched cities from the shared preferences.
+     */
     private void retrieveSearchedCitiesNames(){
         SharedPreferences editor = getSharedPreferences(SharedPrefKeys.HISTORY, MODE_PRIVATE);
         Set<String> set = editor.getStringSet("SearchedCities", null);

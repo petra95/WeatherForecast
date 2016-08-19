@@ -2,9 +2,6 @@ package com.p92rdi.extendedweathertitan.model;
 
 import android.graphics.Bitmap;
 
-/**
- * Created by totha on 2016. 08. 03..
- */
 public class WeatherCondition {
 
     private String mDescription;

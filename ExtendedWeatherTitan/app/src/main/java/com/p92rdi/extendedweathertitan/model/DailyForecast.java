@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by totha on 2016. 08. 03..
- */
 public class DailyForecast {
 
     private long mDate;

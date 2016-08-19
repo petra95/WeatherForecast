@@ -44,8 +44,7 @@
 
         <TableLayout
             android:id="@+id/dataTableLayout"
-            style="@style/dataTableLayoutTheme"
-            android:paddingTop="70dp">
+            style="@style/dataTableLayoutTheme">
 
             <TableRow
                 android:id="@+id/firstTR"

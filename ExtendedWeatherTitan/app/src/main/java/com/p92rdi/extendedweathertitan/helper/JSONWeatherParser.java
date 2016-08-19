@@ -17,6 +17,14 @@ import java.util.ArrayList;
 
 public class JSONWeatherParser {
 
+    /**
+     * Parses a string in a form of JSON and returns a new WeatherForeCastFiveDays object
+     * filled with the parsed data.
+     * @param data Raw string as JSON.
+     * @return A new WeatherForeCastFiveDays object filled up with data.
+     * @throws JSONException
+     * @throws ParseException
+     */
     public static WeatherForecastFiveDays getWeatherForecastFiveDays(String data) throws JSONException, ParseException {
         JSONObject jRoot = new JSONObject(data);
 
@@ -89,7 +97,14 @@ public class JSONWeatherParser {
 
         return weatherForecastFiveDays;
     }
-
+    /**
+     * Parses a string in a form of JSON and returns a new WeatherForeCastOneDay object
+     * filled with the parsed data.
+     * @param data Raw string as JSON.
+     * @return A new WeatherForeCastOneDay object filled up with data.
+     * @throws JSONException
+     * @throws ParseException
+     */
     public static WeatherForecastOneDay getWeatherForecastOneDay(String data)  throws JSONException, ParseException {
             JSONObject jRoot = new JSONObject(data);
 

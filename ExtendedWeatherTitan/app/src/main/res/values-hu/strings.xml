@@ -9,10 +9,6 @@
     <string name="search_city">Város keresése</string>
     <string name="load">Város betöltése</string>
     <string name="save">Város mentése</string>
-    <string name="setting">Beállítások</string>
-    <string name="setting_text">Nincsenek beállítások!</string>
-    <string name="about">Információ</string>
-    <string name="about_text">"Információk"</string>
 
     <string name="warning">Figyelem</string>
     <string name="add_city">Adjon meg egy várost!</string>

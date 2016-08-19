@@ -1,8 +1,5 @@
 package com.p92rdi.extendedweathertitan.model;
 
-/**
- * Created by totha on 2016. 08. 03..
- */
 public class Location {
     private float mLongitude;
     private float mLatitude;

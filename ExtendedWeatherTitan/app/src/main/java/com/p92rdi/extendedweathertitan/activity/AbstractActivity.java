@@ -38,6 +38,11 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         navigationMenu(this);
     }
 
+    /**
+     * Creates and sets the navigation/"hamburger" menu on the given
+     * activity which is specified as a parameter.
+     * @param activity The activity on which the navigation menu is created.
+     */
     protected void navigationMenu(AbstractActivity activity) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +66,13 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         }
     }
 
+    /**
+     * Defines the actions that are taken on clicking a menu item
+     * and checks the internet connection when the selected item and its intent
+     * needs connection in order to work properly.
+     * @param menuItem The item that is clicked.
+     * @return True if the event was handled, false otherwise.
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -116,24 +128,27 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
                     Toast.makeText(this, getResources().getString(R.string.no_save), Toast.LENGTH_LONG).show();
                 }
                 break;
-            case R.id.settings:
-                Toast.makeText(this, getResources().getString(R.string.setting_text), Toast.LENGTH_LONG).show();
-                break;
-            case R.id.about:
-                Toast.makeText(this, getResources().getString(R.string.about_text), Toast.LENGTH_LONG).show();
-                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    /**
+     * Checks the availability of a network connection.
+     * @return True if the network is available, false otherwise.
+     */
     protected boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    /**
+     * Creates the dialog which pops up on searching a city with
+     * two buttons with listeners.
+     * @param intent The intent that defines which activity (1day/5day forecast) is called.
+     */
     public void searchDialog(final Intent intent){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         final View dialogView = this.getLayoutInflater().inflate(R.layout.search_dialog, null);
@@ -154,7 +169,6 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
                 }
                 dialogBuilder.dismiss();
             }
-
         });
         dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
             @Override
@@ -165,7 +179,11 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         dialogBuilder.show();
     }
 
-
+    /**
+     * Creates a dialog in which we can load the already saved cities.
+     * @param intent The intent that defines which activity (1day/5day forecast) is called.
+     * @param sharedPref The shared preferences in which the saved cities are stored.
+     */
     public void loadCityDialog(final Intent intent, final SharedPreferences sharedPref) {
         final String[] savedCities = new String[]{sharedPref.getString(SharedPrefKeys.SLOT1_KEY,
                 getResources().getString(R.string.empty)), sharedPref.getString(SharedPrefKeys.SLOT2_KEY,
@@ -189,10 +207,20 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         builder.show();
     }
 
+    /**
+     * Removes the last word from a string.
+     * @param text The raw string from which the last word is being removed.
+     * @return Returns the new string without the raw string's last word.
+     */
     public String removeLastWord(String text) {
         return text.substring(0, text.lastIndexOf(" "));
     }
 
+    /**
+     * Creates a dialog which asks the user if he is sure about saving the current city.
+     * @param index The index of the shared preferences where we save the current city.
+     * @param sharedPref The shared preferences in which the current city will be saved.
+     */
     public void openSaveDialog(final int index, final SharedPreferences sharedPref) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(getResources().getString(R.string.warning));
@@ -214,6 +242,11 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         alertDialog.show();
     }
 
+    /**
+     * Saves the currently searched city.
+     * @param index The index on which the currently searched city will be saved.
+     * @param sharedPref The shared preferences in which the currently searched city is being saved.
+     */
     public abstract void saveCity(final int index, final SharedPreferences sharedPref);
 
     @Override
@@ -228,6 +261,10 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         mActualCity = savedInstanceState.getString(SharedPrefKeys.SEARCH_KEY);
     }
 
+    /**
+     * Crreates a dialog in which we can choose which slot we want to save the current city in.
+     * @param sharedPref The shared preferences in which the currently searched city is being saved.
+     */
     public void saveCityDialog(final SharedPreferences sharedPref){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.save_dialog_title).setItems(new String[]{sharedPref.getString(SharedPrefKeys.SLOT1_KEY,
@@ -249,6 +286,10 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         super.onPause();
         saveSearchedCityNames();
     }
+
+    /**
+     * Saves the set of searched cities into a shared preferences.
+     */
     public void saveSearchedCityNames(){
         SharedPreferences.Editor editor = getSharedPreferences(SharedPrefKeys.HISTORY, MODE_PRIVATE).edit();
         Set<String> cityNamesSet = new HashSet<>();
@@ -257,6 +298,10 @@ public abstract class AbstractActivity extends AppCompatActivity implements Navi
         editor.apply();
     }
 
+    /**
+     * Adds a new city into an array list in which the searched cities are contained.
+     * @param newCity The newly searched city's name.
+     */
     public void addToSearchedCities(String newCity){
         if(!mSearchedCities.contains(newCity)) {
             mSearchedCities.add(newCity);

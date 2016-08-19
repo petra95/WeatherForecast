@@ -18,6 +18,9 @@ public class HistorySharedPreferences extends AppCompatActivity{
         saveSearchedCityNames();
     }
 
+    /**
+     * Saves the set of searched cities into a shared preferences.
+     */
     public void saveSearchedCityNames(){
         SharedPreferences.Editor editor = getSharedPreferences(HISTORY, MODE_PRIVATE).edit();
         Set<String> set = new HashSet<>();
@@ -25,32 +28,4 @@ public class HistorySharedPreferences extends AppCompatActivity{
         editor.putStringSet("mSearchedCities", set);
         editor.apply();
     }
-/*
-    public void retrieveSearchedCitiesNames(){
-        SharedPreferences editor = getSharedPreferences(HISTORY, MODE_PRIVATE);
-        Set<String> set = editor.getStringSet("mSearchedCities", null);
-        if (set != null) {
-            searchedCities = new ArrayList<>(set);
-        }
-    }
-
-    public void addToSearchedCities(String newCity){
-        searchedCities.add(newCity);
-    }
-
-    public void loadHistory(){
-        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.history_row,R.id.rowTextView,searchedCities);
-        ListView historyListView = (ListView) findViewById(R.id.historyListView);
-        historyListView.setAdapter(adapter);
-    }
-
-    public void clearHistory(){
-        searchedCities.clear();
-    }
-
-    public String[] getSearchedCitiesInArray(){
-        String[] searchedCitiesArray = new String[searchedCities.size()];
-        searchedCitiesArray = searchedCities.toArray(searchedCitiesArray);
-        return searchedCitiesArray;
-    }*/
 }
