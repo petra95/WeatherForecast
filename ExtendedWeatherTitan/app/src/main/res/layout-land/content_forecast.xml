@@ -21,7 +21,7 @@
             android:id="@+id/tvCity"
             style="@style/cityTextView5Days"
             android:textColor="@color/forecast_textColor"
-            android:layout_marginTop="60dp" />
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:id="@+id/tvGPS"

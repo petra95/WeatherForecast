@@ -19,7 +19,6 @@
             android:id="@+id/tvCity"
             style="@style/cityTextView5Days"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_weight="0.2"
             android:textColor="@color/forecast_textColor" />
 
